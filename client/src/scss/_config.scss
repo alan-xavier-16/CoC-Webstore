@@ -1,0 +1,37 @@
+/* VARIABLES */
+
+// Colors
+$colors: (
+  my-blue: #007bff,
+  my-indigo: #6610f2,
+  my-purple: #6f42c1,
+  my-pink: #e83e8c,
+  my-red: #dc3545,
+  my-orange: #fd7e14,
+  my-yellow: #ffc107,
+  my-green: #28a745,
+  my-teal: #20c997,
+  my-cyan: #17a2b8,
+  my-gold: #c1a573,
+  my-white: #fff,
+  my-gray: #6c757d,
+  my-gray-dark: #343a40,
+  primary: #007bff,
+  secondary: #6c757d,
+  success: #28a745,
+  info: #17a2b8,
+  warning: #ffc107,
+  danger: #dc3545,
+  light: #f8f9fa,
+  dark: #343a40
+);
+
+// Breakpoints
+$breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  ju: 1600px
+);

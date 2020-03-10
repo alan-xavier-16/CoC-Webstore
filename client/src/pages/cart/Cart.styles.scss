@@ -1,0 +1,26 @@
+@import "../../scss/config";
+@import "../../scss/mixins";
+
+.cart-page {
+  margin-top: 0.5rem;
+
+  & .cart-page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.25rem;
+    border-bottom: 0.25rem dotted map-get($map: $colors, $key: my-gold);
+
+    & .cart-total {
+      font-size: 1.25rem;
+      font-weight: bold;
+      letter-spacing: 0.1rem;
+      color: map-get($map: $colors, $key: my-gold);
+
+      @media screen and (min-width: map-get($map: $breakpoints, $key: lg)) {
+        font-size: 1.5rem;
+      }
+    }
+  }
+}

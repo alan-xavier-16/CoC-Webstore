@@ -1,0 +1,10 @@
+const CartActionTypes = {
+  TOGGLE_CART: "TOGGLE_CART",
+  UPDATE_ITEM: "UPDATE_ITEM",
+  CLEAR_ITEM: "CLEAR_ITEM",
+  CLEAR_CART: "CLEAR_CART",
+  FETCH_CART_SUCCESS: "FETCH_CART_SUCCESS",
+  CART_ERROR: "CART_ERROR"
+};
+
+export default CartActionTypes;

@@ -1,0 +1,52 @@
+@import "../../scss/config";
+@import "../../scss/mixins";
+
+.cart-dropdown {
+  position: absolute;
+  width: 90vw;
+  min-height: 20vh;
+  max-height: 60vh;
+  padding: 0 0.5rem 0.5rem 0.5rem;
+  border: 0.1rem solid map-get($map: $colors, $key: dark);
+  border-radius: 0.5rem;
+  @include set-background(map-get($map: $colors, $key: light));
+  top: 12.5vh;
+  right: 5vw;
+  overflow: scroll;
+  overflow-x: hidden;
+  z-index: 5;
+
+  @media screen and (min-width: map-get($map: $breakpoints, $key: lg)) {
+    width: 30vw;
+    top: 10vh;
+    right: 1.5vw;
+  }
+
+  & .cart-items {
+    display: flex;
+    flex-direction: column;
+  }
+
+  & .empty-msg {
+    font-size: 1.75rem;
+    margin: 1rem auto;
+    text-align: center;
+    letter-spacing: 0.5rem;
+  }
+
+  & .cart-dropdown-details {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: map-get($map: $colors, $key: my-gray);
+    border-bottom: 0.25rem dotted map-get($map: $colors, $key: my-gold);
+    margin: 0.25rem 0;
+    padding: 0.25rem 0;
+    font-size: 1.25rem;
+    font-weight: bold;
+
+    & .cart-dropdown-price {
+      color: map-get($map: $colors, $key: my-gold);
+    }
+  }
+}

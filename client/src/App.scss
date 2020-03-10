@@ -1,0 +1,29 @@
+@import "./scss/config";
+@import "./scss/utilities";
+@import "./scss/mixins";
+@import "./scss/form";
+
+/* CORE */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Lato", sans-serif;
+  font-size: 16px;
+  line-height: 1;
+}
+
+a {
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+img {
+  width: 100%;
+}

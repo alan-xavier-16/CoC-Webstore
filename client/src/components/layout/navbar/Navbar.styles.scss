@@ -1,0 +1,101 @@
+@import "../../../scss/config";
+@import "../../../scss/mixins";
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  padding: 0 1.5rem;
+  width: 100%;
+  @include set-background(map-get($map: $colors, $key: my-gold));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  & .navbar-logo {
+    transition: 0.2s ease-in-out;
+
+    &:hover {
+      opacity: 0.8;
+      transform: rotate(15deg);
+    }
+
+    & img {
+      height: 2.5rem;
+      width: 2.5rem;
+    }
+  }
+
+  & .navbar-nav {
+    display: flex;
+
+    & .navbar-pages {
+      display: none;
+
+      &.active {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        z-index: 10;
+        top: 2.5rem;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        opacity: 0.9;
+      }
+
+      & .nav-link {
+        padding: 0 1rem;
+        @include set-background(map-get($map: $colors, $key: my-gold));
+        height: 2.5rem;
+        line-height: 2.5rem;
+        display: block;
+        font-size: 1.25rem;
+
+        &:hover,
+        &.active {
+          @include set-btn-hover(map-get($map: $colors, $key: my-gold));
+        }
+      }
+
+      & .navbar-submenu {
+        & .navbar-dropdown {
+          position: relative;
+          display: none;
+          box-shadow: 4px 4px 10px 2px rgba(53, 46, 31, 0.746);
+
+          @media screen and (min-width: map-get($map: $breakpoints, $key: md)) {
+            position: absolute;
+            z-index: 10;
+            width: 150px;
+            text-align: center;
+          }
+
+          & li {
+            display: block;
+          }
+        }
+
+        &:hover .navbar-dropdown {
+          display: block;
+        }
+      }
+
+      @media screen and (min-width: map-get($map: $breakpoints, $key: md)) {
+        display: flex;
+      }
+    }
+  }
+
+  & .navbar-toggle {
+    cursor: pointer;
+    display: block;
+    font-size: 1.75rem;
+    line-height: 2.5rem;
+
+    @media screen and (min-width: map-get($map: $breakpoints, $key: md)) {
+      display: none;
+    }
+  }
+}

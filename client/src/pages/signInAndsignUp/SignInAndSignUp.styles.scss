@@ -1,0 +1,52 @@
+@import "../../scss/config";
+@import "../../scss/mixins";
+
+.signin-signup {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-gap: 0.5rem;
+  align-items: center;
+  margin: 0 auto;
+  min-height: 100vh;
+  background: map-get($map: $colors, $key: my-gold);
+
+  @media screen and (min-width: map-get($map: $breakpoints, $key: sm)) {
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    grid-gap: 0.5rem;
+  }
+
+  & .signup,
+  .signin {
+    background: map-get($map: $colors, $key: light);
+    border-radius: 1rem;
+    box-shadow: 4px 4px 10px 2px rgba(53, 46, 31, 0.746);
+
+    & > * {
+      padding: 0.5rem;
+    }
+
+    & .form-header {
+      margin: 0 auto;
+      text-align: center;
+      border-bottom: 0.1rem solid map-get($map: $colors, $key: my-gold);
+      width: 90%;
+
+      & > * {
+        margin-bottom: 0.5rem;
+      }
+
+      & h1 {
+        letter-spacing: 0.25rem;
+        @media screen and (min-width: map-get($map: $breakpoints, $key: sm)) {
+          font-size: 3.5rem;
+        }
+      }
+
+      & p {
+        @media screen and (min-width: map-get($map: $breakpoints, $key: sm)) {
+          font-size: 1.5rem;
+        }
+      }
+    }
+  }
+}

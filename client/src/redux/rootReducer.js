@@ -1,0 +1,24 @@
+import { combineReducers } from "redux";
+import { persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
+
+import alertReducer from "./alerts/alert.reducer";
+import authReducer from "./auth/auth.reducer";
+import shopReducer from "./shop/shop.reducer";
+import cartReducer from "./cart/cart.reducer";
+
+/* PERSIST CONFIG */
+const persistConfig = {
+  key: "root",
+  storage,
+  whitelist: ["auth", "shop", "cart"]
+};
+
+const rootReducer = combineReducers({
+  alert: alertReducer,
+  auth: authReducer,
+  shop: shopReducer,
+  cart: cartReducer
+});
+
+export default persistReducer(persistConfig, rootReducer);

@@ -1,0 +1,271 @@
+@import "./_mixins.scss";
+@import "./config";
+
+/* CONTAINER */
+.container {
+  max-width: map-get($map: $breakpoints, $key: ju);
+  padding: 0 0.5rem;
+  margin: auto;
+  overflow: hidden;
+  position: relative;
+  top: 2.5rem;
+}
+
+/* BACKGROUNDS */
+.bg {
+  &-primary {
+    @include set-background(map-get($map: $colors, $key: primary));
+  }
+  &-secondary {
+    @include set-background(map-get($map: $colors, $key: secondary));
+  }
+  &-success {
+    @include set-background(map-get($map: $colors, $key: success));
+  }
+  &-info {
+    @include set-background(map-get($map: $colors, $key: info));
+  }
+  &-warning {
+    @include set-background(map-get($map: $colors, $key: warning));
+  }
+  &-danger {
+    @include set-background(map-get($map: $colors, $key: danger));
+  }
+  &-light {
+    @include set-background(map-get($map: $colors, $key: light));
+  }
+  &-dark {
+    @include set-background(map-get($map: $colors, $key: primary));
+  }
+  &-gold {
+    @include set-background(map-get($map: $colors, $key: my-gold));
+  }
+}
+
+/* BUTTONS */
+.btn {
+  display: inline-block;
+  padding: 0.25rem 1rem;
+  border: none;
+  cursor: pointer;
+  font-size: 1.25rem;
+  text-align: center;
+  margin-right: 0.5rem;
+  outline: none;
+  transition: all 0.2s ease-in;
+  border-radius: 0.2rem;
+
+  @media screen and (min-width: map-get($map: $breakpoints, $key: lg)) {
+    padding: 0.5rem 1.25rem;
+  }
+
+  &.btn {
+    &-primary {
+      @include set-background(map-get($map: $colors, $key: primary));
+      &:hover {
+        @include set-btn-hover(map-get($map: $colors, $key: primary));
+      }
+    }
+    &-secondary {
+      @include set-background(map-get($map: $colors, $key: secondary));
+      &:hover {
+        @include set-btn-hover(map-get($map: $colors, $key: secondary));
+      }
+    }
+    &-success {
+      @include set-background(map-get($map: $colors, $key: success));
+      &:hover {
+        @include set-btn-hover(map-get($map: $colors, $key: success));
+      }
+    }
+    &-info {
+      @include set-background(map-get($map: $colors, $key: info));
+      &:hover {
+        @include set-btn-hover(map-get($map: $colors, $key: info));
+      }
+    }
+    &-warning {
+      @include set-background(map-get($map: $colors, $key: warning));
+      &:hover {
+        @include set-btn-hover(map-get($map: $colors, $key: warning));
+      }
+    }
+    &-danger {
+      @include set-background(map-get($map: $colors, $key: danger));
+      &:hover {
+        @include set-btn-hover(map-get($map: $colors, $key: danger));
+      }
+    }
+    &-light {
+      @include set-background(map-get($map: $colors, $key: light));
+      &:hover {
+        @include set-btn-hover(map-get($map: $colors, $key: light));
+      }
+    }
+    &-dark {
+      @include set-background(map-get($map: $colors, $key: dark));
+      &:hover {
+        @include set-btn-hover(map-get($map: $colors, $key: dark));
+      }
+    }
+    &-gold {
+      @include set-background(map-get($map: $colors, $key: my-gold));
+      &:hover {
+        @include set-btn-hover(map-get($map: $colors, $key: my-gold));
+      }
+    }
+  }
+
+  &.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+/* HIDE MEDIA QUERIES */
+.hide {
+  @each $breakpoint, $bp-value in $breakpoints {
+    &-#{$breakpoint} {
+      display: inline-block;
+      @media screen and (min-width: #{$bp-value}) {
+        display: none;
+      }
+    }
+  }
+}
+
+.show {
+  @each $breakpoint, $bp-value in $breakpoints {
+    &-#{$breakpoint} {
+      display: none;
+      @media screen and (min-width: #{$bp-value}) {
+        display: inline-block;
+      }
+    }
+  }
+}
+
+/* ALERTS */
+.alerts {
+  position: absolute;
+  top: 20vh;
+  left: 0;
+  width: 100%;
+  padding: 0.75rem;
+  z-index: 2;
+
+  & .alert {
+    padding: 0.75rem;
+    border-radius: 1rem;
+    font-weight: bold;
+    opacity: 0.9;
+    margin-bottom: 0.25rem;
+
+    &-primary {
+      @include set-background(map-get($map: $colors, $key: primary));
+    }
+    &-secondary {
+      @include set-background(map-get($map: $colors, $key: secondary));
+    }
+    &-success {
+      @include set-background(map-get($map: $colors, $key: success));
+    }
+    &-info {
+      @include set-background(map-get($map: $colors, $key: info));
+    }
+    &-warning {
+      @include set-background(map-get($map: $colors, $key: warning));
+    }
+    &-danger {
+      @include set-background(map-get($map: $colors, $key: danger));
+    }
+    &-light {
+      @include set-background(map-get($map: $colors, $key: light));
+    }
+    &-dark {
+      @include set-background(map-get($map: $colors, $key: dark));
+    }
+  }
+}
+
+/* CARDS */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-gap: 0.75rem;
+  margin: 0.25rem 0;
+
+  .card {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 0.1rem solid map-get($map: $colors, $key: dark);
+    border-radius: 0.5rem;
+    @include set-background(map-get($map: $colors, $key: light));
+
+    & .card-img {
+      background-size: cover;
+      min-height: 180px;
+      background-position: center;
+
+      &.disabled {
+        opacity: 0.65;
+      }
+    }
+
+    & .card-body {
+      padding: 0.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      & .card-title {
+        font-size: 1.25rem;
+        margin-bottom: 0.5rem;
+      }
+
+      & .card-description {
+        margin-bottom: 0.75rem;
+        padding-bottom: 0.75rem;
+        border-bottom: 0.1rem dotted map-get($map: $colors, $key: my-gold);
+      }
+    }
+  }
+}
+
+/* TYPOGRAPHY */
+.main-header {
+  font-size: 2rem;
+  font-weight: bold;
+  letter-spacing: 0.1rem;
+  line-height: 1.25;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  letter-spacing: 0.25rem;
+  line-height: 1;
+}
+
+.lead {
+  font-size: 1.25rem;
+  font-weight: 500;
+  line-height: 1;
+}
+
+/* OUT OF STOCK IMAGES */
+.img-no-stock {
+  position: absolute;
+  top: 30%;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  @include set-background(map-get($map: $colors, $key: my-red));
+  font-size: 2.5rem;
+  font-weight: bold;
+  letter-spacing: 0.2rem;
+  padding: 0.5rem 0;
+  z-index: 10;
+}

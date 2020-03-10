@@ -1,0 +1,45 @@
+@import "../../scss/config";
+@import "../../scss/mixins";
+
+.cart-item {
+  display: flex;
+  align-items: center;
+
+  & .cart-item-img {
+    width: 30%;
+  }
+
+  & .cart-item-body {
+    width: 70%;
+    padding: 0.25rem 0.1rem;
+
+    & > * {
+      padding: 0.5rem;
+    }
+
+    & .cart-item-name {
+      font-size: 1.25rem;
+      font-weight: bold;
+    }
+
+    & .cart-item-total {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      & input {
+        width: 20%;
+      }
+
+      & > * {
+        padding: 0 0.25rem;
+      }
+    }
+
+    & .cart-item-buttons {
+      display: flex;
+      // align-items: center;
+      justify-content: center;
+    }
+  }
+}

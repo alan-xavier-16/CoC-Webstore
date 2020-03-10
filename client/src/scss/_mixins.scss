@@ -1,0 +1,19 @@
+/* BACKGROUND COLOR & TEXT COLOR */
+@function set-text-color($color) {
+  @if (lightness($color) > 50) {
+    @return map-get($map: $colors, $key: dark);
+  } @else {
+    @return map-get($map: $colors, $key: light);
+  }
+}
+
+@mixin set-background($color) {
+  background: $color;
+  color: set-text-color(($color));
+}
+
+/* BUTTON HOVER BACKGROUNDS */
+@mixin set-btn-hover($color) {
+  color: $color;
+  background: set-text-color(($color));
+}

@@ -1,0 +1,91 @@
+@import "../../scss/config";
+@import "../../scss/mixins";
+
+.landing {
+  &-showcase {
+    background-image: url("../../assets/four-rocks.jpg");
+    background-size: cover;
+    background-position: center;
+    color: map-get($map: $colors, $key: my-gold);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 20px;
+
+    & h1,
+    p {
+      text-shadow: 0.2rem 0.2rem 0.25rem rgba(239, 239, 239, 0.774);
+    }
+
+    & h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+
+      @media screen and (min-width: map-get($map: $breakpoints, $key: md)) {
+        font-size: 5rem;
+      }
+    }
+
+    & p {
+      font-size: 1.25rem;
+      padding-bottom: 1rem;
+      border-bottom: solid map-get($map: $colors, $key: my-gold) 0.05rem;
+
+      @media screen and (min-width: map-get($map: $breakpoints, $key: md)) {
+        font-size: 2.25rem;
+      }
+    }
+
+    & a {
+      font-size: 1.25rem;
+      margin-top: 0.5rem;
+
+      @media screen and (min-width: map-get($map: $breakpoints, $key: md)) {
+        font-size: 2rem;
+        margin-top: 1rem;
+      }
+    }
+  }
+
+  & .landing-info {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0.25rem;
+    border-radius: 0.5rem;
+    @include set-background(map-get($map: $colors, $key: my-gold));
+
+    @media screen and (min-width: map-get($map: $breakpoints, $key: md)) {
+      padding: 0.5rem 10rem;
+    }
+  }
+
+  & .landing-footer {
+    @include set-background(map-get($map: $colors, $key: dark));
+    padding: 0.25rem;
+
+    & .footer-header {
+      border-bottom: 0.1rem map-get($map: $colors, $key: light) solid;
+      max-width: 250px;
+      margin: 0 auto;
+      padding: 0.5rem;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    & .footer-contact {
+      display: flex;
+      margin: 0.5rem 0;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 10vh;
+
+      @media screen and (min-width: map-get($map: $breakpoints, $key: md)) {
+        flex-direction: row;
+      }
+    }
+  }
+}

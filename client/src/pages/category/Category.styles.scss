@@ -1,0 +1,27 @@
+@import "../../scss/mixins";
+@import "../../scss/config";
+
+.category {
+  margin: 0.75rem 0;
+  padding: 0.5rem;
+  @include set-background(map-get($map: $colors, $key: my-gold));
+  border-radius: 0.25rem;
+  box-shadow: -0.75rem 0rem 0.9rem -0.5rem map-get($map: $colors, $key: dark),
+    0.75rem 0rem 0.9rem -0.5rem map-get($map: $colors, $key: dark),
+    0.35rem 0.35rem 1rem 0.35rem rgba(0, 0, 0, 0);
+
+  & .category-header {
+    margin-bottom: 0.5rem;
+    padding: 0.25rem;
+    @include set-background(map-get($map: $colors, $key: light));
+    border-radius: 0.25rem;
+
+    & h1 {
+      border-bottom: 0.1rem dotted map-get($map: $colors, $key: my-gold);
+    }
+
+    & p {
+      margin: 0.25rem 0;
+    }
+  }
+}

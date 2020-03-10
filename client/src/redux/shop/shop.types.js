@@ -1,0 +1,6 @@
+const ShopActionTypes = {
+  FETCH_CATEGORIES_SUCCESS: "FETCH_CATEGORIES_SUCCESS",
+  FETCH_CATEGORIES_FAIL: "FETCH_CATEGORIES_FAIL"
+};
+
+export default ShopActionTypes;

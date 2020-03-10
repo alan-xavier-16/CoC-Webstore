@@ -1,0 +1,12 @@
+@import "../../scss/mixins";
+@import "../../scss/config";
+
+.price {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0.25rem;
+  font-size: 1.25rem;
+  background: rgba(0, 0, 0, 0.5);
+  color: map-get($map: $colors, $key: my-gold);
+}
