@@ -1,19 +1,24 @@
-/** UTILITY FUNCTION FOR CART */
+/*
+UTILITY FUNCTION FOR ADDING NEW ITEM OR MODIFYING ITEM TO CART
+  - Accepts 'cartItems' from Redux store and 'item' from the action response
+  - Checks if 'item' exists in the Redux store
+  - TRUE: Returns cart with UPDATED ITEM
+  - FALSE: Returns cart with NEW ITEM
+*/
 
-export const updateCart = (cartItems, updatedCartItem) => {
-  // Check for cart item
+export const modifyCart = (cartItems, item) => {
   const existingCartItem = cartItems.find(
-    cartItem => cartItem._id === updatedCartItem._id
+    cartItem => cartItem.product._id === item.product._id
   );
 
-  // If true, update Cart Item, Else create
   if (existingCartItem) {
     return cartItems.map(cartItem =>
-      cartItem._id === updatedCartItem._id
-        ? { ...cartItem, ...updatedCartItem }
+      cartItem.product._id === item.product._id
+        ? { ...cartItem, ...item }
         : cartItem
     );
+  } else {
+    cartItems.push(item);
+    return cartItems;
   }
-
-  return [...cartItems, { ...updatedCartItem, quantity: 1, wish: false }];
 };

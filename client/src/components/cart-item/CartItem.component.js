@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-import { updateCartItem } from "../../redux/cart/cart.actions";
+import { modifyCartItem } from "../../redux/cart/cart.actions";
 
 import "./CartItem.styles.scss";
 
-const CartItem = ({ item, updateCartItem }) => {
+const CartItem = ({ item, modifyCartItem }) => {
   const {
     product: { name, photo, description, price, inventory }
   } = item;
@@ -24,7 +24,7 @@ const CartItem = ({ item, updateCartItem }) => {
   const handleSubmit = e => {
     e.preventDefault();
     const updatedItem = { ...item, ...formData };
-    updateCartItem(updatedItem);
+    modifyCartItem(updatedItem);
   };
 
   return (
@@ -71,11 +71,11 @@ const CartItem = ({ item, updateCartItem }) => {
 
 CartItem.propTypes = {
   item: PropTypes.object.isRequired,
-  updateCartItem: PropTypes.func.isRequired
+  modifyCartItem: PropTypes.func.isRequired
 };
 
 const mapDispatchToProps = {
-  updateCartItem: cartItemId => updateCartItem(cartItemId)
+  modifyCartItem: cartItem => modifyCartItem(cartItem)
 };
 
 export default connect(null, mapDispatchToProps)(CartItem);

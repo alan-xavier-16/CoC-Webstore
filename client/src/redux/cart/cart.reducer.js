@@ -1,5 +1,5 @@
 import CartActionTypes from "./cart.types";
-import { updateCart } from "./cart.utils";
+import { modifyCart } from "./cart.utils";
 
 const INITIAL_STATE = {
   cart: null,
@@ -18,10 +18,10 @@ const cartReducer = (state = INITIAL_STATE, action) => {
         cart: payload.data,
         loading: false
       };
-    case CartActionTypes.UPDATE_ITEM:
+    case CartActionTypes.MODIFY_ITEM:
       return {
         ...state,
-        cart: updateCart(state.cart, payload.data),
+        cart: modifyCart(state.cart, payload.data),
         loading: false
       };
     case CartActionTypes.TOGGLE_CART:
