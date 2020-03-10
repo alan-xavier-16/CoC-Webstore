@@ -15,7 +15,7 @@ const CartItemSchema = new mongoose.Schema({
     type: Number,
     min: 1,
     max: 100,
-    required: [true, "Please select a minimum of 1 item"]
+    default: 1
   },
   wish: {
     type: Boolean,

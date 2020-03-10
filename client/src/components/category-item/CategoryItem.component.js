@@ -1,10 +1,19 @@
 import React from "react";
+import { connect } from "react-redux";
 import PropTypes from "prop-types";
+
+import { modifyCartItem } from "../../redux/cart/cart.actions";
 
 import "./CategoryItem.styles.scss";
 
-const CategoryItem = ({ product }) => {
+const CategoryItem = ({ product, modifyCartItem }) => {
   const { photo, name, price, description, inventory } = product;
+
+  const handleClick = e => {
+    const item = { product };
+    modifyCartItem(item);
+  };
+
   return (
     <div className="card">
       <div className={`card-img ${inventory === 0 && "disabled"}`}>
@@ -20,6 +29,7 @@ const CategoryItem = ({ product }) => {
         <button
           className={`btn btn-gold ${inventory === 0 && "disabled"}`}
           disabled={!inventory}
+          onClick={handleClick}
         >
           <i className="fas fa-cart-plus"></i>{" "}
           <span className="show-md">Add To Cart</span>
@@ -29,6 +39,13 @@ const CategoryItem = ({ product }) => {
   );
 };
 
-CategoryItem.propTypes = {};
+CategoryItem.propTypes = {
+  product: PropTypes.object.isRequired,
+  modifyCartItem: PropTypes.func.isRequired
+};
 
-export default CategoryItem;
+const mapDispatchToProps = {
+  modifyCartItem: item => modifyCartItem(item)
+};
+
+export default connect(null, mapDispatchToProps)(CategoryItem);

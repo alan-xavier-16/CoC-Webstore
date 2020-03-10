@@ -45,7 +45,7 @@ export const modifyCartItem = item => async dispatch => {
       - SHOP: item has no 'quantity' field
         - MUST ADD ONE
     */
-    if (!item.quantity) {
+    if (existingCartItem && !item.quantity) {
       item.quantity = existingCartItem.quantity + 1;
     }
 
@@ -78,9 +78,10 @@ export const modifyCartItem = item => async dispatch => {
       payload: res.data
     });
   } catch (err) {
-    dispatch({
-      type: CartActionTypes.CART_ERROR,
-      payload: err.response.data.error
-    });
+    console.log(err);
+    // dispatch({
+    //   type: CartActionTypes.CART_ERROR,
+    //   payload: err.response.data.error
+    // });
   }
 };
