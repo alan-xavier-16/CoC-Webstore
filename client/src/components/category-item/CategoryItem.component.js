@@ -29,8 +29,8 @@ const CategoryItem = ({ product, modifyCartItem, isAuthenticated }) => {
         <p className="card-description">{description}</p>
 
         <button
-          className={`btn btn-gold ${(inventory === 0 || !isAuthenticated) &&
-            "disabled"}`}
+          className={`btn btn-gold ${inventory === 0 &&
+            "disabled"} ${!isAuthenticated && "hide"}`}
           disabled={!inventory || !isAuthenticated}
           onClick={handleClick}
         >

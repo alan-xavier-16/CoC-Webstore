@@ -120,6 +120,10 @@
     opacity: 0.6;
     cursor: not-allowed;
   }
+
+  &.hide {
+    display: none;
+  }
 }
 
 /* HIDE MEDIA QUERIES */
