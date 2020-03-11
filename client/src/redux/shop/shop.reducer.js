@@ -1,7 +1,7 @@
 import ShopActionTypes from "./shop.types";
 
 const INITIAL_STATE = {
-  categories: null,
+  categories: [],
   pagination: null,
   loading: true,
   error: null
