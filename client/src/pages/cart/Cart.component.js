@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
+import { useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
 
 import CartItem from "../../components/cart-item/CartItem.component";
@@ -9,10 +10,17 @@ import {
   selectCartItems,
   selectCartTotal
 } from "../../redux/cart/cart.selectors";
+import { deleteCart } from "../../redux/cart/cart.actions";
 
 import "./Cart.styles.scss";
 
-const Cart = ({ cart, total }) => {
+const Cart = ({ cart, total, deleteCart }) => {
+  let history = useHistory();
+  const handleDelete = e => {
+    deleteCart(history);
+    history.push("/shop");
+  };
+
   return (
     <div className="cart-page">
       <div className="cart-page-header">
@@ -31,13 +39,17 @@ const Cart = ({ cart, total }) => {
       <button className="btn btn-gold">
         Proceed To Checkout <i className="fas fa-money-check-alt"></i>
       </button>
+      <button className="btn btn-danger" onClick={handleDelete}>
+        Delete Cart <i className="fas fa-trash-alt"></i>
+      </button>
     </div>
   );
 };
 
 Cart.propTypes = {
   cart: PropTypes.array.isRequired,
-  total: PropTypes.number.isRequired
+  total: PropTypes.number.isRequired,
+  deleteCart: PropTypes.func.isRequired
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -45,4 +57,8 @@ const mapStateToProps = createStructuredSelector({
   total: selectCartTotal
 });
 
-export default connect(mapStateToProps)(Cart);
+const mapDispatchToProps = {
+  deleteCart: () => deleteCart()
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);

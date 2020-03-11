@@ -108,3 +108,21 @@ export const clearCartItem = item => async dispatch => {
     });
   }
 };
+
+/*
+DELETE CART
+  - Deletes user's cart from database
+*/
+export const deleteCart = () => async dispatch => {
+  try {
+    await axios.delete("/api/v1/cart");
+    dispatch({
+      type: CartActionTypes.CLEAR_CART
+    });
+  } catch (err) {
+    dispatch({
+      type: CartActionTypes.CART_ERROR,
+      payload: err.response.data.error
+    });
+  }
+};

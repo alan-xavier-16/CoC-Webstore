@@ -24,10 +24,16 @@ const cartReducer = (state = INITIAL_STATE, action) => {
         cart: modifyCart(state.cart, payload.data),
         loading: false
       };
-    case CartActionTypes.CLEAR_CART:
+    case CartActionTypes.CLEAR_ITEM:
       return {
         ...state,
         cart: removeCartItem(state.cart, payload),
+        loading: false
+      };
+    case CartActionTypes.CLEAR_CART:
+      return {
+        ...state,
+        cart: null,
         loading: false
       };
     case CartActionTypes.TOGGLE_CART:

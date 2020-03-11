@@ -68,7 +68,7 @@ const CartItem = ({ item, modifyCartItem, clearCartItem }) => {
 
         <div className="cart-item-buttons">
           <button className="btn btn-warning" onClick={handleRemove}>
-            <i className="fas fa-trash-alt"></i>
+            <i className="fas fa-minus-circle"></i>
           </button>
           <button className="btn btn-primary" onClick={handleModify}>
             <i className="fas fa-save"></i>
