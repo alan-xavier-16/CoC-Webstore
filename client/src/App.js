@@ -8,6 +8,7 @@ import PrivateRoute from "./components/routing/PrivateRoute.component";
 import Landing from "./pages/landing/Landing.component";
 import Navbar from "./components/layout/navbar/Navbar.component";
 import Alert from "./components/layout/alerts/Alert.component";
+import Footer from "./components/layout/footer/Footer.component";
 import SignInAndSignUp from "./pages/signInAndsignUp/SignInAndSignUp.component";
 import Shop from "./pages/shop/Shop.component";
 import Cart from "./pages/cart/Cart.component";
@@ -42,6 +43,8 @@ const App = ({ loadUser, isAuthenticated }) => {
           />
         </Switch>
       </div>
+
+      <Footer />
     </>
   );
 };
