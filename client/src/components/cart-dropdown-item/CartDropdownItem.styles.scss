@@ -4,7 +4,6 @@
 .cart-dropdown-item {
   display: flex;
   justify-content: center;
-  // align-items: center;
   margin: 0.1rem 0;
 
   & .item-img {
@@ -30,17 +29,5 @@
     margin: 0rem 0.75rem 0rem -0.25rem;
     @include set-background(map-get($map: $colors, $key: my-gold));
     border-radius: 0.5rem;
-    font-size: 1rem;
-
-    @media screen and (min-width: map-get($map: $breakpoints, $key: sm)) {
-      font-size: 1.5rem;
-      padding: 0rem 1rem;
-    }
-
-    & .item-description {
-      & li {
-        padding: 0.25rem 0;
-      }
-    }
   }
 }

@@ -5,7 +5,8 @@ const CartDropdownItem = ({
   item: {
     wish,
     product: { name, price, photo },
-    quantity
+    quantity,
+    total
   }
 }) => {
   return (
@@ -15,12 +16,11 @@ const CartDropdownItem = ({
       </div>
 
       <div className="item-body">
-        <ul className="item-description">
-          <li className="item-name title">{name}</li>
-          <li className="item-price">TT${price}</li>
-        </ul>
-
-        <div className="item-quantity">Quantity: {quantity}</div>
+        <h3>{name}</h3>
+        <div>
+          TT${price} x {quantity}
+        </div>
+        <div>Item Total: TT${price * quantity}</div>
       </div>
     </div>
   );
