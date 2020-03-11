@@ -4,7 +4,8 @@ const INITIAL_STATE = {
   token: null,
   isAuthenticated: false,
   loading: true,
-  user: null
+  user: null,
+  error: null
 };
 
 const authReducer = (state = INITIAL_STATE, action) => {
@@ -36,7 +37,8 @@ const authReducer = (state = INITIAL_STATE, action) => {
         ...state,
         token: null,
         isAuthenticated: false,
-        loading: false
+        loading: false,
+        error: payload
       };
     case AuthActionTypes.LOGOUT_SUCCESS:
       localStorage.removeItem("token");

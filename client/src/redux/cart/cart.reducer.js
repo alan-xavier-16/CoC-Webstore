@@ -45,7 +45,7 @@ const cartReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         loading: false,
-        error: payload.data
+        error: payload
       };
     default:
       return state;
