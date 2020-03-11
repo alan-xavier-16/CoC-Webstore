@@ -30,7 +30,11 @@ const App = ({ loadUser, isAuthenticated }) => {
         <Alert />
         <Switch>
           <Route path="/shop" component={Shop} />
-          <Route path="/cart" component={Cart} />
+
+          <Route
+            path="/cart"
+            render={() => (!isAuthenticated ? <Redirect to="/" /> : <Cart />)}
+          />
 
           <Route
             exact

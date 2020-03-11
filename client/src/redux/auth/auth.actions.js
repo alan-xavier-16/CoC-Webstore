@@ -29,7 +29,6 @@ export const loadUser = () => async dispatch => {
       type: AuthActionTypes.AUTH_ERROR,
       payload: err.response.data.error
     });
-    // dispatch(setAlert(`${err.response.data.error}`, "danger"));
   }
 };
 

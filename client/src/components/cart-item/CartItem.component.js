@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-import { modifyCartItem } from "../../redux/cart/cart.actions";
+import { modifyCartItem, clearCartItem } from "../../redux/cart/cart.actions";
 
 import "./CartItem.styles.scss";
 
-const CartItem = ({ item, modifyCartItem }) => {
+const CartItem = ({ item, modifyCartItem, clearCartItem }) => {
   const {
     product: { name, photo, description, price, inventory }
   } = item;
@@ -21,10 +21,20 @@ const CartItem = ({ item, modifyCartItem }) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = e => {
-    e.preventDefault();
+  // Modify Cart Item Button
+  const handleModify = e => {
     const updatedItem = { ...item, ...formData };
     modifyCartItem(updatedItem);
+  };
+
+  // Remove Cart Item Button
+  const handleRemove = e => {
+    const removeItem = { ...item };
+    clearCartItem(removeItem);
+  };
+
+  const handleSubmit = e => {
+    e.preventDefault();
   };
 
   return (
@@ -57,10 +67,10 @@ const CartItem = ({ item, modifyCartItem }) => {
         </div>
 
         <div className="cart-item-buttons">
-          <button className="btn btn-warning">
+          <button className="btn btn-warning" onClick={handleRemove}>
             <i className="fas fa-trash-alt"></i>
           </button>
-          <button type="submit" className="btn btn-primary">
+          <button className="btn btn-primary" onClick={handleModify}>
             <i className="fas fa-save"></i>
           </button>
         </div>
@@ -71,11 +81,13 @@ const CartItem = ({ item, modifyCartItem }) => {
 
 CartItem.propTypes = {
   item: PropTypes.object.isRequired,
-  modifyCartItem: PropTypes.func.isRequired
+  modifyCartItem: PropTypes.func.isRequired,
+  clearCartItem: PropTypes.func.isRequired
 };
 
 const mapDispatchToProps = {
-  modifyCartItem: cartItem => modifyCartItem(cartItem)
+  modifyCartItem: cartItem => modifyCartItem(cartItem),
+  clearCartItem: cartItem => clearCartItem(cartItem)
 };
 
 export default connect(null, mapDispatchToProps)(CartItem);

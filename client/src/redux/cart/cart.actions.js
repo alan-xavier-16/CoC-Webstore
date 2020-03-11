@@ -77,11 +77,33 @@ export const modifyCartItem = item => async dispatch => {
       type: CartActionTypes.MODIFY_ITEM,
       payload: res.data
     });
+
+    dispatch(getCart());
   } catch (err) {
-    console.log(err);
-    // dispatch({
-    //   type: CartActionTypes.CART_ERROR,
-    //   payload: err.response.data.error
-    // });
+    dispatch({
+      type: CartActionTypes.CART_ERROR,
+      payload: err.response.data.error
+    });
+  }
+};
+
+/*
+CLEAR CART ITEM
+  - Accepts a cart item as an argument
+  - Deletes cart item from database
+*/
+export const clearCartItem = item => async dispatch => {
+  try {
+    await axios.delete(`/api/v1/cart/${item._id}`);
+    dispatch({
+      type: CartActionTypes.CLEAR_CART
+    });
+
+    dispatch(getCart());
+  } catch (err) {
+    dispatch({
+      type: CartActionTypes.CART_ERROR,
+      payload: err.response.data.error
+    });
   }
 };
