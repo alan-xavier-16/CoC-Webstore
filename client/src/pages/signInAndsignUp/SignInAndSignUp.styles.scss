@@ -8,7 +8,7 @@
   align-items: center;
   margin: 0 auto;
   min-height: 100vh;
-  background: map-get($map: $colors, $key: my-gold);
+  background: lighten(map-get($map: $colors, $key: my-gold), 10%);
 
   @media screen and (min-width: map-get($map: $breakpoints, $key: sm)) {
     grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
@@ -38,13 +38,13 @@
       & h1 {
         letter-spacing: 0.25rem;
         @media screen and (min-width: map-get($map: $breakpoints, $key: sm)) {
-          font-size: 3.5rem;
+          font-size: 2.5rem;
         }
       }
 
       & p {
         @media screen and (min-width: map-get($map: $breakpoints, $key: sm)) {
-          font-size: 1.5rem;
+          font-size: 1.25rem;
         }
       }
     }

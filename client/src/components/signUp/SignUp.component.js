@@ -91,6 +91,11 @@ const SignUp = ({ setAlert, register }) => {
             }
           ></i>
         </div>
+        <small>
+          Password must contain at least six characters and have at least one
+          lowercase, one uppercase alphabetical character and one numeric
+          character
+        </small>
 
         <div className="form-group">
           <label htmlFor="confirmPwd">Confirm Password</label>
