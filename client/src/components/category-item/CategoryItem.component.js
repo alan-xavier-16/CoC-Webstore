@@ -1,12 +1,14 @@
 import React from "react";
 import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
 import PropTypes from "prop-types";
 
 import { modifyCartItem } from "../../redux/cart/cart.actions";
+import { selectIsAuthenticated } from "../../redux/auth/auth.selectors";
 
 import "./CategoryItem.styles.scss";
 
-const CategoryItem = ({ product, modifyCartItem }) => {
+const CategoryItem = ({ product, modifyCartItem, isAuthenticated }) => {
   const { photo, name, price, description, inventory } = product;
 
   const handleClick = e => {
@@ -27,8 +29,9 @@ const CategoryItem = ({ product, modifyCartItem }) => {
         <p className="card-description">{description}</p>
 
         <button
-          className={`btn btn-gold ${inventory === 0 && "disabled"}`}
-          disabled={!inventory}
+          className={`btn btn-gold ${(inventory === 0 || !isAuthenticated) &&
+            "disabled"}`}
+          disabled={!inventory || !isAuthenticated}
           onClick={handleClick}
         >
           <i className="fas fa-cart-plus"></i>{" "}
@@ -41,11 +44,16 @@ const CategoryItem = ({ product, modifyCartItem }) => {
 
 CategoryItem.propTypes = {
   product: PropTypes.object.isRequired,
-  modifyCartItem: PropTypes.func.isRequired
+  modifyCartItem: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired
 };
+
+const mapStateToProps = createStructuredSelector({
+  isAuthenticated: selectIsAuthenticated
+});
 
 const mapDispatchToProps = {
   modifyCartItem: item => modifyCartItem(item)
 };
 
-export default connect(null, mapDispatchToProps)(CategoryItem);
+export default connect(mapStateToProps, mapDispatchToProps)(CategoryItem);

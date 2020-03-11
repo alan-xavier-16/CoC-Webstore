@@ -1,5 +1,6 @@
 import CartActionTypes from "./cart.types";
 import axios from "axios";
+import { setAlert } from "../alerts/alert.actions";
 
 /** TOGGLE CART DROPDOWN */
 export const toggleCart = () => dispatch => {
@@ -19,6 +20,7 @@ export const getCart = () => async dispatch => {
       type: CartActionTypes.CART_ERROR,
       payload: err.response.data.error
     });
+    dispatch(setAlert(err.response.data.error, "danger"));
   }
 };
 
@@ -84,6 +86,8 @@ export const modifyCartItem = item => async dispatch => {
       type: CartActionTypes.CART_ERROR,
       payload: err.response.data.error
     });
+
+    dispatch(setAlert(err.response.data.error, "danger"));
   }
 };
 
@@ -106,6 +110,8 @@ export const clearCartItem = item => async dispatch => {
       type: CartActionTypes.CART_ERROR,
       payload: err.response.data.error
     });
+
+    dispatch(setAlert(err.response.data.error, "danger"));
   }
 };
 
@@ -124,5 +130,7 @@ export const deleteCart = () => async dispatch => {
       type: CartActionTypes.CART_ERROR,
       payload: err.response.data.error
     });
+
+    dispatch(setAlert(err.response.data.error, "danger"));
   }
 };
