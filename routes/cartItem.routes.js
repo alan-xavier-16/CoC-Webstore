@@ -4,7 +4,8 @@ const {
   getCartItem,
   addCartItem,
   updateCartItem,
-  deleteCartItem
+  deleteCartItem,
+  deleteCart
 } = require("../controllers/cartItem.controllers");
 const router = express.Router({ mergeParams: true });
 
@@ -16,7 +17,8 @@ router.use(protect);
 router
   .route("/")
   .get(getCart)
-  .post(addCartItem);
+  .post(addCartItem)
+  .delete(deleteCart);
 
 router
   .route("/:id")

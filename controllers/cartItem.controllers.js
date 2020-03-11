@@ -102,3 +102,23 @@ exports.deleteCartItem = asyncHandler(async (req, res, next) => {
 
   res.status(200).json({ success: true, data: {} });
 });
+
+// @desc    Remove all cart items
+// @route   DELETE /api/v1/cart
+// @access  Private
+exports.deleteCart = asyncHandler(async (req, res, next) => {
+  const cart = await CartItem.find({ user: req.user.id })
+    .populate({
+      path: "product"
+    })
+    .sort("-createdAt");
+
+  // Check Cart Exists
+  if (!cart) {
+    return next(new ErrorResponse(`Cart not found`), 404);
+  }
+
+  await CartItem.remove();
+
+  res.status(200).json({ success: true, data: {} });
+});

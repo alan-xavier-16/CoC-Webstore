@@ -100,8 +100,6 @@ export const clearCartItem = item => async dispatch => {
       payload: item
     });
 
-    console.log(item);
-
     dispatch(getCart());
   } catch (err) {
     dispatch({
