@@ -4,7 +4,7 @@
 .cart-dropdown {
   position: absolute;
   width: 90vw;
-  min-height: 20vh;
+  min-height: 40vh;
   max-height: 60vh;
   padding: 0 0.5rem 0.5rem 0.5rem;
   border: 0.1rem solid map-get($map: $colors, $key: dark);

@@ -11,14 +11,15 @@ import {
   selectCartItems,
   selectCartTotal
 } from "../../redux/cart/cart.selectors";
+import { selectIsAuthenticated } from "../../redux/auth/auth.selectors";
 
 import "./CartDropDown.styles.scss";
 
-const CartDropdown = ({ cart, total, dispatch }) => {
+const CartDropdown = ({ cart, total, dispatch, isAuthenticated }) => {
   /* ACCESS HISTORY OBJECT */
   let history = useHistory();
 
-  /* PUSH USER TO /checkout & CLOSE DROPDOWN */
+  /* PUSH USER TO /cart & CLOSE DROPDOWN */
   const handleClick = () => {
     history.push("/cart");
     dispatch(toggleCart());
@@ -31,8 +32,9 @@ const CartDropdown = ({ cart, total, dispatch }) => {
           Total: <span className="cart-dropdown-price">TT${total}</span>
         </div>
         <button
-          className={`btn btn-gold ${!cart && "disabled"}`}
-          disabled={!cart}
+          className={`btn btn-gold ${(!cart || !isAuthenticated) &&
+            "disabled"}`}
+          disabled={!cart || !isAuthenticated}
           onClick={handleClick}
         >
           Cart <i className="fas fa-angle-right"></i>
@@ -54,12 +56,14 @@ const CartDropdown = ({ cart, total, dispatch }) => {
 
 CartDropdown.propTypes = {
   cart: PropTypes.array.isRequired,
-  total: PropTypes.number.isRequired
+  total: PropTypes.number.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = createStructuredSelector({
   cart: selectCartItems,
-  total: selectCartTotal
+  total: selectCartTotal,
+  isAuthenticated: selectIsAuthenticated
 });
 
 export default connect(mapStateToProps)(CartDropdown);
