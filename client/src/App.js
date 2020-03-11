@@ -4,6 +4,7 @@ import { createStructuredSelector } from "reselect";
 import { Switch, Route, Redirect } from "react-router-dom";
 import PropTypes from "prop-types";
 
+import PrivateRoute from "./components/routing/PrivateRoute.component";
 import Landing from "./pages/landing/Landing.component";
 import Navbar from "./components/layout/navbar/Navbar.component";
 import Alert from "./components/layout/alerts/Alert.component";
@@ -30,11 +31,7 @@ const App = ({ loadUser, isAuthenticated }) => {
         <Alert />
         <Switch>
           <Route path="/shop" component={Shop} />
-
-          <Route
-            path="/cart"
-            render={() => (!isAuthenticated ? <Redirect to="/" /> : <Cart />)}
-          />
+          <PrivateRoute path="/cart" component={Cart} />
 
           <Route
             exact
