@@ -36,12 +36,14 @@ const Cart = ({ cart, total, deleteCart }) => {
         ))}
       </div>
 
-      <button className="btn btn-gold">
-        Proceed To Checkout <i className="fas fa-money-check-alt"></i>
-      </button>
-      <button className="btn btn-danger" onClick={handleDelete}>
-        Delete Cart <i className="fas fa-trash-alt"></i>
-      </button>
+      <div className="cart-btns">
+        <button className="btn btn-danger" onClick={handleDelete}>
+          Delete Cart <i className="fas fa-trash-alt"></i>
+        </button>
+        <button className="btn btn-gold">
+          To Checkout <i className="fas fa-money-check-alt"></i>
+        </button>
+      </div>
     </div>
   );
 };
