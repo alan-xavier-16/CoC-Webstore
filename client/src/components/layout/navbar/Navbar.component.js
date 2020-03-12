@@ -49,23 +49,12 @@ const Navbar = ({ isAuthenticated, logout, hidden }) => {
               Shop
             </Link>
           </li>
-          <li className="navbar-submenu">
-            <Link className="nav-link" to="#">
-              About Us <i className="fas fa-caret-down"></i>
+          <li>
+            <Link className="nav-link" to="/courses">
+              Courses
             </Link>
-            <ul className="navbar-dropdown">
-              <li>
-                <Link className="nav-link" to="/about">
-                  About
-                </Link>
-              </li>
-              <li>
-                <Link className="nav-link" to="/contact">
-                  Contact
-                </Link>
-              </li>
-            </ul>
           </li>
+
           <li>
             {isAuthenticated ? (
               <a className="nav-link" href="/" onClick={() => logout()}>

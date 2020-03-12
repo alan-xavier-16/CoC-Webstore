@@ -59,29 +59,6 @@
         }
       }
 
-      & .navbar-submenu {
-        & .navbar-dropdown {
-          position: relative;
-          display: none;
-          box-shadow: 4px 4px 10px 2px rgba(53, 46, 31, 0.746);
-
-          @media screen and (min-width: map-get($map: $breakpoints, $key: md)) {
-            position: absolute;
-            z-index: 10;
-            width: 150px;
-            text-align: center;
-          }
-
-          & li {
-            display: block;
-          }
-        }
-
-        &:hover .navbar-dropdown {
-          display: block;
-        }
-      }
-
       @media screen and (min-width: map-get($map: $breakpoints, $key: md)) {
         display: flex;
       }
