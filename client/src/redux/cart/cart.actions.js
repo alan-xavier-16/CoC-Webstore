@@ -100,7 +100,7 @@ export const clearCartItem = item => async dispatch => {
   try {
     await axios.delete(`/api/v1/cart/${item._id}`);
     dispatch({
-      type: CartActionTypes.CLEAR_CART,
+      type: CartActionTypes.CLEAR_ITEM,
       payload: item
     });
 
