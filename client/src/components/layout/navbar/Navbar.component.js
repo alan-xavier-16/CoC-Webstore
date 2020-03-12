@@ -68,7 +68,7 @@ const Navbar = ({ isAuthenticated, logout, hidden }) => {
           </li>
         </ul>
 
-        <CartIcon />
+        {isAuthenticated && <CartIcon />}
       </div>
 
       {!hidden && <CartDropdown />}
