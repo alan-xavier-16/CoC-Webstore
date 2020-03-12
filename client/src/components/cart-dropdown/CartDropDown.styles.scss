@@ -3,28 +3,31 @@
 
 .cart-dropdown {
   position: absolute;
+  top: 7.5vh;
+  left: 50%;
+  transform: translate(-50%, 0%);
   width: 90vw;
+  max-width: 450px;
   min-height: 40vh;
   max-height: 60vh;
   padding: 0 0.5rem 0.5rem 0.5rem;
   border: 0.1rem solid map-get($map: $colors, $key: dark);
   border-radius: 0.5rem;
   @include set-background(map-get($map: $colors, $key: light));
-  top: 12.5vh;
-  right: 5vw;
   overflow: scroll;
   overflow-x: hidden;
   z-index: 5;
 
-  @media screen and (min-width: map-get($map: $breakpoints, $key: lg)) {
-    width: 30vw;
-    top: 10vh;
-    right: 1.5vw;
+  @media screen and (min-width: map-get($map: $breakpoints, $key: md)) {
+    left: calc(100vw - 475px);
+    transform: translate(0%, 0%);
   }
 
   & .cart-items {
     display: flex;
     flex-direction: column;
+    @include set-background(map-get($map: $colors, $key: my-gold));
+    border-radius: 0.1rem;
   }
 
   & .empty-msg {
