@@ -6,8 +6,8 @@ import "./SignInAndSignUp.styles.scss";
 const SignInAndSignUp = props => {
   return (
     <main className="signin-signup">
-      <SignUp />
       <SignIn />
+      <SignUp />
     </main>
   );
 };

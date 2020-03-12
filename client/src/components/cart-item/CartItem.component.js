@@ -45,16 +45,13 @@ const CartItem = ({ item, modifyCartItem, clearCartItem }) => {
       </div>
 
       <div className="cart-item-body">
-        <ul className="cart-item-info">
-          <li className="cart-item-name">{name}</li>
-          <li className="cart-item-description">{`${description.slice(
-            0,
-            75
-          )}...`}</li>
-        </ul>
+        <div className="cart-item-details">
+          <h3>{name}</h3>
+          <div>{`${description.slice(0, 75)}...`}</div>
+        </div>
 
         <div className="cart-item-total">
-          <div className="cart-item-price">TT${price}</div>
+          <div className="lead">TT${price}</div>
           <span>x</span>
           <input
             type="number"
@@ -62,8 +59,9 @@ const CartItem = ({ item, modifyCartItem, clearCartItem }) => {
             value={quantity}
             onChange={handleChange}
             min="1"
+            className="lead"
           />
-          <div>TT${quantity * price}</div>
+          <div className="lead">TT${quantity * price}</div>
         </div>
 
         <div className="cart-item-buttons">

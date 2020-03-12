@@ -9,7 +9,6 @@
     align-items: center;
     justify-content: space-between;
     padding-bottom: 0.5rem;
-    margin-bottom: 0.25rem;
     border-bottom: 0.25rem dotted map-get($map: $colors, $key: my-gold);
 
     & .cart-total {
@@ -22,5 +21,11 @@
         font-size: 1.5rem;
       }
     }
+  }
+
+  & .cart {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 }
