@@ -14,15 +14,9 @@ const rootPersistConfig = {
   whitelist: ["auth", "shop", "cart"]
 };
 
-const authPersistConfig = {
-  key: "auth",
-  storage,
-  blacklist: ["isAuthenticated"]
-};
-
 const rootReducer = combineReducers({
   alert: alertReducer,
-  auth: persistReducer(authPersistConfig, authReducer),
+  auth: authReducer,
   shop: shopReducer,
   cart: cartReducer
 });

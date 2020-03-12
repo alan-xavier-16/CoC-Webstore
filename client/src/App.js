@@ -13,8 +13,8 @@ import SignInAndSignUp from "./pages/signInAndsignUp/SignInAndSignUp.component";
 import Shop from "./pages/shop/Shop.component";
 import Cart from "./pages/cart/Cart.component";
 
-import { selectIsAuthenticated } from "./redux/auth/auth.selectors";
 import { loadUser } from "./redux/auth/auth.actions";
+import { selectIsAuthenticated } from "./redux/auth/auth.selectors";
 
 import "./App.scss";
 
