@@ -45,7 +45,7 @@ const Navbar = ({ isAuthenticated, logout, hidden }) => {
       <div className="navbar-nav">
         <ul
           className={`navbar-pages ${active ? "active" : ""}`}
-          onClick={() => setActive(!active)}
+          onClick={() => setActive(false)}
         >
           <li>
             <Link className="nav-link" to="/services">
