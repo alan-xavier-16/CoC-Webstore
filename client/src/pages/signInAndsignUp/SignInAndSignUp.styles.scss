@@ -13,7 +13,8 @@
   background: map-get($map: $colors, $key: my-gold);
 
   & .signup,
-  .signin {
+  .signin,
+  .forgot-password {
     position: relative;
     background: map-get($map: $colors, $key: light);
     border-radius: 1.5rem;
