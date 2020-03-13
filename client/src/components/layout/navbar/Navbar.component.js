@@ -43,7 +43,10 @@ const Navbar = ({ isAuthenticated, logout, hidden }) => {
       </a>
 
       <div className="navbar-nav">
-        <ul className={`navbar-pages ${active ? "active" : ""}`}>
+        <ul
+          className={`navbar-pages ${active ? "active" : ""}`}
+          onClick={() => setActive(!active)}
+        >
           <li>
             <Link className="nav-link" to="/services">
               Services
@@ -79,7 +82,11 @@ const Navbar = ({ isAuthenticated, logout, hidden }) => {
       {!hidden && <CartDropdown />}
 
       <div className="navbar-toggle" onClick={() => setActive(!active)}>
-        <i className="fas fa-bars"></i>
+        {!active ? (
+          <i className="fas fa-bars"></i>
+        ) : (
+          <i className="fas fa-times"></i>
+        )}
       </div>
     </nav>
   );
