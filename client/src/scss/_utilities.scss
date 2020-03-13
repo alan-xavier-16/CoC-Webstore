@@ -4,11 +4,9 @@
 /* CONTAINER */
 .container {
   max-width: map-get($map: $breakpoints, $key: ju);
-  padding: 0 0.5rem;
-  margin: auto;
+  padding-top: 2rem;
+  margin: 0 auto;
   overflow: hidden;
-  position: relative;
-  top: 2.5rem;
 }
 
 /* BACKGROUNDS */

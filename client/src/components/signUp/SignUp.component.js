@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
+import { Link, useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
 
 import { setAlert } from "../../redux/alerts/alert.actions";
@@ -36,6 +37,10 @@ const SignUp = ({ setAlert, register }) => {
       setFormData({ name: "", email: "", password: "", confirmPwd: "" });
     }
   };
+
+  // Get Location Properties from Links
+  const location = useLocation();
+
   return (
     <div className="signup">
       <div className="form-header">
@@ -121,6 +126,30 @@ const SignUp = ({ setAlert, register }) => {
           Sign Up
         </button>
       </form>
+
+      <div className="signin-actions">
+        <div className="signin-exist">
+          <p className="lead">Already have an account?</p>
+          <Link
+            to={{
+              pathname: "/signin",
+              state: { from: location.pathname }
+            }}
+          >
+            Sign In
+          </Link>
+        </div>
+      </div>
+
+      {location.state && location.state.from ? (
+        <Link className="go-back" to={location.state.from}>
+          &times;
+        </Link>
+      ) : (
+        <Link className="go-back" to="/">
+          &times;
+        </Link>
+      )}
     </div>
   );
 };

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
+import { Link, useRouteMatch, useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
 
 import { login } from "../../redux/auth/auth.actions";
@@ -25,6 +26,12 @@ const SignIn = ({ login }) => {
     login(formData);
     setFormData({ email: "", password: "" });
   };
+
+  // Create relative link
+  let { url } = useRouteMatch();
+
+  // Access Route String
+  const location = useLocation();
 
   return (
     <div className="signin">
@@ -70,6 +77,32 @@ const SignIn = ({ login }) => {
           Sign In
         </button>
       </form>
+
+      <div className="signin-actions">
+        <Link to={`${url}/identity`}>Forgot Password?</Link>
+
+        <div className="signin-new">
+          <p className="lead">New to Circles?</p>
+          <Link
+            to={{
+              pathname: `${url}/signup`,
+              state: { from: location.pathname }
+            }}
+          >
+            Sign Up Now
+          </Link>
+        </div>
+      </div>
+
+      {location.state && location.state.from ? (
+        <Link className="go-back" to={location.state.from}>
+          &times;
+        </Link>
+      ) : (
+        <Link className="go-back" to="/">
+          &times;
+        </Link>
+      )}
     </div>
   );
 };

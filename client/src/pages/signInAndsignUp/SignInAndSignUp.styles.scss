@@ -2,24 +2,27 @@
 @import "../../scss/mixins";
 
 .signin-signup {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  grid-gap: 0.5rem;
-  align-items: center;
-  margin: 0 auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
   min-height: 100vh;
-  background: lighten(map-get($map: $colors, $key: my-gold), 10%);
-
-  @media screen and (min-width: map-get($map: $breakpoints, $key: sm)) {
-    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
-    grid-gap: 0.5rem;
-  }
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: map-get($map: $colors, $key: my-gold);
 
   & .signup,
   .signin {
+    position: relative;
     background: map-get($map: $colors, $key: light);
-    border-radius: 1rem;
+    border-radius: 1.5rem;
     box-shadow: 4px 4px 10px 2px rgba(53, 46, 31, 0.746);
+    width: 98%;
+
+    @media screen and (min-width: map-get($map: $breakpoints, $key: sm)) {
+      width: 500px;
+    }
 
     & > * {
       padding: 0.5rem;
@@ -46,6 +49,49 @@
         @media screen and (min-width: map-get($map: $breakpoints, $key: sm)) {
           font-size: 1.25rem;
         }
+      }
+    }
+
+    & .signin-actions {
+      & a {
+        color: map-get($map: $colors, $key: my-gray-dark);
+        font-weight: bold;
+        padding: 0.1rem 0.25rem;
+        border-radius: 0.5rem;
+        transition: all 0.25s ease-in-out;
+
+        &:hover {
+          color: lighten(map-get($map: $colors, $key: my-gray-dark), 20%);
+          border-left: 0.1rem solid map-get($map: $colors, $key: my-gold);
+          border-right: 0.1rem solid map-get($map: $colors, $key: my-gold);
+        }
+      }
+
+      & .signin-new,
+      .signin-exist {
+        margin-top: 0.5rem;
+        display: flex;
+        align-items: center;
+
+        & p {
+          display: inline;
+          margin-right: 0.5rem;
+        }
+      }
+    }
+
+    & .go-back {
+      position: absolute;
+      top: 0;
+      right: 0;
+      font-size: 2rem;
+      @include set-background(map-get($map: $colors, $key: light));
+      border-radius: 50%;
+      line-height: 0.5;
+      transition: all 0.5s ease-in-out;
+
+      &:hover {
+        @include set-btn-hover(map-get($map: $colors, $key: light));
       }
     }
   }

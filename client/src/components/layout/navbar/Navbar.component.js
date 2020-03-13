@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import logo from "./triquetra-svg.svg";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { createStructuredSelector } from "reselect";
 import PropTypes from "prop-types";
 
@@ -31,10 +31,14 @@ const Navbar = ({ isAuthenticated, logout, hidden }) => {
     };
   }, []);
 
+  // Logout User Action
   const handleLogout = e => {
     e.preventDefault();
     logout();
   };
+
+  // Access Route String
+  const location = useLocation();
 
   return (
     <nav className="navbar bg-gold">
@@ -63,17 +67,38 @@ const Navbar = ({ isAuthenticated, logout, hidden }) => {
             </Link>
           </li>
 
-          <li>
-            {isAuthenticated ? (
+          {isAuthenticated ? (
+            <li>
               <a className="nav-link" href="/" onClick={handleLogout}>
                 Logout
               </a>
-            ) : (
-              <Link className="nav-link" to="/signin">
-                Sign In
-              </Link>
-            )}
-          </li>
+            </li>
+          ) : (
+            <>
+              <li>
+                <Link
+                  className="nav-link"
+                  to={{
+                    pathname: "/signin",
+                    state: { from: location.pathname }
+                  }}
+                >
+                  Sign In
+                </Link>
+              </li>
+              <li>
+                <Link
+                  className="nav-link"
+                  to={{
+                    pathname: "/signin/signup",
+                    state: { from: location.pathname }
+                  }}
+                >
+                  Sign Up
+                </Link>
+              </li>
+            </>
+          )}
         </ul>
 
         {isAuthenticated && <CartIcon />}

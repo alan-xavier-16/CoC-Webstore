@@ -4,8 +4,8 @@
 .footer {
   @include set-background(map-get($map: $colors, $key: dark));
   padding: 0.25rem;
-  position: relative;
-  top: 2.5rem;
+  // position: relative;
+  // top: 2.5rem;
 
   & .footer-header {
     border-bottom: 0.1rem map-get($map: $colors, $key: light) solid;

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route, Redirect, useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
 
 import PrivateRoute from "./components/routing/PrivateRoute.component";
@@ -23,28 +23,32 @@ const App = ({ loadUser, isAuthenticated }) => {
     loadUser();
   }, [loadUser]);
 
+  // Access Route String
+  const location = useLocation();
+
   return (
     <>
-      <Navbar />
+      {!location.pathname.includes("/signin") && <Navbar />}
       <Route exact path="/" component={Landing} />
 
-      <div className="container">
-        <Alert />
-        <Switch>
-          <Route path="/shop" component={Shop} />
-          <PrivateRoute path="/cart" component={Cart} />
+      {location.pathname !== "/" && (
+        <div className="container">
+          <Alert />
+          <Switch>
+            <Route path="/shop" component={Shop} />
+            <PrivateRoute path="/cart" component={Cart} />
 
-          <Route
-            exact
-            path="/signin"
-            render={() =>
-              isAuthenticated ? <Redirect to="/" /> : <SignInAndSignUp />
-            }
-          />
-        </Switch>
-      </div>
+            <Route
+              path="/signin"
+              render={() =>
+                isAuthenticated ? <Redirect to="/" /> : <SignInAndSignUp />
+              }
+            />
+          </Switch>
+        </div>
+      )}
 
-      <Footer />
+      {!location.pathname.includes("/signin") && <Footer />}
     </>
   );
 };
