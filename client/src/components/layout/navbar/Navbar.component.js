@@ -31,6 +31,11 @@ const Navbar = ({ isAuthenticated, logout, hidden }) => {
     };
   }, []);
 
+  const handleLogout = e => {
+    e.preventDefault();
+    logout();
+  };
+
   return (
     <nav className="navbar bg-gold">
       <a className="navbar-logo" href="/">
@@ -57,7 +62,7 @@ const Navbar = ({ isAuthenticated, logout, hidden }) => {
 
           <li>
             {isAuthenticated ? (
-              <a className="nav-link" href="/" onClick={() => logout()}>
+              <a className="nav-link" href="/" onClick={handleLogout}>
                 Logout
               </a>
             ) : (

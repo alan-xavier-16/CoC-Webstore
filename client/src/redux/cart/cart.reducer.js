@@ -1,4 +1,5 @@
 import CartActionTypes from "./cart.types";
+import AuthActionTypes from "../auth/auth.types";
 import { modifyCart, removeCartItem } from "./cart.utils";
 
 const INITIAL_STATE = {
@@ -31,6 +32,7 @@ const cartReducer = (state = INITIAL_STATE, action) => {
         loading: false
       };
     case CartActionTypes.CLEAR_CART:
+    case AuthActionTypes.LOGOUT_SUCCESS:
       return {
         ...state,
         cart: [],
