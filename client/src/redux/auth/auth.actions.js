@@ -104,8 +104,8 @@ export const logout = () => async dispatch => {
   }
 };
 
-/** RESET USER PASSWORD */
-export const resetPassword = email => async dispatch => {
+/** SEND RESET PASSWORD LINK */
+export const forgotPassword = email => async dispatch => {
   try {
     const config = {
       headers: {
@@ -125,6 +125,43 @@ export const resetPassword = email => async dispatch => {
   } catch (err) {
     dispatch({
       type: AuthActionTypes.FORGOT_PWD_FAIL,
+      payload: err.response.data.error
+    });
+    dispatch(setAlert(`${err.response.data.error}`, "danger"));
+  }
+};
+
+/** RESET USER PASSWORD */
+export const resetPassword = ({
+  resetToken,
+  password,
+  history
+}) => async dispatch => {
+  try {
+    const config = {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    };
+
+    const body = JSON.stringify({ password });
+
+    const res = await axios.put(
+      `/api/v1/auth/resetpassword/${resetToken}`,
+      body,
+      config
+    );
+
+    dispatch({
+      type: AuthActionTypes.RESET_PWD_SUCCESS,
+      payload: res.data
+    });
+
+    dispatch(loadUser());
+    history.push("/");
+  } catch (err) {
+    dispatch({
+      type: AuthActionTypes.RESET_PWD_FAIL,
       payload: err.response.data.error
     });
     dispatch(setAlert(`${err.response.data.error}`, "danger"));

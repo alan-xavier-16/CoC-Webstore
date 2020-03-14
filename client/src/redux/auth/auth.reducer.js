@@ -6,7 +6,7 @@ const INITIAL_STATE = {
   loading: true,
   user: null,
   error: null,
-  resetPwdMsg: ""
+  forgotPwdMsg: ""
 };
 
 const authReducer = (state = INITIAL_STATE, action) => {
@@ -33,13 +33,23 @@ const authReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         loading: false,
-        resetPwdMsg: payload.data
+        forgotPwdMsg: payload.data
+      };
+    case AuthActionTypes.RESET_PWD_SUCCESS:
+      localStorage.setItem("token", payload.token);
+      return {
+        ...state,
+        ...payload,
+        isAuthenticated: true,
+        loading: false,
+        forgotPwdMsg: payload.data
       };
     case AuthActionTypes.AUTH_ERROR:
     case AuthActionTypes.REGISTER_FAIL:
     case AuthActionTypes.LOGIN_FAIL:
     case AuthActionTypes.LOGOUT_FAIL:
     case AuthActionTypes.FORGOT_PWD_FAIL:
+    case AuthActionTypes.RESET_PWD_FAIL:
       localStorage.removeItem("token");
       return {
         ...state,
@@ -47,7 +57,7 @@ const authReducer = (state = INITIAL_STATE, action) => {
         isAuthenticated: false,
         loading: false,
         error: payload,
-        resetPwdMsg: ""
+        forgotPwdMsg: ""
       };
     case AuthActionTypes.LOGOUT_SUCCESS:
       localStorage.removeItem("token");

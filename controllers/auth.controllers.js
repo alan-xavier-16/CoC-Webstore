@@ -133,9 +133,18 @@ exports.forgotPassword = asyncHandler(async (req, res, next) => {
   await user.save({ validateBeforeSave: false });
 
   // Create reset URL
-  const resetUrl = `${req.protocol}://${req.get(
-    "host"
-  )}/api/v1/auth/resetpassword/${resetToken}`;
+  // const resetUrl = `${req.protocol}://${req.get(
+  //   "host"
+  // )}/api/v1/auth/resetpassword/${resetToken}`;
+
+  let resetUrl;
+  if (process.env.NODE_ENV === "production") {
+    resetUrl = `${req.protocol}://${req.get(
+      "host"
+    )}/signin/identity/${resetToken}`;
+  } else {
+    resetUrl = `${req.protocol}://localhost:3000/signin/identity/${resetToken}`;
+  }
 
   const message = `You are receiving this email because you (or someone else) has requested a password reset. Click this link to reset: \n\n ${resetUrl}`;
 

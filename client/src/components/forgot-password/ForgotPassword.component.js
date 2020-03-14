@@ -3,9 +3,9 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
-import { resetPassword } from "../../redux/auth/auth.actions";
+import { forgotPassword } from "../../redux/auth/auth.actions";
 
-const ForgotPassword = ({ resetPassword }) => {
+const ForgotPassword = ({ forgotPassword }) => {
   const [formData, setFormData] = useState({
     email: ""
   });
@@ -20,7 +20,7 @@ const ForgotPassword = ({ resetPassword }) => {
   // Form Submit
   const handleSubmit = e => {
     e.preventDefault();
-    resetPassword(email);
+    forgotPassword(email);
     setFormData({ email: "" });
   };
 
@@ -57,11 +57,11 @@ const ForgotPassword = ({ resetPassword }) => {
 };
 
 ForgotPassword.propTypes = {
-  resetPassword: PropTypes.func.isRequired
+  forgotPassword: PropTypes.func.isRequired
 };
 
 const mapDispatchToProps = {
-  resetPassword: email => resetPassword(email)
+  forgotPassword: email => forgotPassword(email)
 };
 
 export default connect(null, mapDispatchToProps)(ForgotPassword);
