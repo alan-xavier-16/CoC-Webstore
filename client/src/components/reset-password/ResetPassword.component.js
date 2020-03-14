@@ -100,6 +100,10 @@ const ResetPassword = ({ resetPassword }) => {
           Update Password
         </button>
       </form>
+
+      <div className="signin-actions">
+        <Link to={`/signin`}>Sign In</Link>
+      </div>
     </div>
   );
 };
