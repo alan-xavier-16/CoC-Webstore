@@ -12,6 +12,7 @@ import Footer from "./components/layout/footer/Footer.component";
 import SignInAndSignUp from "./pages/signInAndsignUp/SignInAndSignUp.component";
 import Shop from "./pages/shop/Shop.component";
 import Cart from "./pages/cart/Cart.component";
+import Products from "./pages/products/Products.component";
 
 import { loadUser } from "./redux/auth/auth.actions";
 import { selectIsAuthenticated } from "./redux/auth/auth.selectors";
@@ -36,6 +37,8 @@ const App = ({ loadUser, isAuthenticated }) => {
           <Alert />
           <Switch>
             <Route path="/shop" component={Shop} />
+            <Route path="/products" component={Products} />
+
             <PrivateRoute path="/cart" component={Cart} />
 
             <Route
