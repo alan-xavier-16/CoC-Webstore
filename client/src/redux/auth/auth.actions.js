@@ -103,3 +103,30 @@ export const logout = () => async dispatch => {
     dispatch(setAlert(`${err.response.data.error}`, "danger"));
   }
 };
+
+/** RESET USER PASSWORD */
+export const resetPassword = email => async dispatch => {
+  try {
+    const config = {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    };
+
+    const body = JSON.stringify({ email });
+
+    const res = await axios.post(`/api/v1/auth/forgotPwd`, body, config);
+
+    dispatch({
+      type: AuthActionTypes.FORGOT_PWD_SUCCESS,
+      payload: res.data
+    });
+    dispatch(setAlert(`${res.data.data}`, "success"));
+  } catch (err) {
+    dispatch({
+      type: AuthActionTypes.FORGOT_PWD_FAIL,
+      payload: err.response.data.error
+    });
+    dispatch(setAlert(`${err.response.data.error}`, "danger"));
+  }
+};
