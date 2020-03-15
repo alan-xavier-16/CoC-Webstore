@@ -16,6 +16,7 @@ const productReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         products: payload.data,
+        pagination: payload.pagination || null,
         loading: false
       };
     case ProductActionTypes.FETCH_PRODUCTS_FAIL:
