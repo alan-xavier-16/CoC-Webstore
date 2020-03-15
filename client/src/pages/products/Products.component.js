@@ -4,6 +4,7 @@ import { Route, useRouteMatch } from "react-router-dom";
 import PropTypes from "prop-types";
 
 import ProductsOverviewContainer from "../../components/products-overview/ProductsOverview.container";
+import ProductsItem from "../../components/product-item/ProductItem.component";
 
 import { getProducts } from "../../redux/product/product.actions";
 
@@ -19,6 +20,7 @@ const Products = ({ getProducts }) => {
   return (
     <div className="products-page">
       <Route exact path={`${path}`} component={ProductsOverviewContainer} />
+      <Route exact path={`${path}/:productSlug`} component={ProductsItem} />
     </div>
   );
 };

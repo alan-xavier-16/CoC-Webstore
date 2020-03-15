@@ -26,8 +26,7 @@ router
   .route("/")
   .get(
     advancedResults(Category, {
-      path: "products",
-      select: "name description price photo inventory"
+      path: "products"
     }),
     getCategories
   )

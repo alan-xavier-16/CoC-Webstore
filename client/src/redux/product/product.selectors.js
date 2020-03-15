@@ -8,6 +8,16 @@ export const selectProducts = createSelector(
   product => product.products
 );
 
+/* SINGLE PRODUCT */
+export const selectProductItem = productSlug =>
+  createSelector([selectProducts], products =>
+    products
+      ? products
+          .filter(product => product.slug === productSlug)
+          .reduce(product => ({ ...product }))
+      : null
+  );
+
 /* LOADING */
 export const selectLoading = createSelector(
   [selectProducts],
