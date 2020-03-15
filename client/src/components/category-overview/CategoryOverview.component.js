@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
 import { selectCategories } from "../../redux/shop/shop.selectors";
@@ -16,8 +17,15 @@ const CategoryOverview = ({ categories }) => {
         <span className="herb">
           <i className="fas fa-feather-alt"></i>
         </span>{" "}
-        In-Shop Collection!
+        In-Shop Collections!
       </h1>
+
+      <div className="to-products">
+        <Link to="/products" className="btn btn-dark">
+          Or shop by products <i className="fas fa-caret-right"></i>
+        </Link>
+      </div>
+
       {categories.map(({ id, ...rest }) => (
         <CategoryPreview key={id} {...rest} />
       ))}

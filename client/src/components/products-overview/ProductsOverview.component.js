@@ -1,10 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
 import { selectProducts } from "../../redux/product/product.selectors";
 import CategoryItem from "../category-item/CategoryItem.component";
+
+import "./ProductsOverview.styles.scss";
 
 const ProductsOverview = ({ products }) => {
   return (
@@ -16,9 +19,18 @@ const ProductsOverview = ({ products }) => {
         </span>{" "}
         In-Shop Products!
       </h1>
-      {products.map(product => (
-        <CategoryItem key={product._id} product={product} />
-      ))}
+
+      <div className="to-shop">
+        <Link to="/shop" className="btn btn-dark">
+          Or shop by categories <i className="fas fa-caret-right"></i>
+        </Link>
+      </div>
+
+      <div className="product-previews cards">
+        {products.map(product => (
+          <CategoryItem key={product._id} product={product} />
+        ))}
+      </div>
     </div>
   );
 };

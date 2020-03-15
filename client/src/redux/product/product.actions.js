@@ -13,9 +13,8 @@ export const getProducts = () => async dispatch => {
     console.log(res.data);
   } catch (err) {
     dispatch({
-      type: ProductActionTypes.FETCH_CATEGORIES_FAIL,
+      type: ProductActionTypes.FETCH_PRODUCTS_FAIL,
       payload: err.response.data.error
     });
-    dispatch(setAlert(`${err.response.data.message}`, "warning"));
   }
 };
