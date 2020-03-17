@@ -34,7 +34,7 @@ const Products = ({ getProducts, isAuthenticated }) => {
 
 Products.propTypes = {
   getProducts: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.object.isRequired
+  isAuthenticated: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = createStructuredSelector({
