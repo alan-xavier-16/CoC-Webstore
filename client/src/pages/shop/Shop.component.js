@@ -10,12 +10,14 @@ import Popup from "../../components/layout/popup/Popup.component";
 
 import { getCategories } from "../../redux/shop/shop.actions";
 import { selectIsAuthenticated } from "../../redux/auth/auth.selectors";
+import { getProducts } from "../../redux/product/product.actions";
 
-const Shop = ({ getCategories, isAuthenticated }) => {
-  // Fetch Categories on Page Load
+const Shop = ({ getCategories, isAuthenticated, getProducts }) => {
+  // Fetch Categories & Products on Page Load
   useEffect(() => {
     getCategories();
-  }, [getCategories]);
+    getProducts();
+  }, [getCategories, getProducts]);
 
   /** Create relative path for routes */
   let { path } = useRouteMatch();
@@ -34,7 +36,8 @@ const Shop = ({ getCategories, isAuthenticated }) => {
 
 Shop.propTypes = {
   getCategories: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.bool.isRequired
+  isAuthenticated: PropTypes.bool.isRequired,
+  getProducts: PropTypes.func.isRequired
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -42,7 +45,8 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = {
-  getCategories: () => getCategories()
+  getCategories: () => getCategories(),
+  getProducts: () => getProducts()
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Shop);

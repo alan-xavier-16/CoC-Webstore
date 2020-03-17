@@ -241,6 +241,83 @@
   }
 }
 
+/* HORIZONTAL CARDS */
+.product-card {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 0.1rem solid map-get($map: $colors, $key: dark);
+  border-radius: 0.5rem;
+  @include set-background(map-get($map: $colors, $key: light));
+
+  @media screen and (min-width: map-get($map: $breakpoints, $key: sm)) {
+    flex-direction: row;
+  }
+
+  & .product-card-img {
+    background-size: cover;
+    min-height: 180px;
+    background-position: center;
+
+    @media screen and (min-width: map-get($map: $breakpoints, $key: sm)) {
+      width: 50%;
+    }
+
+    &.disabled {
+      opacity: 0.65;
+    }
+  }
+
+  & .product-card-body {
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    @media screen and (min-width: map-get($map: $breakpoints, $key: sm)) {
+      width: 50%;
+    }
+
+    & .card-title {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.125rem;
+    }
+
+    .card-description {
+      margin-bottom: 0.75rem;
+    }
+
+    & .card-price {
+      margin-bottom: 0.75rem;
+      padding-bottom: 0.75rem;
+      font-size: 1.5rem;
+      font-weight: bold;
+      line-height: 1;
+      border-bottom: 0.1rem dotted map-get($map: $colors, $key: my-gold);
+      color: map-get($map: $colors, $key: my-gold);
+    }
+
+    & .card-lead {
+      font-size: 1.125rem;
+      font-weight: bold;
+      line-height: 1;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    & .card-body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: 100%;
+      margin: 0.75rem 0;
+    }
+  }
+}
+
 /* TYPOGRAPHY */
 .main-header {
   font-size: 2rem;
