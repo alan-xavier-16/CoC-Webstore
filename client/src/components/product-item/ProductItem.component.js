@@ -9,11 +9,10 @@ import { modifyCartItem } from "../../redux/cart/cart.actions";
 import "./ProductItem.styles.scss";
 
 const ProductItem = ({ product, isAuthenticated, modifyCartItem }) => {
-  console.log(product);
   const [formData, setFormData] = useState({
     quantity: 1
   });
-  const { photo, name, price, description, inventory } = product;
+  const { photo, name, price, description, inventory, details } = product;
 
   // CHANGE QUANTITY
   const handleChange = e => {
@@ -39,16 +38,18 @@ const ProductItem = ({ product, isAuthenticated, modifyCartItem }) => {
 
         <div className="product-card-body">
           <div className="product-card-detail">
-            <h3 className="card-title">{name}</h3>
-            <div className="card-price">TT${price}</div>
+            <div className="product-card-header">
+              <h3 className="card-title">{name}</h3>
+              <div className="card-price">TT${price}</div>
+            </div>
 
             <div className="card-body">
-              <div>
+              <div className="card-body-item card-description">
                 <div className="card-lead">Description:</div>
-                <div className="card-description">{description}</div>
+                <div>{description}</div>
               </div>
 
-              <div>
+              <div className="card-body-item card-quantity">
                 <div className="card-lead">Quantity:</div>
                 <input
                   type="number"
@@ -59,12 +60,23 @@ const ProductItem = ({ product, isAuthenticated, modifyCartItem }) => {
                   className="lead"
                 />
               </div>
+
+              <div className="card-body-item card-details">
+                <div className="card-lead">Details:</div>
+                <ul className="card-list">
+                  {details.map(detail => (
+                    <li key={detail._id} className="card-list-item">
+                      <span>{detail.title}</span>: {detail.text}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </div>
 
           <button
-            className={`btn btn-gold ${inventory === 0 &&
-              "disabled"} ${!isAuthenticated && "hide"}`}
+            className={`btn btn-gold ${(inventory === 0 || !isAuthenticated) &&
+              "disabled"}`}
             disabled={!inventory || !isAuthenticated}
             onClick={handleClick}
           >
