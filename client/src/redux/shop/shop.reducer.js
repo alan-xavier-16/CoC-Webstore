@@ -15,7 +15,7 @@ const shopReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         categories: payload.data,
-        pagination: payload.pagination,
+        pagination: payload.pagination || null,
         loading: false
       };
     case ShopActionTypes.FETCH_CATEGORIES_FAIL:
