@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
+import { Link, useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
 
 import { selectProductItem } from "../../redux/product/product.selectors";
@@ -21,7 +22,7 @@ const ProductItem = ({ product, isAuthenticated, modifyCartItem }) => {
   const { quantity } = formData;
 
   // ADD PRODUCT TO CART
-  const handleClick = e => {
+  const handleModify = e => {
     const item = { product: { ...product }, ...formData };
     modifyCartItem(item);
   };
@@ -29,6 +30,9 @@ const ProductItem = ({ product, isAuthenticated, modifyCartItem }) => {
   const handleSubmit = e => {
     e.preventDefault();
   };
+
+  // ACCESS LOCATION OBJECT
+  const location = useLocation();
 
   return (
     <form className="product-item" onSubmit={handleSubmit}>
@@ -78,15 +82,23 @@ const ProductItem = ({ product, isAuthenticated, modifyCartItem }) => {
             </div>
           </div>
 
-          <button
-            className={`btn btn-gold ${(inventory === 0 || !isAuthenticated) &&
-              "disabled"}`}
-            disabled={!inventory || !isAuthenticated}
-            onClick={handleClick}
-          >
-            <i className="fas fa-cart-plus"></i>{" "}
-            <span className="show-md">Add To Cart</span>
-          </button>
+          <div className="user-actions">
+            <button
+              className={`btn btn-gold ${(inventory === 0 ||
+                !isAuthenticated) &&
+                "disabled"}`}
+              disabled={!inventory || !isAuthenticated}
+              onClick={handleModify}
+            >
+              <i className="fas fa-cart-plus"></i> Add To Cart
+            </button>
+
+            {location.state && location.state.from && (
+              <Link className="btn btn-dark" to={location.state.from}>
+                <i className="fas fa-feather-alt"></i> Back to Shop
+              </Link>
+            )}
+          </div>
         </div>
       </div>
     </form>

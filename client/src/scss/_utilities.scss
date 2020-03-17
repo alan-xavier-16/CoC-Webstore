@@ -384,3 +384,16 @@
   padding: 0.5rem 0;
   z-index: 10;
 }
+
+/* USER CALL-TO-ACTIONS */
+.user-actions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-gap: 0.25rem;
+  justify-content: center;
+
+  & a,
+  button {
+    margin: 0;
+  }
+}

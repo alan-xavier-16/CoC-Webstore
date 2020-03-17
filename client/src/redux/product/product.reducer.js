@@ -2,7 +2,6 @@ import ProductActionTypes from "./product.types";
 
 const INITIAL_STATE = {
   products: [],
-  product: null,
   pagination: null,
   loading: true,
   error: null

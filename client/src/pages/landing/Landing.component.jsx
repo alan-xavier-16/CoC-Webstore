@@ -12,10 +12,10 @@ const Landing = props => {
 
         <div className="buttons">
           <Link to="/services" className="btn btn-gold">
-            <i className="fas fa-concierge-bell"></i> View Services
+            <i className="fas fa-praying-hands"></i> View Services
           </Link>
           <Link to="/shop" className="btn btn-gold">
-            <i className="fas fa-shopping-bag"></i> Shop Now
+            <i className="fas fa-feather-alt"></i> Shop Now
           </Link>
         </div>
       </div>
@@ -50,7 +50,7 @@ const Landing = props => {
                 assumenda, corporis eum nesciunt!
               </p>
               <Link to="/services" className="btn btn-gold">
-                <i className="fas fa-concierge-bell"></i>
+                <i className="fas fa-praying-hands"></i>
                 <span> View Services</span>
               </Link>
             </div>
@@ -82,7 +82,7 @@ const Landing = props => {
                 exercitationem repellendus?
               </p>
               <Link to="/shop" className="btn btn-gold">
-                <i className="fas fa-shopping-bag"></i>
+                <i className="fas fa-feather-alt"></i>
                 <span> Shop Now</span>
               </Link>
             </div>

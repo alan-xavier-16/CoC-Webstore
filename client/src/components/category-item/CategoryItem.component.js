@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
 
 import { modifyCartItem } from "../../redux/cart/cart.actions";
@@ -17,10 +17,18 @@ const CategoryItem = ({ product, modifyCartItem, isAuthenticated }) => {
     modifyCartItem(item);
   };
 
+  // ACCESS LOCATION OBJECT
+  const location = useLocation();
+
   return (
     <div className="card">
       <div className={`card-img ${inventory === 0 && "disabled"}`}>
-        <Link to={`/products/${slug}`}>
+        <Link
+          to={{
+            pathname: `/products/${slug}`,
+            state: { from: location.pathname }
+          }}
+        >
           <img src={`../uploads/${photo}`} alt={`product-${name}`} />
           {inventory === 0 && (
             <span className="img-no-stock">Out of Stock</span>
