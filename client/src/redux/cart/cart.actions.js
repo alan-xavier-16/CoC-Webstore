@@ -42,10 +42,11 @@ export const modifyCartItem = item => async dispatch => {
       cartItem => cartItem.product._id === item.product._id
     );
 
-    /* existingCartItem comes from 2 locations - CART and SHOP pages
+    /* existingCartItem comes from 3 locations - CART, SHOP-BY-CATEGORY / PRODUCTS, PRODUCT-ITEM pages
       - CART: item has a 'quantity' field 
-      - SHOP: item has no 'quantity' field
+      - SHOP-BY-CATEGORY / PRODUCTS: item has no 'quantity' field
         - MUST ADD ONE
+      - PRODUCT-ITEM: item has a 'quantity' field 
     */
     if (existingCartItem && !item.quantity) {
       item.quantity = existingCartItem.quantity + 1;
@@ -67,7 +68,7 @@ export const modifyCartItem = item => async dispatch => {
         body,
         config
       );
-    } else {
+    } else if (item.product) {
       res = await axios.post(
         `/api/v1/products/${item.product._id}/cart`,
         body,

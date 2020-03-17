@@ -22,12 +22,16 @@ const ProductItem = ({ product, isAuthenticated, modifyCartItem }) => {
 
   // ADD PRODUCT TO CART
   const handleClick = e => {
-    const item = { ...product, ...formData };
+    const item = { product: { ...product }, ...formData };
     modifyCartItem(item);
   };
 
+  const handleSubmit = e => {
+    e.preventDefault();
+  };
+
   return (
-    <form className="product-item">
+    <form className="product-item" onSubmit={handleSubmit}>
       <div className="product-card">
         <div className={`product-card-img ${inventory === 0 && "disabled"}`}>
           <img src={`../uploads/${photo}`} alt={`product-${name}`} />
