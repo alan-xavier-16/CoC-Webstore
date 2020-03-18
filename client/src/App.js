@@ -42,7 +42,17 @@ const App = ({ loadUser, isAuthenticated }) => {
             <Route
               path="/signin"
               render={() =>
-                isAuthenticated ? <Redirect to="/" /> : <SignInAndSignUp />
+                isAuthenticated ? (
+                  <Redirect
+                    to={`${
+                      location.state && location.state.from
+                        ? location.state.from
+                        : "/"
+                    }`}
+                  />
+                ) : (
+                  <SignInAndSignUp />
+                )
               }
             />
           </Switch>

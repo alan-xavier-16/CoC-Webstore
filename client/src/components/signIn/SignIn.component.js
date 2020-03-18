@@ -6,6 +6,11 @@ import PropTypes from "prop-types";
 import { login } from "../../redux/auth/auth.actions";
 
 const SignIn = ({ login }) => {
+  // RELATIVE LINK
+  const { url } = useRouteMatch();
+  // LOCATION OBJECT
+  const location = useLocation();
+
   const [formData, setFormData] = useState({
     email: "",
     password: ""
@@ -26,12 +31,6 @@ const SignIn = ({ login }) => {
     login(formData);
     setFormData({ email: "", password: "" });
   };
-
-  // Create relative link
-  let { url } = useRouteMatch();
-
-  // Access Route String
-  const location = useLocation();
 
   return (
     <div className="signin">

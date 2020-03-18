@@ -7,6 +7,9 @@ import { setAlert } from "../../redux/alerts/alert.actions";
 import { register } from "../../redux/auth/auth.actions";
 
 const SignUp = ({ setAlert, register }) => {
+  // LOCATION OBJECT
+  const location = useLocation();
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -37,9 +40,6 @@ const SignUp = ({ setAlert, register }) => {
       setFormData({ name: "", email: "", password: "", confirmPwd: "" });
     }
   };
-
-  // Get Location Properties from Links
-  const location = useLocation();
 
   return (
     <div className="signup">

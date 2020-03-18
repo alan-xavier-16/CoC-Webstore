@@ -11,6 +11,7 @@ import ProductContainer from "../product/Product.container";
 import Popup from "../../components/layout/popup/Popup.component";
 
 import { getCategories } from "../../redux/shop/shop.actions";
+import { selectCategories } from "../../redux/shop/shop.selectors";
 import { selectIsAuthenticated } from "../../redux/auth/auth.selectors";
 
 /*
@@ -22,11 +23,11 @@ Renders:
   - Product Item
 */
 
-const Shop = ({ isAuthenticated, getCategories }) => {
+const Shop = ({ isAuthenticated, getCategories, categories }) => {
   // FETCH RESOURCES
   useEffect(() => {
-    getCategories();
-  }, [getCategories]);
+    categories.length === 0 && getCategories();
+  }, [getCategories, categories]);
 
   /** RELATIVE PATH FROM APP */
   const { path } = useRouteMatch();
@@ -62,7 +63,8 @@ Shop.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  isAuthenticated: selectIsAuthenticated
+  isAuthenticated: selectIsAuthenticated,
+  categories: selectCategories
 });
 
 const mapDispatchToProps = {

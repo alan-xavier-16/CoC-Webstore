@@ -52,17 +52,26 @@ const Navbar = ({ isAuthenticated, logout, hidden }) => {
           onClick={() => setActive(false)}
         >
           <li>
-            <Link className="nav-link" to="/services">
+            <Link
+              className="nav-link"
+              to={{ pathname: "/services", state: { from: location.pathname } }}
+            >
               Services
             </Link>
           </li>
           <li>
-            <Link className="nav-link" to="/shop">
+            <Link
+              className="nav-link"
+              to={{ pathname: "/shop", state: { from: location.pathname } }}
+            >
               Shop
             </Link>
           </li>
           <li>
-            <Link className="nav-link" to="/courses">
+            <Link
+              className="nav-link"
+              to={{ pathname: "/courses", state: { from: location.pathname } }}
+            >
               Courses
             </Link>
           </li>
