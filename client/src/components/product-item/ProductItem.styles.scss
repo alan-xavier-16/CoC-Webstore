@@ -1,11 +1,12 @@
 @import "../../scss/mixins";
 @import "../../scss/config";
 
-.product-item {
-  max-width: 98%;
-  margin: 1rem auto 0.5rem auto;
-
-  @media screen and (min-width: map-get($map: $breakpoints, $key: md)) {
-    width: 80%;
-  }
+.price {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0.25rem;
+  font-size: 1.25rem;
+  background: rgba(0, 0, 0, 0.5);
+  color: map-get($map: $colors, $key: my-gold);
 }

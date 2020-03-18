@@ -9,14 +9,19 @@ export const selectProducts = createSelector(
 );
 
 /* SINGLE PRODUCT */
-export const selectProductItem = productSlug =>
-  createSelector([selectProducts], products =>
-    products
-      ? products
-          .filter(product => product.slug === productSlug)
-          .reduce(product => ({ ...product }))
-      : null
-  );
+export const selectProductItem = createSelector(
+  [selectProduct],
+  product => product.product
+);
+
+// export const selectProductItem = productSlug =>
+//   createSelector([selectProducts], products =>
+//     products
+//       ? products
+//           .filter(product => product.slug === productSlug)
+//           .reduce(product => ({ ...product }))
+//       : null
+//   );
 
 /* LOADING */
 export const selectLoading = createSelector(

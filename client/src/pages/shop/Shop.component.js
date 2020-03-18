@@ -5,22 +5,31 @@ import { createStructuredSelector } from "reselect";
 import PropTypes from "prop-types";
 
 import CategoryOverviewContainer from "../../components/category-overview/CategoryOverview.container";
+import ProductsOverviewContainer from "../../components/products-overview/ProductsOverview.container";
 import CategoryContainer from "../category/Category.container";
+import ProductContainer from "../product/Product.container";
 import Popup from "../../components/layout/popup/Popup.component";
 
 import { getCategories } from "../../redux/shop/shop.actions";
 import { selectIsAuthenticated } from "../../redux/auth/auth.selectors";
-import { getProducts } from "../../redux/product/product.actions";
 
-const Shop = ({ getCategories, isAuthenticated, getProducts }) => {
-  // Fetch Categories & Products on Page Load
+/*
+Renders:
+- Categories Overview by default
+- Has an option for ALL Products Overview instead
+- Has routes to:
+  - Category Container with Products
+  - Product Item
+*/
+
+const Shop = ({ isAuthenticated, getCategories }) => {
+  // FETCH RESOURCES
   useEffect(() => {
     getCategories();
-    getProducts();
-  }, [getCategories, getProducts]);
+  }, [getCategories]);
 
-  /** Create relative path for routes */
-  let { path } = useRouteMatch();
+  /** RELATIVE PATH FROM APP */
+  const { path } = useRouteMatch();
 
   return (
     <div className="shop-page">
@@ -29,15 +38,27 @@ const Shop = ({ getCategories, isAuthenticated, getProducts }) => {
       )}
 
       <Route exact path={`${path}`} component={CategoryOverviewContainer} />
-      <Route path={`${path}/:categorySlug`} component={CategoryContainer} />
+      <Route
+        path={`${path}/categories/:categorySlug`}
+        component={CategoryContainer}
+      />
+
+      <Route
+        exact
+        path={`${path}/products`}
+        component={ProductsOverviewContainer}
+      />
+      <Route
+        path={`${path}/products/:productSlug`}
+        component={ProductContainer}
+      />
     </div>
   );
 };
 
 Shop.propTypes = {
-  getCategories: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool.isRequired,
-  getProducts: PropTypes.func.isRequired
+  getCategories: PropTypes.func.isRequired
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -45,8 +66,7 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = {
-  getCategories: () => getCategories(),
-  getProducts: () => getProducts()
+  getCategories: () => getCategories()
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Shop);

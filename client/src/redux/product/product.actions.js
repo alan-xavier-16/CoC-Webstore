@@ -16,3 +16,19 @@ export const getProducts = () => async dispatch => {
     });
   }
 };
+
+export const getProduct = productSlug => async dispatch => {
+  try {
+    const res = await axios.get(`/api/v1/products/${productSlug}`);
+
+    dispatch({
+      type: ProductActionTypes.FETCH_PRODUCT_SUCCESS,
+      payload: res.data
+    });
+  } catch (err) {
+    dispatch({
+      type: ProductActionTypes.FETCH_PRODUCT_FAIL,
+      payload: err.response.data.error
+    });
+  }
+};

@@ -4,8 +4,9 @@ import { createStructuredSelector } from "reselect";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
+import ProductItem from "../product-item/ProductItem.component";
+
 import { selectProducts } from "../../redux/product/product.selectors";
-import CategoryItem from "../category-item/CategoryItem.component";
 
 import "./ProductsOverview.styles.scss";
 
@@ -28,7 +29,7 @@ const ProductsOverview = ({ products }) => {
 
       <div className="product-previews cards">
         {products.map(product => (
-          <CategoryItem key={product._id} product={product} />
+          <ProductItem key={product._id} product={product} />
         ))}
       </div>
     </div>

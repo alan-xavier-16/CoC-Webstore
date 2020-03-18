@@ -1,17 +1,27 @@
 import React from "react";
-import { useRouteMatch, Link } from "react-router-dom";
-import CategoryItem from "../category-item/CategoryItem.component";
+import { useRouteMatch, Link, useLocation } from "react-router-dom";
+import ProductItem from "../product-item/ProductItem.component";
 
 import "./CategoryPreview.styles.scss";
 
 const CategoryPreview = ({ slug, name, products }) => {
-  /** Create relative link  */
-  let { url } = useRouteMatch();
+  /** RELATIVE LINK  */
+  const { url } = useRouteMatch();
+
+  /** ACCESS LOCATION OBJECT */
+  const location = useLocation();
+
   return (
     <div className="category-preview">
       <div className="preview-header">
         <h3 className="title">{name.toUpperCase()}</h3>
-        <Link to={`${url}/${slug}`} className="btn btn-dark">
+        <Link
+          to={{
+            pathname: `${url}/categories/${slug}`,
+            state: { from: location.pathname }
+          }}
+          className="btn btn-dark"
+        >
           View More <i className="fas fa-angle-right"></i>
         </Link>
       </div>
@@ -20,7 +30,7 @@ const CategoryPreview = ({ slug, name, products }) => {
         {products
           .filter((product, idx) => idx < 4)
           .map(product => (
-            <CategoryItem key={product._id} product={product} />
+            <ProductItem key={product._id} product={product} />
           ))}
       </div>
     </div>
