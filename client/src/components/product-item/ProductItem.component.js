@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 
 import { modifyCartItem } from "../../redux/cart/cart.actions";
 import { selectIsAuthenticated } from "../../redux/auth/auth.selectors";
-import { getProduct } from "../../redux/product/product.actions";
+import { getProduct } from "../../redux/shop/shop.actions";
 
 import "./ProductItem.styles.scss";
 
@@ -72,7 +72,7 @@ ProductItem.propTypes = {
   product: PropTypes.object.isRequired,
   modifyCartItem: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool.isRequired,
-  getProduct: PropTypes.object.isRequired
+  getProduct: PropTypes.func.isRequired
 };
 
 const mapStateToProps = createStructuredSelector({

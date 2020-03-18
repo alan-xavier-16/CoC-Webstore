@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 import CategoryPreview from "../category-preview/CategoryPreview.component";
 
 import { selectCategories } from "../../redux/shop/shop.selectors";
-import { getProducts } from "../../redux/product/product.actions";
+import { getProducts } from "../../redux/shop/shop.actions";
 
 import "./CategoryOverview.styles.scss";
 

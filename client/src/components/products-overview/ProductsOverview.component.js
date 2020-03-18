@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 
 import ProductItem from "../product-item/ProductItem.component";
 
-import { selectProducts } from "../../redux/product/product.selectors";
+import { selectProducts } from "../../redux/shop/shop.selectors";
 
 import "./ProductsOverview.styles.scss";
 

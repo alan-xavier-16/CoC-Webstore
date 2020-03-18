@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
 
-import { selectProductItem } from "../../redux/product/product.selectors";
+import { selectProductItem } from "../../redux/shop/shop.selectors";
 import { selectIsAuthenticated } from "../../redux/auth/auth.selectors";
 import { modifyCartItem } from "../../redux/cart/cart.actions";
 
