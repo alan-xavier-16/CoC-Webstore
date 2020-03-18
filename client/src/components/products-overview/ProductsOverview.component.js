@@ -23,7 +23,7 @@ const ProductsOverview = ({ products }) => {
 
       <div className="to-shop">
         <Link to="/shop" className="btn btn-dark">
-          Or shop by categories <i className="fas fa-caret-right"></i>
+          Or view all categories <i className="fas fa-caret-right"></i>
         </Link>
       </div>
 

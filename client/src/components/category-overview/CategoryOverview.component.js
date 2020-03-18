@@ -6,12 +6,15 @@ import PropTypes from "prop-types";
 
 import CategoryPreview from "../category-preview/CategoryPreview.component";
 
-import { selectCategories } from "../../redux/shop/shop.selectors";
+import {
+  selectCategories,
+  selectProducts
+} from "../../redux/shop/shop.selectors";
 import { getProducts } from "../../redux/shop/shop.actions";
 
 import "./CategoryOverview.styles.scss";
 
-const CategoryOverview = ({ categories, getProducts }) => {
+const CategoryOverview = ({ categories, getProducts, products }) => {
   /** ACCESS LOCATION OBJECT */
   const location = useLocation();
 
@@ -20,7 +23,7 @@ const CategoryOverview = ({ categories, getProducts }) => {
 
   /** FETCH PRODUCTS ON BTN CLICK */
   const handleFetch = e => {
-    getProducts();
+    products.length === 0 && getProducts();
   };
 
   return (
@@ -42,7 +45,7 @@ const CategoryOverview = ({ categories, getProducts }) => {
           onClick={handleFetch}
           className="btn btn-dark"
         >
-          Or view all products instead <i className="fas fa-caret-right"></i>
+          Or view all products <i className="fas fa-caret-right"></i>
         </Link>
       </div>
 
@@ -55,11 +58,13 @@ const CategoryOverview = ({ categories, getProducts }) => {
 
 CategoryOverview.propTypes = {
   categories: PropTypes.array.isRequired,
+  products: PropTypes.array.isRequired,
   getProducts: PropTypes.func.isRequired
 };
 
 const mapStateToProps = createStructuredSelector({
-  categories: selectCategories
+  categories: selectCategories,
+  products: selectProducts
 });
 
 const mapDispatchToProps = {

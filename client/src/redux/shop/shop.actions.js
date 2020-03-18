@@ -4,6 +4,10 @@ import axios from "axios";
 /** GET ALL CATEGORIES */
 export const getCategories = () => async dispatch => {
   try {
+    dispatch({
+      type: ShopActionTypes.FETCH_START
+    });
+
     const res = await axios.get("/api/v1/categories");
     dispatch({
       type: ShopActionTypes.FETCH_CATEGORIES_SUCCESS,
@@ -20,6 +24,10 @@ export const getCategories = () => async dispatch => {
 /** GET ALL PRODUCTS */
 export const getProducts = () => async dispatch => {
   try {
+    dispatch({
+      type: ShopActionTypes.FETCH_START
+    });
+
     const res = await axios.get("/api/v1/products");
     dispatch({
       type: ShopActionTypes.FETCH_PRODUCTS_SUCCESS,
@@ -36,6 +44,10 @@ export const getProducts = () => async dispatch => {
 /** GET ONE PRODUCT */
 export const getProduct = productSlug => async dispatch => {
   try {
+    dispatch({
+      type: ShopActionTypes.FETCH_START
+    });
+
     const res = await axios.get(`/api/v1/products/${productSlug}`);
     dispatch({
       type: ShopActionTypes.FETCH_PRODUCT_SUCCESS,

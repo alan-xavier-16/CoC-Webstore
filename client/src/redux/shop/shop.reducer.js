@@ -13,6 +13,11 @@ const shopReducer = (state = INITIAL_STATE, action) => {
   const { type, payload } = action;
 
   switch (type) {
+    case ShopActionTypes.FETCH_START:
+      return {
+        ...state,
+        loading: true
+      };
     case ShopActionTypes.FETCH_CATEGORIES_SUCCESS:
       return {
         ...state,

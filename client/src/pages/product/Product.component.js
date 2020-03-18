@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
+import { createStructuredSelector } from "reselect";
 import PropTypes from "prop-types";
 
 import { selectProductItem } from "../../redux/shop/shop.selectors";
@@ -110,9 +111,9 @@ Product.propTypes = {
   isAuthenticated: PropTypes.bool.isRequired
 };
 
-const mapStateToProps = (state, ownProps) => ({
-  product: selectProductItem(state),
-  isAuthenticated: selectIsAuthenticated(state)
+const mapStateToProps = createStructuredSelector({
+  product: selectProductItem,
+  isAuthenticated: selectIsAuthenticated
 });
 
 const mapDispatchToProps = {
