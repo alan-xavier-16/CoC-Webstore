@@ -40,7 +40,7 @@ const CartItem = ({ item, modifyCartItem, clearCartItem }) => {
   return (
     <form className="cart-item" onSubmit={handleSubmit}>
       <div className={`cart-item-img ${inventory === 0 && "disabled"}`}>
-        <img src={`../uploads/${photo}`} alt={`product ${name}`} />
+        <img src={`/uploads/${photo}`} alt={`product ${name}`} />
         {inventory === 0 && <span className="img-no-stock">Out of Stock</span>}
       </div>
 

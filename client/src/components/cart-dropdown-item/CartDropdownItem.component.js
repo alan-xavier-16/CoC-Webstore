@@ -12,7 +12,7 @@ const CartDropdownItem = ({
   return (
     <div className="cart-dropdown-item">
       <div className="item-img">
-        <img src={`../uploads/${photo}`} alt={`product ${name}`} />
+        <img src={`/uploads/${photo}`} alt={`product ${name}`} />
       </div>
 
       <div className="item-body">
