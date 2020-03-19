@@ -36,7 +36,7 @@ const Cart = ({ cart, total, deleteCart }) => {
         ))}
       </div>
 
-      <div className="cart-btns">
+      <div className="user-actions">
         <button className="btn btn-danger" onClick={handleDelete}>
           Delete Cart <i className="fas fa-trash-alt"></i>
         </button>
