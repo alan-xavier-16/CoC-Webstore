@@ -81,6 +81,8 @@ export const modifyCartItem = item => async dispatch => {
       payload: res.data
     });
 
+    dispatch(setAlert(`${item.product.name} added to Cart`, "success"));
+
     dispatch(getCart());
   } catch (err) {
     dispatch({
@@ -105,6 +107,8 @@ export const clearCartItem = item => async dispatch => {
       payload: item
     });
 
+    dispatch(setAlert(`${item.product.name} removed from Cart`, "success"));
+
     dispatch(getCart());
   } catch (err) {
     dispatch({
@@ -126,6 +130,8 @@ export const deleteCart = () => async dispatch => {
     dispatch({
       type: CartActionTypes.CLEAR_CART
     });
+
+    dispatch(setAlert(`Cart Deleted`, "success"));
   } catch (err) {
     dispatch({
       type: CartActionTypes.CART_ERROR,
