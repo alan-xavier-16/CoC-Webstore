@@ -1,10 +1,13 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
-import { Switch, Route, Redirect, useLocation } from "react-router-dom";
+import { Switch, Route, useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
 
+import AdminRoute from "./components/routing/AdminRoute.component";
 import PrivateRoute from "./components/routing/PrivateRoute.component";
+import UserRoute from "./components/routing/UserRoute.component";
+import Dashboard from "./pages/dashboard/Dashboard.component";
 import Landing from "./pages/landing/Landing.component";
 import Navbar from "./components/layout/navbar/Navbar.component";
 import Alert from "./components/layout/alerts/Alert.component";
@@ -38,23 +41,8 @@ const App = ({ loadUser, isAuthenticated }) => {
             <Route path="/shop" component={Shop} />
 
             <PrivateRoute path="/cart" component={Cart} />
-
-            <Route
-              path="/signin"
-              render={() =>
-                isAuthenticated ? (
-                  <Redirect
-                    to={`${
-                      location.state && location.state.from
-                        ? location.state.from
-                        : "/"
-                    }`}
-                  />
-                ) : (
-                  <SignInAndSignUp />
-                )
-              }
-            />
+            <AdminRoute path="/dashboard" component={Dashboard} />
+            <UserRoute path="/signin" component={SignInAndSignUp} />
           </Switch>
         </div>
       )}

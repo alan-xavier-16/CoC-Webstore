@@ -4,7 +4,7 @@ const INITIAL_STATE = {
   token: null,
   isAuthenticated: false,
   loading: true,
-  user: null,
+  user: {},
   error: null,
   forgotPwdMsg: ""
 };
@@ -55,6 +55,7 @@ const authReducer = (state = INITIAL_STATE, action) => {
         ...state,
         token: null,
         isAuthenticated: false,
+        user: {},
         loading: false,
         error: payload,
         forgotPwdMsg: ""
@@ -66,7 +67,7 @@ const authReducer = (state = INITIAL_STATE, action) => {
         token: null,
         isAuthenticated: false,
         loading: false,
-        user: null,
+        user: {},
         error: null
       };
     default:

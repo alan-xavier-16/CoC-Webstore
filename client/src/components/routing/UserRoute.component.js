@@ -6,12 +6,14 @@ import PropTypes from "prop-types";
 
 import {
   selectIsAuthenticated,
-  selectAuthLoading
+  selectAuthLoading,
+  selectUser
 } from "../../redux/auth/auth.selectors";
 
-const PrivateRoute = ({
+const UserRoute = ({
   component: Component,
   isAuthenticated,
+  user,
   loading,
   ...rest
 }) => {
@@ -19,12 +21,13 @@ const PrivateRoute = ({
     <Route
       {...rest}
       render={props =>
-        !isAuthenticated && !loading ? (
+        isAuthenticated && !loading ? (
           <Redirect
-            to={{
-              pathname: "/signin",
-              state: { from: props.location.pathname }
-            }}
+            to={`${
+              props.location.state && props.location.state.from
+                ? props.location.state.from
+                : "/"
+            }`}
           />
         ) : (
           <Component {...props} />
@@ -34,14 +37,16 @@ const PrivateRoute = ({
   );
 };
 
-PrivateRoute.propTypes = {
+UserRoute.propTypes = {
   isAuthenticated: PropTypes.bool.isRequired,
-  loading: PropTypes.bool.isRequired
+  loading: PropTypes.bool.isRequired,
+  user: PropTypes.object.isRequired
 };
 
 const mapStateToProps = createStructuredSelector({
   isAuthenticated: selectIsAuthenticated,
-  loading: selectAuthLoading
+  loading: selectAuthLoading,
+  user: selectUser
 });
 
-export default connect(mapStateToProps)(PrivateRoute);
+export default connect(mapStateToProps)(UserRoute);

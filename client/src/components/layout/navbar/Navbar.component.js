@@ -86,7 +86,7 @@ const Navbar = ({ isAuthenticated, logout, hidden, user }) => {
                   Logout
                 </a>
               </li>
-              {user && user.role === "admin" && (
+              {user.role === "admin" && (
                 <li>
                   <Link
                     className="nav-link"
