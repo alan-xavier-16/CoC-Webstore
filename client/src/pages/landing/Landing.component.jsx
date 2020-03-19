@@ -17,6 +17,9 @@ const Landing = props => {
           <Link to="/shop" className="btn btn-gold">
             <i className="fas fa-feather-alt"></i> Shop Now
           </Link>
+          <Link to="/courses" className="btn btn-gold">
+            <i className="fas fa-user-graduate"></i> View Courses
+          </Link>
         </div>
       </div>
 
@@ -84,6 +87,34 @@ const Landing = props => {
               <Link to="/shop" className="btn btn-gold">
                 <i className="fas fa-feather-alt"></i>
                 <span> Shop Now</span>
+              </Link>
+            </div>
+          </div>
+
+          <div className="card">
+            <div className="card-img">
+              <img src={require("../../assets/study.jpg")} alt="Services" />
+            </div>
+
+            <div className="card-body">
+              <h3 className="card-title">
+                Workshops <i className="fas fa-user-graduate"></i>
+              </h3>
+              <p className="card-description">
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Et,
+                quidem facere? Possimus, rerum. Dignissimos, vel aut. Laboriosam
+                veniam illum neque. Lorem ipsum dolor sit amet, consectetur
+                adipisicing elit. Lorem ipsum dolor sit amet consectetur
+                adipisicing elit. Neque hic, dolore, deleniti cupiditate autem
+                voluptatibus ea esse aliquid atque blanditiis explicabo quo
+                incidunt, quibusdam odit est beatae eius rem. Fuga quaerat, a
+                assumenda quas eligendi aliquid recusandae ea ducimus excepturi
+                harum officia facere repellat corporis dolore nulla animi
+                exercitationem repellendus?
+              </p>
+              <Link to="/courses" className="btn btn-gold">
+                <i className="fas fa-user-graduate"></i>
+                <span> View Courses</span>
               </Link>
             </div>
           </div>
