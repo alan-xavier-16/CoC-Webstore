@@ -8,14 +8,17 @@ import PropTypes from "prop-types";
 import CartIcon from "../../cart-icon/CartIcon.component";
 import CartDropdown from "../../cart-dropdown/CartDropdown.component";
 
-import { selectIsAuthenticated } from "../../../redux/auth/auth.selectors";
+import {
+  selectIsAuthenticated,
+  selectUser
+} from "../../../redux/auth/auth.selectors";
 import { selectCartHidden } from "../../../redux/cart/cart.selectors";
 
 import { logout } from "../../../redux/auth/auth.actions";
 
 import "./Navbar.styles.scss";
 
-const Navbar = ({ isAuthenticated, logout, hidden }) => {
+const Navbar = ({ isAuthenticated, logout, hidden, user }) => {
   const [active, setActive] = useState(false);
 
   /* Get Window Width on Resize Event */
@@ -77,11 +80,26 @@ const Navbar = ({ isAuthenticated, logout, hidden }) => {
           </li>
 
           {isAuthenticated ? (
-            <li>
-              <a className="nav-link" href="/" onClick={handleLogout}>
-                Logout
-              </a>
-            </li>
+            <>
+              <li>
+                <a className="nav-link" href="/" onClick={handleLogout}>
+                  Logout
+                </a>
+              </li>
+              {user && user.role === "admin" && (
+                <li>
+                  <Link
+                    className="nav-link"
+                    to={{
+                      pathname: "/dashboard",
+                      state: { from: location.pathname }
+                    }}
+                  >
+                    Dashboard
+                  </Link>
+                </li>
+              )}
+            </>
           ) : (
             <>
               <li>
@@ -129,12 +147,14 @@ const Navbar = ({ isAuthenticated, logout, hidden }) => {
 Navbar.propTypes = {
   isAuthenticated: PropTypes.bool.isRequired,
   logout: PropTypes.func.isRequired,
-  hidden: PropTypes.bool.isRequired
+  hidden: PropTypes.bool.isRequired,
+  user: PropTypes.object.isRequired
 };
 
 const mapStateToProps = createStructuredSelector({
   isAuthenticated: selectIsAuthenticated,
-  hidden: selectCartHidden
+  hidden: selectCartHidden,
+  user: selectUser
 });
 
 const mapDispatchToProps = {
