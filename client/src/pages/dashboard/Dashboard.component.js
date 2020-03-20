@@ -1,19 +1,20 @@
 import React from "react";
-import PropTypes from "prop-types";
+import { Route, useRouteMatch } from "react-router-dom";
 
+import DashboardOverviewContainer from "../../components/dashboard-overview/DashboardOverview.container";
+
+/*
+Renders an Admin Dashboard Page
+*/
 const Dashboard = props => {
+  // ACCESS PATH FROM APP
+  const { path } = useRouteMatch();
+
   return (
     <div className="dashboard">
-      <ul>
-        <li>Dash 1</li>
-        <li>Dash 2</li>
-        <li>Dash 3</li>
-        <li>Dash 4</li>
-      </ul>
+      <Route exact path={`${path}`} component={DashboardOverviewContainer} />
     </div>
   );
 };
-
-Dashboard.propTypes = {};
 
 export default Dashboard;
