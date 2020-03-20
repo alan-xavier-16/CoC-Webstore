@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import PropTypes from "prop-types";
 
-import DashboardItem from "../dashboard-item/DashboardItem.component";
+import DashboardAction from "../dashboard-action/DashboardAction.component";
 
 import { selectUser } from "../../redux/auth/auth.selectors";
 
@@ -27,7 +27,7 @@ const DashboardOverview = ({ user }) => {
 
       <div className="dashboard-items cards">
         {resources.map((resource, idx) => (
-          <DashboardItem key={idx} resource={resource} />
+          <DashboardAction key={idx} resource={resource} />
         ))}
       </div>
     </div>
