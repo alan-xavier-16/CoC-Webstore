@@ -5,6 +5,7 @@
   padding: 0.75rem;
 
   & .dashboard-overview-header {
+    margin-bottom: 0.5rem;
     border-bottom: 0.15rem dotted map-get($map: $colors, $key: my-gold);
 
     & i {
@@ -19,5 +20,12 @@
         border-radius: 1.5rem;
       }
     }
+  }
+
+  & .dashboard-items {
+    @include set-background(map-get($map: $colors, $key: my-gold));
+    padding: 0.5rem;
+    border-radius: 1rem;
+    box-shadow: 0rem -0.1rem 1.25rem -0.25rem map-get($map: $colors, $key: dark);
   }
 }

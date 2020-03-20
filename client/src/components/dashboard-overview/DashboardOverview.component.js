@@ -3,12 +3,14 @@ import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import PropTypes from "prop-types";
 
+import DashboardItem from "../dashboard-item/DashboardItem.component";
+
 import { selectUser } from "../../redux/auth/auth.selectors";
 
 import "./DashboardOverview.styles.scss";
 
 const DashboardOverview = ({ user }) => {
-  const dashboardItems = ["services", "shop", "courses", "users"];
+  const resources = process.env.REACT_APP_RESOURCES.split(" ");
   return (
     <div className="dashboard-overview">
       <div className="dashboard-overview-header">
@@ -18,11 +20,14 @@ const DashboardOverview = ({ user }) => {
         <p className="lead">
           Welcome <span>{user.name}</span>
         </p>
+        <p className="lead">
+          Click the buttons below to perform Administrative actions
+        </p>
       </div>
 
-      <div className="dashboard-items">
-        {dashboardItems.map((item, idx) => (
-          <div key={idx}>{item}</div>
+      <div className="dashboard-items cards">
+        {resources.map((resource, idx) => (
+          <DashboardItem key={idx} resource={resource} />
         ))}
       </div>
     </div>
