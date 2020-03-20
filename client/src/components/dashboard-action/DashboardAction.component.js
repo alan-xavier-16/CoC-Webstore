@@ -10,18 +10,48 @@ const DashboardAction = ({ resource }) => {
   const location = useLocation();
   return (
     <div className="dashboard-action card">
-      <Link
-        to={{
-          pathname: `${url}/${resource}`,
-          state: { from: location.pathname }
-        }}
-      >
-        <div className="dashboard-action-content">
-          <h3 className="title">{resource.toUpperCase()}</h3>
-        </div>
+      {resource !== "shop" ? (
+        <Link
+          to={{
+            pathname: `${url}/${resource}`,
+            state: { from: location.pathname }
+          }}
+        >
+          <div className="dashboard-action-content">
+            <h3 className="title">{resource.toUpperCase()}</h3>
+          </div>
 
-        <img src={logo} alt="logo" />
-      </Link>
+          <img src={logo} alt="logo" />
+        </Link>
+      ) : (
+        <div className="dropdown">
+          <div className="dropdown-content">
+            <Link
+              to={{
+                pathname: `${url}/${resource}/categories`,
+                state: { from: location.pathname }
+              }}
+            >
+              By Categories
+            </Link>
+
+            <Link
+              to={{
+                pathname: `${url}/${resource}/products`,
+                state: { from: location.pathname }
+              }}
+            >
+              By Products
+            </Link>
+          </div>
+
+          <div className="dashboard-action-content">
+            <h3 className="title">{resource.toUpperCase()}</h3>
+          </div>
+
+          <img src={logo} alt="logo" />
+        </div>
+      )}
     </div>
   );
 };

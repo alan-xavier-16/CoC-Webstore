@@ -5,6 +5,44 @@
   padding: 0.25rem;
   position: relative;
 
+  & .dropdown {
+    position: relative;
+    cursor: pointer;
+
+    &:hover .dropdown-content {
+      display: block;
+    }
+
+    & .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 75%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      @include set-background(map-get($map: $colors, $key: my-gold));
+      border-radius: 0.5rem;
+      min-width: 75%;
+      box-shadow: 0rem -0.1rem 1.25rem -0.25rem
+        map-get($map: $colors, $key: dark);
+      z-index: 1;
+
+      & a {
+        padding: 0.5rem 0.75rem;
+        @include set-background(map-get($map: $colors, $key: my-gold));
+        border-radius: 0.5rem;
+        text-decoration: none;
+        display: block;
+        text-align: center;
+        font-size: 1.5rem;
+        opacity: 0.9;
+
+        &:hover {
+          @include set-btn-hover(map-get($map: $colors, $key: my-gold));
+        }
+      }
+    }
+  }
+
   & .dashboard-action-content {
     & h3 {
       position: absolute;
