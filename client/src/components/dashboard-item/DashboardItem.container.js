@@ -1,19 +1,21 @@
 import { connect } from "react-redux";
 import { compose } from "redux";
 import { createStructuredSelector } from "reselect";
+import { useRouteMatch } from "react-router-dom";
 
 import WithSpinner from "../layout/spinner/WithSpinner.component";
-import CategoryOverview from "./CategoryOverview.component";
+import DashboardItem from "./DashboardItem.component";
 
 import { selectShopLoading } from "../../redux/shop/shop.selectors";
+import { selectAuthLoading } from "../../redux/auth/auth.selectors";
 
 const mapStateToProps = createStructuredSelector({
   loading: selectShopLoading
 });
 
-const CategoryOverviewContainer = compose(
+const DashboardItemContainer = compose(
   connect(mapStateToProps),
   WithSpinner
-)(CategoryOverview);
+)(DashboardItem);
 
-export default CategoryOverviewContainer;
+export default DashboardItemContainer;

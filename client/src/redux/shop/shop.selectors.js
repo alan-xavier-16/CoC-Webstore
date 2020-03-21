@@ -29,4 +29,7 @@ export const selectProductItem = createSelector(
 );
 
 /* LOADING */
-export const selectLoading = createSelector([selectShop], shop => shop.loading);
+export const selectShopLoading = createSelector(
+  [selectShop],
+  shop => shop.loading
+);
