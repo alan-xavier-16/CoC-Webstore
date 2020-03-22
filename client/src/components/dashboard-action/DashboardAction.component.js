@@ -1,5 +1,4 @@
 import React from "react";
-import { connect } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import logo from "../layout/navbar/triquetra-svg.svg";
 
