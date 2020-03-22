@@ -26,8 +26,8 @@ const DashboardOverview = ({ user }) => {
       </div>
 
       <div className="dashboard-items cards">
-        {resources.map((resource, idx) => (
-          <DashboardAction key={idx} resource={resource} />
+        {resources.map(resource => (
+          <DashboardAction key={resource} resource={resource} />
         ))}
       </div>
     </div>
