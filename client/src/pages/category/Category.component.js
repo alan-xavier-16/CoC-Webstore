@@ -1,20 +1,34 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
 
 import ProductItem from "../../components/product-item/ProductItem.component";
 import DashboardBtns from "../../components/dashboard-btns/DashboardBtns.component";
+
+import { deleteCategory } from "../../redux/shop/shop.actions";
 
 import { selectCategory } from "../../redux/shop/shop.selectors";
 import { selectUser } from "../../redux/auth/auth.selectors";
 
 import "./Category.styles.scss";
 
-const Category = ({ category, user }) => {
+const Category = ({ category, user, deleteCategory }) => {
   const { _id, name, description, products } = category;
-  // ACCESS LOCATION OBJECT
+  // ACCESS LOCATION & HISTORY OBJECT
   const location = useLocation();
+  const history = useHistory();
+
+  /**  DELETE ACTION */
+  const handleDelete = e => {
+    if (
+      window.confirm(
+        `Are you sure you want to delete ${name}? This cannot be undone.`
+      )
+    ) {
+      deleteCategory(_id, history, location);
+    }
+  };
 
   return (
     <div className="category">
@@ -24,7 +38,10 @@ const Category = ({ category, user }) => {
       </div>
 
       {user.role && user.role === "admin" && (
-        <DashboardBtns details={{ name, add: false, edit: _id, remove: _id }} />
+        <DashboardBtns
+          details={{ name, add: false, edit: true, remove: true }}
+          removeAction={handleDelete}
+        />
       )}
 
       <div className="category-cards">
@@ -51,7 +68,8 @@ const Category = ({ category, user }) => {
 
 Category.propTypes = {
   category: PropTypes.object.isRequired,
-  user: PropTypes.object.isRequired
+  user: PropTypes.object.isRequired,
+  deleteCategory: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state, ownProps) => ({
@@ -59,4 +77,9 @@ const mapStateToProps = (state, ownProps) => ({
   user: selectUser(state)
 });
 
-export default connect(mapStateToProps)(Category);
+const mapDispatchToProps = {
+  deleteCategory: (categoryId, history, location) =>
+    deleteCategory(categoryId, history, location)
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Category);

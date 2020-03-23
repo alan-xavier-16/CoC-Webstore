@@ -58,9 +58,16 @@ export const addCategory = ({
 };
 
 /** DELETE SINGLE CATEGORY */
-export const deleteCategory = categoryId => async dispatch => {
+export const deleteCategory = (
+  categoryId,
+  history,
+  location
+) => async dispatch => {
+  console.log(history, location);
   try {
     await axios.delete(`/api/v1/categories/${categoryId}`);
+
+    history.push(`${location.state.from}`);
 
     dispatch({
       type: ShopActionTypes.DELETE_CATEGORY_SUCCESS,
