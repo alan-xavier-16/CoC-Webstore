@@ -2,7 +2,6 @@
 @import "../../scss/config";
 
 .product-overview {
-  padding: 0.5rem;
   @include set-background(map-get($map: $colors, $key: light));
 
   & .product-previews {

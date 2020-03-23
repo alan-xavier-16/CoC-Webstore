@@ -5,20 +5,21 @@ import { Link, useRouteMatch, useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
 
 import CategoryPreview from "../category-preview/CategoryPreview.component";
+import DashboardBtns from "../dashboard-btns/DashboardBtns.component";
 
 import {
   selectCategories,
   selectProducts
 } from "../../redux/shop/shop.selectors";
+import { selectUser } from "../../redux/auth/auth.selectors";
+
 import { getProducts } from "../../redux/shop/shop.actions";
 
 import "./CategoryOverview.styles.scss";
 
-const CategoryOverview = ({ categories, getProducts, products }) => {
-  /** ACCESS LOCATION OBJECT */
+const CategoryOverview = ({ categories, products, user, getProducts }) => {
+  /** LOCATION OBJECT & RELATIVE PATH FROM URL */
   const location = useLocation();
-
-  /** RELATIVE PATH FROM URL */
   const { url } = useRouteMatch();
 
   /** FETCH PRODUCTS ON BTN CLICK */
@@ -49,6 +50,10 @@ const CategoryOverview = ({ categories, getProducts, products }) => {
         </Link>
       </div>
 
+      {user.role && user.role === "admin" && (
+        <DashboardBtns details={{ name: "Category", edit: false }} />
+      )}
+
       {categories.map(({ id, ...rest }) => (
         <CategoryPreview key={id} {...rest} />
       ))}
@@ -59,12 +64,14 @@ const CategoryOverview = ({ categories, getProducts, products }) => {
 CategoryOverview.propTypes = {
   categories: PropTypes.array.isRequired,
   products: PropTypes.array.isRequired,
-  getProducts: PropTypes.func.isRequired
+  getProducts: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired
 };
 
 const mapStateToProps = createStructuredSelector({
   categories: selectCategories,
-  products: selectProducts
+  products: selectProducts,
+  user: selectUser
 });
 
 const mapDispatchToProps = {

@@ -27,11 +27,12 @@ const CategoryPreview = ({ slug, name, products }) => {
       </div>
 
       <div className="cards">
-        {products
-          .filter((product, idx) => idx < 4)
-          .map(product => (
-            <ProductItem key={product._id} product={product} />
-          ))}
+        {products &&
+          products
+            .filter((product, idx) => idx < 4)
+            .map(product => (
+              <ProductItem key={product._id} product={product} />
+            ))}
       </div>
     </div>
   );

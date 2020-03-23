@@ -1,5 +1,6 @@
 import ShopActionTypes from "./shop.types";
 import axios from "axios";
+import { setAlert } from "../alerts/alert.actions";
 
 /** GET ALL CATEGORIES */
 export const getCategories = () => async dispatch => {
@@ -16,6 +17,33 @@ export const getCategories = () => async dispatch => {
   } catch (err) {
     dispatch({
       type: ShopActionTypes.FETCH_CATEGORIES_FAIL,
+      payload: err.response.data.error
+    });
+  }
+};
+
+/** ADD NEW CATEGORY */
+export const addCategory = ({ name, description }) => async dispatch => {
+  try {
+    const config = {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    };
+
+    const body = JSON.stringify({ name, description });
+
+    const res = await axios.post(`/api/v1/categories`, body, config);
+
+    dispatch({
+      type: ShopActionTypes.ADD_CATEGORY_SUCCESS,
+      payload: res.data
+    });
+
+    dispatch(setAlert(`Category Added`, "success"));
+  } catch (err) {
+    dispatch({
+      type: ShopActionTypes.ADD_CATEGORY_FAIL,
       payload: err.response.data.error
     });
   }

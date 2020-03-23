@@ -4,15 +4,21 @@ import { Route, useRouteMatch } from "react-router-dom";
 import { createStructuredSelector } from "reselect";
 import PropTypes from "prop-types";
 
-import CategoryOverviewContainer from "../../components/category-overview/CategoryOverview.container";
-import ProductsOverviewContainer from "../../components/products-overview/ProductsOverview.container";
-import CategoryContainer from "../category/Category.container";
-import ProductContainer from "../product/Product.container";
 import Popup from "../../components/layout/popup/Popup.component";
+import AdminRoute from "../../components/routing/AdminRoute.component";
+
+import CategoryOverviewContainer from "../../components/category-overview/CategoryOverview.container";
+import CategoryContainer from "../category/Category.container";
+import AddCategory from "../../components/category-form/AddCategory.component";
+
+import ProductsOverviewContainer from "../../components/products-overview/ProductsOverview.container";
+import ProductContainer from "../product/Product.container";
 
 import { getCategories } from "../../redux/shop/shop.actions";
 import { selectCategories } from "../../redux/shop/shop.selectors";
 import { selectIsAuthenticated } from "../../redux/auth/auth.selectors";
+
+import "./Shop.styles.scss";
 
 /*
 Renders:
@@ -21,6 +27,7 @@ Renders:
 - Has routes to:
   - Category Container with Products
   - Product Item
+  - Create Category
 */
 
 const Shop = ({ isAuthenticated, getCategories, categories }) => {
@@ -43,6 +50,7 @@ const Shop = ({ isAuthenticated, getCategories, categories }) => {
         path={`${path}/categories/:categorySlug`}
         component={CategoryContainer}
       />
+      <AdminRoute path={`${path}/create-category`} component={AddCategory} />
 
       <Route
         exact

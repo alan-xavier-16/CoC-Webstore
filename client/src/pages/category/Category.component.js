@@ -23,9 +23,10 @@ const Category = ({ category }) => {
 
       <div className="category-cards">
         <div className="cards">
-          {products.map(product => (
-            <ProductItem key={product._id} product={product} />
-          ))}
+          {products &&
+            products.map(product => (
+              <ProductItem key={product._id} product={product} />
+            ))}
         </div>
       </div>
 

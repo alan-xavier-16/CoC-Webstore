@@ -25,6 +25,12 @@ const shopReducer = (state = INITIAL_STATE, action) => {
         pagination: payload.pagination || null,
         loading: false
       };
+    case ShopActionTypes.ADD_CATEGORY_SUCCESS:
+      return {
+        ...state,
+        categories: [...state.categories, payload.data],
+        loading: false
+      };
     case ShopActionTypes.FETCH_PRODUCTS_SUCCESS:
       return {
         ...state,
@@ -41,6 +47,7 @@ const shopReducer = (state = INITIAL_STATE, action) => {
     case ShopActionTypes.FETCH_CATEGORIES_FAIL:
     case ShopActionTypes.FETCH_PRODUCTS_FAIL:
     case ShopActionTypes.FETCH_PRODUCT_FAIL:
+    case ShopActionTypes.ADD_CATEGORY_FAIL:
       return {
         ...state,
         error: payload,

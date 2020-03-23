@@ -29,8 +29,6 @@ exports.getCategory = asyncHandler(async (req, res, next) => {
 // @route   POST /api/v1/categories
 // @access  Private
 exports.addCategory = asyncHandler(async (req, res, next) => {
-  // TODO: Check user is Admin
-
   const category = await Category.create(req.body);
 
   res.status(201).json({ success: true, data: category });
@@ -48,8 +46,6 @@ exports.updateCategory = asyncHandler(async (req, res, next) => {
       new ErrorResponse(`Resource not found with id ${req.params.id}`, 404)
     );
   }
-
-  // TODO: Check user is Admin
 
   category = await Category.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
@@ -71,8 +67,6 @@ exports.deleteCategory = asyncHandler(async (req, res, next) => {
       new ErrorResponse(`Resource not found with id ${req.params.id}`, 404)
     );
   }
-
-  // TODO: Check user is Admin
 
   category.remove();
 
