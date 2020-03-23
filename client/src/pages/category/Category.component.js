@@ -24,9 +24,7 @@ const Category = ({ category, user }) => {
       </div>
 
       {user.role && user.role === "admin" && (
-        <DashboardBtns
-          details={{ name: "Category", add: false, edit: _id, remove: _id }}
-        />
+        <DashboardBtns details={{ name, add: false, edit: _id, remove: _id }} />
       )}
 
       <div className="category-cards">

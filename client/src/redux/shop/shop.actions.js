@@ -23,7 +23,12 @@ export const getCategories = () => async dispatch => {
 };
 
 /** ADD NEW CATEGORY */
-export const addCategory = ({ name, description }) => async dispatch => {
+export const addCategory = ({
+  name,
+  description,
+  history,
+  location
+}) => async dispatch => {
   try {
     const config = {
       headers: {
@@ -40,13 +45,15 @@ export const addCategory = ({ name, description }) => async dispatch => {
       payload: res.data
     });
 
-    dispatch(setAlert(`Category Added`, "success"));
+    dispatch(setAlert(`${name} added`, "success"));
+
+    history.push(`${location.state.from}`);
   } catch (err) {
     dispatch({
       type: ShopActionTypes.ADD_CATEGORY_FAIL,
       payload: err.response.data.error
     });
-    dispatch(setAlert(`Error adding category ${name}`, "warning"));
+    dispatch(setAlert(`Failed: ${err.response.data.error}`, "warning"));
   }
 };
 
@@ -59,12 +66,14 @@ export const deleteCategory = categoryId => async dispatch => {
       type: ShopActionTypes.DELETE_CATEGORY_SUCCESS,
       payload: categoryId
     });
+
+    dispatch(setAlert(`Category deleted`, "success"));
   } catch (err) {
     dispatch({
       type: ShopActionTypes.DELETE_CATEGORY_FAIL,
       payload: err.response.data.error
     });
-    dispatch(setAlert(`Error removing category`, "warning"));
+    dispatch(setAlert(`Failed: ${err.response.data.error}`, "warning"));
   }
 };
 

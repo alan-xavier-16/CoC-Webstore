@@ -25,8 +25,7 @@ const AddCategory = ({ addCategory }) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    addCategory({ name, description });
-    history.push(`${location.state.from}`);
+    addCategory({ name, description, history, location });
     setFormData({ name: "", description: "" });
   };
 
@@ -72,7 +71,8 @@ AddCategory.propTypes = {
 };
 
 const mapDispatchToProps = {
-  addCategory: formData => addCategory(formData)
+  addCategory: ({ name, description, history, location }) =>
+    addCategory({ name, description, history, location })
 };
 
 export default connect(null, mapDispatchToProps)(AddCategory);

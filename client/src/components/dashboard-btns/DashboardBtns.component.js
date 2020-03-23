@@ -18,8 +18,14 @@ const DashboardBtns = ({
 
   /**  DELETE ACTION */
   const handleDelete = e => {
-    deleteCategory(remove);
-    history.push(`${location.state.from}`);
+    if (
+      window.confirm(
+        `Are you sure you want to delete ${name}? This cannot be undone.`
+      )
+    ) {
+      deleteCategory(remove);
+      history.push(`${location.state.from}`);
+    }
   };
 
   return (
