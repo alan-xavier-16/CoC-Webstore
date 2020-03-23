@@ -33,8 +33,8 @@ Renders:
 const Shop = ({ isAuthenticated, getCategories, categories }) => {
   // FETCH RESOURCES
   useEffect(() => {
-    categories.length === 0 && getCategories();
-  }, [getCategories, categories]);
+    getCategories();
+  }, [getCategories]);
 
   /** RELATIVE PATH FROM APP */
   const { path } = useRouteMatch();

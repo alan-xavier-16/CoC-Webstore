@@ -2,6 +2,7 @@
 @import "../../scss/config";
 
 .category {
+  position: relative;
   margin: 0.75rem 0;
   padding: 0.5rem;
   @include set-background(map-get($map: $colors, $key: my-gold));

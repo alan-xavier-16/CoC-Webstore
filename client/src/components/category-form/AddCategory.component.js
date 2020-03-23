@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
+import { useHistory, useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
 
 import { addCategory } from "../../redux/shop/shop.actions";
@@ -7,6 +8,10 @@ import { addCategory } from "../../redux/shop/shop.actions";
 import "./CategoryForm.styles.scss";
 
 const AddCategory = ({ addCategory }) => {
+  /* RELATIVE LINK, HISTORY && LOCATION OBJECT */
+  const location = useLocation();
+  const history = useHistory();
+
   // FORM LOGIC
   const [formData, setFormData] = useState({
     name: "",
@@ -21,6 +26,7 @@ const AddCategory = ({ addCategory }) => {
   const handleSubmit = e => {
     e.preventDefault();
     addCategory({ name, description });
+    history.push(`${location.state.from}`);
     setFormData({ name: "", description: "" });
   };
 

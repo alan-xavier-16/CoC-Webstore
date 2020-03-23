@@ -31,6 +31,14 @@ const shopReducer = (state = INITIAL_STATE, action) => {
         categories: [...state.categories, payload.data],
         loading: false
       };
+    case ShopActionTypes.DELETE_CATEGORY_SUCCESS:
+      return {
+        ...state,
+        categories: state.categories.filter(
+          category => category._id !== payload
+        ),
+        loading: false
+      };
     case ShopActionTypes.FETCH_PRODUCTS_SUCCESS:
       return {
         ...state,
@@ -48,6 +56,7 @@ const shopReducer = (state = INITIAL_STATE, action) => {
     case ShopActionTypes.FETCH_PRODUCTS_FAIL:
     case ShopActionTypes.FETCH_PRODUCT_FAIL:
     case ShopActionTypes.ADD_CATEGORY_FAIL:
+    case ShopActionTypes.DELETE_CATEGORY_FAIL:
       return {
         ...state,
         error: payload,

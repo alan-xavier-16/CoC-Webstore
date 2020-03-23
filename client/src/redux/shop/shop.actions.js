@@ -46,6 +46,25 @@ export const addCategory = ({ name, description }) => async dispatch => {
       type: ShopActionTypes.ADD_CATEGORY_FAIL,
       payload: err.response.data.error
     });
+    dispatch(setAlert(`Error adding category ${name}`, "warning"));
+  }
+};
+
+/** DELETE SINGLE CATEGORY */
+export const deleteCategory = categoryId => async dispatch => {
+  try {
+    await axios.delete(`/api/v1/categories/${categoryId}`);
+
+    dispatch({
+      type: ShopActionTypes.DELETE_CATEGORY_SUCCESS,
+      payload: categoryId
+    });
+  } catch (err) {
+    dispatch({
+      type: ShopActionTypes.DELETE_CATEGORY_FAIL,
+      payload: err.response.data.error
+    });
+    dispatch(setAlert(`Error removing category`, "warning"));
   }
 };
 

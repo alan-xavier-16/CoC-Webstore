@@ -51,7 +51,7 @@ const CategoryOverview = ({ categories, products, user, getProducts }) => {
       </div>
 
       {user.role && user.role === "admin" && (
-        <DashboardBtns details={{ name: "Category", edit: false }} />
+        <DashboardBtns details={{ name: "Category", add: true, edit: false, remove: false }} />
       )}
 
       {categories.map(({ id, ...rest }) => (

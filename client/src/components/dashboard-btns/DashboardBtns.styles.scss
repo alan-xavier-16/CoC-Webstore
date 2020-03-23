@@ -1,3 +1,14 @@
+@import "../../scss/mixins";
+@import "../../scss/config";
+
 .dashboard-btns {
   margin: 0.5rem 0;
+  position: absolute;
+  top: 0.25rem;
+  right: 0.25rem;
+
+  @media screen and (min-width: map-get($map: $breakpoints, $key: md)) {
+    top: 0.1rem;
+    right: 0.1rem;
+  }
 }
