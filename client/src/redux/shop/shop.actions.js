@@ -95,11 +95,7 @@ export const editCategory = (
 };
 
 /** DELETE SINGLE CATEGORY */
-export const deleteCategory = (
-  categoryId,
-  history,
-  location
-) => async dispatch => {
+export const deleteCategory = (categoryId, history) => async dispatch => {
   try {
     await axios.delete(`/api/v1/categories/${categoryId}`);
 

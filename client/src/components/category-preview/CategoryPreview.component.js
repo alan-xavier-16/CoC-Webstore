@@ -26,7 +26,7 @@ const CategoryPreview = ({
         `Are you sure you want to delete ${name}? This cannot be undone.`
       )
     ) {
-      deleteCategory(_id, history, location);
+      deleteCategory(_id, history);
     }
   };
 

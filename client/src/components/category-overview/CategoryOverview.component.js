@@ -96,8 +96,7 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = {
   getProducts: () => getProducts(),
-  deleteCategory: (categoryId, history, location) =>
-    deleteCategory(categoryId, history, location)
+  deleteCategory: (categoryId, history) => deleteCategory(categoryId, history)
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CategoryOverview);

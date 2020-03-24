@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Link, useLocation, useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
 
 import ProductItem from "../../components/product-item/ProductItem.component";
@@ -15,8 +15,7 @@ import "./Category.styles.scss";
 
 const Category = ({ category, user, deleteCategory }) => {
   const { _id, name, description, products, slug } = category;
-  // ACCESS LOCATION & HISTORY OBJECT
-  const location = useLocation();
+  // ACCESS HISTORY OBJECT
   const history = useHistory();
 
   /**  DELETE ACTION */
@@ -26,7 +25,7 @@ const Category = ({ category, user, deleteCategory }) => {
         `Are you sure you want to delete ${name}? This cannot be undone.`
       )
     ) {
-      deleteCategory(_id, history, location);
+      deleteCategory(_id, history);
     }
   };
 
@@ -54,15 +53,9 @@ const Category = ({ category, user, deleteCategory }) => {
         </div>
       </div>
 
-      {location.state && location.state.from ? (
-        <Link className="btn btn-dark" to={location.state.from}>
-          <i className="fas fa-feather-alt"></i> Back to Shop
-        </Link>
-      ) : (
-        <Link className="btn btn-dark" to={`/shop`}>
-          <i className="fas fa-feather-alt"></i> Back to Shop
-        </Link>
-      )}
+      <Link className="btn btn-dark" to={`/shop`}>
+        <i className="fas fa-feather-alt"></i> Back to Shop
+      </Link>
     </div>
   );
 };
@@ -79,8 +72,7 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = {
-  deleteCategory: (categoryId, history, location) =>
-    deleteCategory(categoryId, history, location)
+  deleteCategory: (categoryId, history) => deleteCategory(categoryId, history)
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Category);
