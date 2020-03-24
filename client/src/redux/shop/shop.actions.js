@@ -57,13 +57,49 @@ export const addCategory = ({
   }
 };
 
+/** EDIT A CATEGORY */
+export const editCategory = (
+  categoryId,
+  { name, description }
+) => async dispatch => {
+  try {
+    const config = {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    };
+
+    const body = JSON.stringify({ name, description });
+
+    const res = await axios.put(
+      `/api/v1/categories/${categoryId}`,
+      body,
+      config
+    );
+
+    dispatch({
+      type: ShopActionTypes.ADD_CATEGORY_SUCCESS,
+      payload: res.data
+    });
+
+    dispatch(setAlert(`${name} updated`, "success"));
+
+    dispatch(getCategories());
+  } catch (err) {
+    dispatch({
+      type: ShopActionTypes.ADD_CATEGORY_FAIL,
+      payload: err.response.data.error
+    });
+    dispatch(setAlert(`Failed: ${err.response.data.error}`, "warning"));
+  }
+};
+
 /** DELETE SINGLE CATEGORY */
 export const deleteCategory = (
   categoryId,
   history,
   location
 ) => async dispatch => {
-  console.log(history, location);
   try {
     await axios.delete(`/api/v1/categories/${categoryId}`);
 

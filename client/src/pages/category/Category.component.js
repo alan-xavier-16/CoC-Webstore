@@ -14,7 +14,7 @@ import { selectUser } from "../../redux/auth/auth.selectors";
 import "./Category.styles.scss";
 
 const Category = ({ category, user, deleteCategory }) => {
-  const { _id, name, description, products } = category;
+  const { _id, name, description, products, slug } = category;
   // ACCESS LOCATION & HISTORY OBJECT
   const location = useLocation();
   const history = useHistory();
@@ -41,6 +41,7 @@ const Category = ({ category, user, deleteCategory }) => {
         <DashboardBtns
           details={{ name, add: false, edit: true, remove: true }}
           removeAction={handleDelete}
+          editItem={slug}
         />
       )}
 

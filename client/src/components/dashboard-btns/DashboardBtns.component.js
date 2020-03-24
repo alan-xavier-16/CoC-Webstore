@@ -5,7 +5,8 @@ import "./DashboardBtns.styles.scss";
 
 const DashboardBtns = ({
   details: { name, add, edit, remove },
-  removeAction
+  removeAction,
+  editItem
 }) => {
   /* RELATIVE LINK, HISTORY && LOCATION OBJECT */
   const { url } = useRouteMatch();
@@ -33,9 +34,15 @@ const DashboardBtns = ({
         )}
 
         {edit && (
-          <button className="btn btn-primary">
+          <Link
+            to={{
+              pathname: `${url}/edit`,
+              state: { from: location.pathname }
+            }}
+            className="btn btn-success"
+          >
             <i className="fas fa-pencil-alt"></i>
-          </button>
+          </Link>
         )}
       </div>
     </div>

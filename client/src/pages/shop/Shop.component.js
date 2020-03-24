@@ -10,6 +10,7 @@ import AdminRoute from "../../components/routing/AdminRoute.component";
 import CategoryOverviewContainer from "../../components/category-overview/CategoryOverview.container";
 import CategoryContainer from "../category/Category.container";
 import AddCategory from "../../components/category-form/AddCategory.component";
+import EditCategory from "../../components/category-form/EditCategory.component";
 
 import ProductsOverviewContainer from "../../components/products-overview/ProductsOverview.container";
 import ProductContainer from "../product/Product.container";
@@ -47,10 +48,15 @@ const Shop = ({ isAuthenticated, getCategories, categories }) => {
 
       <Route exact path={`${path}`} component={CategoryOverviewContainer} />
       <Route
+        exact
         path={`${path}/categories/:categorySlug`}
         component={CategoryContainer}
       />
       <AdminRoute path={`${path}/create-category`} component={AddCategory} />
+      <AdminRoute
+        path={`${path}/categories/:categorySlug/edit`}
+        component={EditCategory}
+      />
 
       <Route
         exact

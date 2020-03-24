@@ -31,6 +31,7 @@ const shopReducer = (state = INITIAL_STATE, action) => {
         categories: [...state.categories, payload.data],
         loading: false
       };
+
     case ShopActionTypes.DELETE_CATEGORY_SUCCESS:
       return {
         ...state,
