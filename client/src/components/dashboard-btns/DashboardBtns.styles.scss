@@ -2,13 +2,15 @@
 @import "../../scss/config";
 
 .dashboard-btns {
-  margin: 0.5rem 0;
-  position: absolute;
-  top: 0.25rem;
-  right: 0.25rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  padding-top: 0.25rem;
 
-  @media screen and (min-width: map-get($map: $breakpoints, $key: md)) {
-    top: 0.1rem;
-    right: 0.1rem;
+  & button,
+  a {
+    border-radius: 50%;
+    padding: 0.5rem 0.75rem;
   }
 }

@@ -103,7 +103,7 @@ export const deleteCategory = (
   try {
     await axios.delete(`/api/v1/categories/${categoryId}`);
 
-    history.push(`${location.state.from}`);
+    history.push(`/shop`);
 
     dispatch({
       type: ShopActionTypes.DELETE_CATEGORY_SUCCESS,

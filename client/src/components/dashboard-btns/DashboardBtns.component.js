@@ -14,37 +14,35 @@ const DashboardBtns = ({
 
   return (
     <div className="dashboard-btns">
-      <div className="admin-actions">
-        {remove && (
-          <button className="btn btn-danger" onClick={removeAction}>
-            <i className="fas fa-minus-square"></i>
-          </button>
-        )}
+      {remove && (
+        <button className="btn btn-danger" onClick={removeAction}>
+          <i className="fas fa-minus-square"></i>
+        </button>
+      )}
 
-        {add && (
-          <Link
-            to={{
-              pathname: `${url}/create-${name.toLowerCase()}`,
-              state: { from: location.pathname }
-            }}
-            className="btn btn-success"
-          >
-            <i className="fas fa-plus-square"></i>
-          </Link>
-        )}
+      {add && (
+        <Link
+          to={{
+            pathname: `${url}/create-${name.toLowerCase()}`,
+            state: { from: location.pathname }
+          }}
+          className="btn btn-success"
+        >
+          <i className="fas fa-plus-square"></i>
+        </Link>
+      )}
 
-        {edit && (
-          <Link
-            to={{
-              pathname: `${url}/edit`,
-              state: { from: location.pathname }
-            }}
-            className="btn btn-success"
-          >
-            <i className="fas fa-pencil-alt"></i>
-          </Link>
-        )}
-      </div>
+      {edit && (
+        <Link
+          to={{
+            pathname: `${editItem}/edit`,
+            state: { from: location.pathname }
+          }}
+          className="btn btn-primary"
+        >
+          <i className="fas fa-pencil-alt"></i>
+        </Link>
+      )}
     </div>
   );
 };

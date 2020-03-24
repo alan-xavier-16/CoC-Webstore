@@ -1,11 +1,11 @@
 .category-overview {
-  position: relative;
-
   & .herb {
     color: rgb(63, 165, 63);
   }
 
   & .to-products {
     padding-top: 0.5rem;
+    display: flex;
+    justify-content: space-between;
   }
 }

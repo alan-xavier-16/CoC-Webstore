@@ -14,10 +14,17 @@ import {
 import { selectUser } from "../../redux/auth/auth.selectors";
 
 import { getProducts } from "../../redux/shop/shop.actions";
+import { deleteCategory } from "../../redux/shop/shop.actions";
 
 import "./CategoryOverview.styles.scss";
 
-const CategoryOverview = ({ categories, products, user, getProducts }) => {
+const CategoryOverview = ({
+  categories,
+  products,
+  user,
+  getProducts,
+  deleteCategory
+}) => {
   /** LOCATION OBJECT & RELATIVE PATH FROM URL */
   const location = useLocation();
   const { url } = useRouteMatch();
@@ -48,14 +55,26 @@ const CategoryOverview = ({ categories, products, user, getProducts }) => {
         >
           Or view all products <i className="fas fa-caret-right"></i>
         </Link>
+
+        {user.role && user.role === "admin" && (
+          <DashboardBtns
+            details={{
+              name: "Category",
+              add: true,
+              edit: false,
+              remove: false
+            }}
+          />
+        )}
       </div>
 
-      {user.role && user.role === "admin" && (
-        <DashboardBtns details={{ name: "Category", add: true, edit: false, remove: false }} />
-      )}
-
       {categories.map(({ id, ...rest }) => (
-        <CategoryPreview key={id} {...rest} />
+        <CategoryPreview
+          key={id}
+          {...rest}
+          deleteCategory={deleteCategory}
+          user={user}
+        />
       ))}
     </div>
   );
@@ -65,7 +84,8 @@ CategoryOverview.propTypes = {
   categories: PropTypes.array.isRequired,
   products: PropTypes.array.isRequired,
   getProducts: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired
+  user: PropTypes.object.isRequired,
+  deleteCategory: PropTypes.func.isRequired
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -75,7 +95,9 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = {
-  getProducts: () => getProducts()
+  getProducts: () => getProducts(),
+  deleteCategory: (categoryId, history, location) =>
+    deleteCategory(categoryId, history, location)
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CategoryOverview);
