@@ -29,7 +29,8 @@ const ProductSchema = new mongoose.Schema({
   ],
   price: {
     type: Number,
-    required: [true, "Please add a price"]
+    required: [true, "Please add a price"],
+    match: [/^[0-9]+(\.[0-9]{1,2})?$/, "Please add a valid price"]
   },
   photo: {
     type: String,
@@ -55,6 +56,12 @@ const ProductSchema = new mongoose.Schema({
 // Hook to create a slug on Product name for front-end
 ProductSchema.pre("save", function(next) {
   this.slug = slugify(this.name, { lower: true });
+  next();
+});
+
+// Hook to Convert 'Price' entered in 'Dollars' to 'Cents'
+ProductSchema.pre("save", function(next) {
+  this.price = this.price * 100;
   next();
 });
 

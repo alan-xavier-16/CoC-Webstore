@@ -51,7 +51,7 @@ const ProductItem = ({
 
       <div className="card-body">
         <h3 className="card-title">{name}</h3>
-        <p className="price">TT${price}</p>
+        <p className="price">TT${(price / 100).toFixed(2)}</p>
         <p className="card-description">{description}</p>
 
         <button
