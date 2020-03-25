@@ -58,8 +58,8 @@ const CategoryOverview = ({
 
         {user.role && user.role === "admin" && (
           <DashboardBtns
-            details={{
-              name: "Category",
+            pathName={`${url}/create-category`}
+            btns={{
               add: true,
               edit: false,
               remove: false

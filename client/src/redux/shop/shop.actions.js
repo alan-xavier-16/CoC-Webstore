@@ -155,3 +155,42 @@ export const getProduct = productSlug => async dispatch => {
     });
   }
 };
+
+/** CREATE A PRODUCT */
+export const addProduct = (
+  categorySlug,
+  formData,
+  history,
+  location
+) => async dispatch => {
+  try {
+    const config = {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    };
+
+    const body = JSON.stringify(formData);
+
+    const res = await axios.post(
+      `/api/v1/categories/${categorySlug}/products`,
+      body,
+      config
+    );
+
+    dispatch({
+      type: ShopActionTypes.ADD_PRODUCT_SUCCESS,
+      payload: res.data
+    });
+
+    dispatch(setAlert(`${formData.name} added`, "success"));
+
+    history.push(`${location.state.from}`);
+  } catch (err) {
+    dispatch({
+      type: ShopActionTypes.ADD_PRODUCT_FAIL,
+      payload: err.response.data.error
+    });
+    dispatch(setAlert(`Failed: ${err.response.data.error}`, "warning"));
+  }
+};

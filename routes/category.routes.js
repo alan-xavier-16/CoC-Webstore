@@ -20,7 +20,7 @@ const advancedResults = require("../middleware/advancedResults.middleware");
 const { protect, authorize } = require("../middleware/auth.middleware");
 const fileUpload = require("../middleware/photoUpload.middleware");
 
-router.use("/:categoryId/products", productRouter);
+router.use("/:categorySlug/products", productRouter);
 
 router
   .route("/")

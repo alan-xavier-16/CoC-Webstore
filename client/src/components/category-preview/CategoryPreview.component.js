@@ -48,9 +48,9 @@ const CategoryPreview = ({
 
           {user.role && user.role === "admin" && (
             <DashboardBtns
-              details={{ name, add: false, edit: true, remove: true }}
+              btns={{ add: false, edit: true, remove: true }}
               removeAction={handleDelete}
-              editItem={`${url}/categories/${slug}`}
+              pathName={`${url}/categories/${slug}`}
             />
           )}
         </div>

@@ -1,29 +1,22 @@
 import React from "react";
-import { Link, useRouteMatch, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import "./DashboardBtns.styles.scss";
 
 const DashboardBtns = ({
-  details: { name, add, edit, remove },
-  removeAction,
-  editItem
+  pathName,
+  btns: { add, edit, remove },
+  removeAction
 }) => {
-  /* RELATIVE LINK, HISTORY && LOCATION OBJECT */
-  const { url } = useRouteMatch();
+  /* LOCATION OBJECT */
   const location = useLocation();
 
   return (
     <div className="dashboard-btns">
-      {remove && (
-        <button className="btn btn-danger" onClick={removeAction}>
-          <i className="fas fa-minus-square"></i>
-        </button>
-      )}
-
       {add && (
         <Link
           to={{
-            pathname: `${url}/create-${name.toLowerCase()}`,
+            pathname: `${pathName}`,
             state: { from: location.pathname }
           }}
           className="btn btn-success"
@@ -32,10 +25,16 @@ const DashboardBtns = ({
         </Link>
       )}
 
+      {remove && (
+        <button className="btn btn-danger" onClick={removeAction}>
+          <i className="fas fa-minus-square"></i>
+        </button>
+      )}
+
       {edit && (
         <Link
           to={{
-            pathname: `${editItem}/edit`,
+            pathname: `${pathName}/edit`,
             state: { from: location.pathname }
           }}
           className="btn btn-primary"

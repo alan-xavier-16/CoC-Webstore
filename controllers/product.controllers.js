@@ -37,21 +37,22 @@ exports.getProduct = asyncHandler(async (req, res, next) => {
 });
 
 // @desc    Create new product
-// @route   POST /api/v1/categories/:categoryId/products
+// @route   POST /api/v1/categories/:categorySlug/products
 // @access  Private
 exports.addProduct = asyncHandler(async (req, res, next) => {
-  req.body.category = req.params.categoryId;
-
-  const category = await Category.findById(req.params.categoryId);
+  const category = await Category.findOne({ slug: req.params.categorySlug });
 
   // Check Resource Exists
   if (!category) {
     return next(
-      new ErrorResponse(`Resource not found with id ${req.params.id}`, 404)
+      new ErrorResponse(
+        `Resource not found with id ${req.params.categorySlug}`,
+        404
+      )
     );
   }
 
-  // TODO: Check user is Admin
+  req.body.category = category._id;
 
   const product = await Product.create(req.body);
 

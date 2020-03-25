@@ -54,6 +54,7 @@ const AddCategory = ({ addCategory }) => {
             placeholder="A short description of the category"
             name="description"
             value={description}
+            rows="5"
             onChange={handleChange}
           ></textarea>
         </div>

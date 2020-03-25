@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, useRouteMatch } from "react-router-dom";
 import PropTypes from "prop-types";
 
 import ProductItem from "../../components/product-item/ProductItem.component";
@@ -15,8 +15,9 @@ import "./Category.styles.scss";
 
 const Category = ({ category, user, deleteCategory }) => {
   const { _id, name, description, products, slug } = category;
-  // ACCESS HISTORY OBJECT
+  // RELATIVE LINK & HISTORY OBJECT
   const history = useHistory();
+  const { url } = useRouteMatch();
 
   /**  DELETE ACTION */
   const handleDelete = e => {
@@ -38,9 +39,9 @@ const Category = ({ category, user, deleteCategory }) => {
 
       {user.role && user.role === "admin" && (
         <DashboardBtns
-          details={{ name, add: false, edit: true, remove: true }}
+          btns={{ name, add: false, edit: true, remove: true }}
           removeAction={handleDelete}
-          editItem={slug}
+          pathName={`${url}`}
         />
       )}
 
@@ -50,6 +51,17 @@ const Category = ({ category, user, deleteCategory }) => {
             products.map(product => (
               <ProductItem key={product._id} product={product} />
             ))}
+
+          {user.role && user.role === "admin" && (
+            <DashboardBtns
+              pathName={`${url}/create-product`}
+              btns={{
+                add: true,
+                edit: false,
+                remove: false
+              }}
+            />
+          )}
         </div>
       </div>
 
