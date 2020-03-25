@@ -45,14 +45,14 @@ const Category = ({ category, user, deleteCategory }) => {
         />
       )}
 
-      <div className="category-cards">
-        <div className="cards">
-          {products &&
-            products.map(product => (
-              <ProductItem key={product._id} product={product} />
-            ))}
+      <div className="cards">
+        {products &&
+          products.map(product => (
+            <ProductItem key={product._id} product={product} />
+          ))}
 
-          {user.role && user.role === "admin" && (
+        {user.role && user.role === "admin" && (
+          <div className="card">
             <DashboardBtns
               pathName={`${url}/create-product`}
               btns={{
@@ -61,8 +61,8 @@ const Category = ({ category, user, deleteCategory }) => {
                 remove: false
               }}
             />
-          )}
-        </div>
+          </div>
+        )}
       </div>
 
       <Link className="btn btn-dark" to={`/shop`}>
