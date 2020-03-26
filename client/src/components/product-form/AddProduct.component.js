@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { useHistory, useLocation, useParams } from "react-router-dom";
+import { Link, useHistory, useLocation, useParams } from "react-router-dom";
 import PropTypes from "prop-types";
 
 import { addProduct } from "../../redux/shop/shop.actions";
@@ -91,6 +91,12 @@ const AddProduct = ({ addProduct }) => {
           Add Product <i className="fas fa-plus-square"></i>
         </button>
       </form>
+
+      {location.state && location.state.from && (
+        <Link className="btn btn-dark" to={location.state.from}>
+          Go Back
+        </Link>
+      )}
     </div>
   );
 };

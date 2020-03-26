@@ -30,7 +30,12 @@ const ProductSchema = new mongoose.Schema({
   price: {
     type: Number,
     required: [true, "Please add a price"],
-    match: [/^[0-9]+(\.[0-9]{1,2})?$/, "Please add a valid price"]
+    validate: {
+      validator: function(v) {
+        return /^[0-9]+(\.[0-9]{1,2})?$/.test(v);
+      },
+      message: props => `${props.value} is not a valid price!`
+    }
   },
   photo: {
     type: String,
@@ -61,7 +66,7 @@ ProductSchema.pre("save", function(next) {
 
 // Hook to Convert 'Price' entered in 'Dollars' to 'Cents'
 ProductSchema.pre("save", function(next) {
-  this.price = this.price * 100;
+  this.price = (this.price * 100).toFixed(0);
   next();
 });
 

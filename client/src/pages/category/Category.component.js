@@ -14,7 +14,7 @@ import { selectUser } from "../../redux/auth/auth.selectors";
 import "./Category.styles.scss";
 
 const Category = ({ category, user, deleteCategory }) => {
-  const { _id, name, description, products, slug } = category;
+  const { _id, name, description, products } = category;
   // RELATIVE LINK & HISTORY OBJECT
   const history = useHistory();
   const { url } = useRouteMatch();
