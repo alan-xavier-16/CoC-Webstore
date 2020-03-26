@@ -39,7 +39,7 @@ const Category = ({ category, user, deleteCategory }) => {
 
       {user.role && user.role === "admin" && (
         <DashboardBtns
-          btns={{ name, add: false, edit: true, remove: true }}
+          btns={{ add: false, edit: true, remove: true }}
           removeAction={handleDelete}
           pathName={`${url}`}
         />

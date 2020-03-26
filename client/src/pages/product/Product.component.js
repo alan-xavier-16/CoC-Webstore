@@ -1,16 +1,26 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useRouteMatch } from "react-router-dom";
 import { createStructuredSelector } from "reselect";
 import PropTypes from "prop-types";
 
+import DashboardBtns from "../../components/dashboard-btns/DashboardBtns.component";
+
 import { selectProductItem } from "../../redux/shop/shop.selectors";
-import { selectIsAuthenticated } from "../../redux/auth/auth.selectors";
+import {
+  selectIsAuthenticated,
+  selectUser
+} from "../../redux/auth/auth.selectors";
 import { modifyCartItem } from "../../redux/cart/cart.actions";
 
 import "./Product.styles.scss";
 
-const Product = ({ product, isAuthenticated, modifyCartItem }) => {
+const Product = ({ product, isAuthenticated, modifyCartItem, user }) => {
+  // RELATIVE LINK & LOCATION OBJECT
+  const location = useLocation();
+  const { url } = useRouteMatch();
+
+  // FORM LOGIC
   const [formData, setFormData] = useState({
     quantity: 1
   });
@@ -32,8 +42,17 @@ const Product = ({ product, isAuthenticated, modifyCartItem }) => {
     e.preventDefault();
   };
 
-  // ACCESS LOCATION OBJECT
-  const location = useLocation();
+  /**  DELETE ACTION */
+  const handleDelete = e => {
+    if (
+      window.confirm(
+        `Are you sure you want to delete ${name}? This cannot be undone.`
+      )
+    ) {
+      // deleteCategory(_id, history);
+      console.log("DELETING...");
+    }
+  };
 
   return (
     <form className="product" onSubmit={handleSubmit}>
@@ -46,10 +65,18 @@ const Product = ({ product, isAuthenticated, modifyCartItem }) => {
         </div>
 
         <div className="product-card-body">
+          {user.role && user.role === "admin" && (
+            <DashboardBtns
+              btns={{ add: false, edit: true, remove: true }}
+              removeAction={handleDelete}
+              pathName={`${url}`}
+            />
+          )}
+
           <div className="product-card-detail">
             <div className="product-card-header">
               <h3 className="card-title">{name}</h3>
-              <div className="card-price">TT${price}</div>
+              <div className="card-price">TT${(price / 100).toFixed(2)}</div>
             </div>
 
             <div className="card-body">
@@ -69,6 +96,20 @@ const Product = ({ product, isAuthenticated, modifyCartItem }) => {
                   className="lead"
                 />
               </div>
+
+              {user.role && user.role === "admin" && (
+                <div className="card-body-item card-quantity">
+                  <div className="card-lead">Inventory:</div>
+                  <input
+                    type="number"
+                    name="inventory"
+                    value={inventory}
+                    onChange={handleChange}
+                    min="1"
+                    className="lead"
+                  />
+                </div>
+              )}
 
               <div className="card-body-item card-details">
                 <div className="card-lead">Details:</div>
@@ -108,12 +149,14 @@ const Product = ({ product, isAuthenticated, modifyCartItem }) => {
 
 Product.propTypes = {
   product: PropTypes.object.isRequired,
-  isAuthenticated: PropTypes.bool.isRequired
+  isAuthenticated: PropTypes.bool.isRequired,
+  user: PropTypes.object.isRequired
 };
 
 const mapStateToProps = createStructuredSelector({
   product: selectProductItem,
-  isAuthenticated: selectIsAuthenticated
+  isAuthenticated: selectIsAuthenticated,
+  user: selectUser
 });
 
 const mapDispatchToProps = {

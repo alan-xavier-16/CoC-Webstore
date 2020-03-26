@@ -31,7 +31,13 @@ const shopReducer = (state = INITIAL_STATE, action) => {
         categories: [...state.categories, payload.data],
         loading: false
       };
-
+    case ShopActionTypes.ADD_PRODUCT_SUCCESS:
+      return {
+        ...state,
+        products: [...state.products, payload.data],
+        loading: false,
+        product: payload.data
+      };
     case ShopActionTypes.DELETE_CATEGORY_SUCCESS:
       return {
         ...state,
@@ -57,6 +63,7 @@ const shopReducer = (state = INITIAL_STATE, action) => {
     case ShopActionTypes.FETCH_PRODUCTS_FAIL:
     case ShopActionTypes.FETCH_PRODUCT_FAIL:
     case ShopActionTypes.ADD_CATEGORY_FAIL:
+    case ShopActionTypes.ADD_PRODUCT_FAIL:
     case ShopActionTypes.DELETE_CATEGORY_FAIL:
       return {
         ...state,

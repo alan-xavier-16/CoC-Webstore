@@ -194,3 +194,34 @@ export const addProduct = (
     dispatch(setAlert(`Failed: ${err.response.data.error}`, "warning"));
   }
 };
+
+/** EDIT A PRODUCT */
+export const editProduct = (productId, formData) => async dispatch => {
+  try {
+    const config = {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    };
+
+    const body = JSON.stringify(formData);
+
+    const res = await axios.put(`/api/v1/products/${productId}`, body, config);
+
+    dispatch({
+      type: ShopActionTypes.ADD_PRODUCT_SUCCESS,
+      payload: res.data
+    });
+
+    dispatch(setAlert(`${formData.name} updated`, "success"));
+
+    dispatch(getCategories());
+    // dispatch(getProducts());
+  } catch (err) {
+    dispatch({
+      type: ShopActionTypes.ADD_PRODUCT_FAIL,
+      payload: err.response.data.error
+    });
+    dispatch(setAlert(`Failed: ${err.response.data.error}`, "warning"));
+  }
+};

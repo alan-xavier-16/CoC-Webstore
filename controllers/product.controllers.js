@@ -72,12 +72,12 @@ exports.updateProduct = asyncHandler(async (req, res, next) => {
     );
   }
 
-  // TODO: Check user is Admin
+  // LOOP REQ.BODY & UPDATE PRODUCT WITH FIELDS IN FORM
+  for (let key in req.body) {
+    product[key] = req.body[key];
+  }
 
-  product = await Product.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-    runValidators: true
-  });
+  product.save();
 
   res.status(200).json({ success: true, data: product });
 });
