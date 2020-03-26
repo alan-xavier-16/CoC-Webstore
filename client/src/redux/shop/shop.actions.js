@@ -213,13 +213,36 @@ export const editProduct = (productId, formData) => async dispatch => {
       payload: res.data
     });
 
-    dispatch(setAlert(`${formData.name} updated`, "success"));
-
     dispatch(getCategories());
-    // dispatch(getProducts());
+
+    dispatch(setAlert(`${formData.name} updated`, "success"));
   } catch (err) {
     dispatch({
       type: ShopActionTypes.ADD_PRODUCT_FAIL,
+      payload: err.response.data.error
+    });
+    dispatch(setAlert(`Failed: ${err.response.data.error}`, "warning"));
+  }
+};
+
+/** DELETE SINGLE PRODUCT */
+export const deleteProduct = (productId, history) => async dispatch => {
+  try {
+    await axios.delete(`/api/v1/products/${productId}`);
+
+    history.push(`/shop`);
+
+    dispatch({
+      type: ShopActionTypes.DELETE_PRODUCT_SUCCESS,
+      payload: productId
+    });
+
+    dispatch(getCategories());
+
+    dispatch(setAlert(`Product deleted`, "success"));
+  } catch (err) {
+    dispatch({
+      type: ShopActionTypes.DELETE_PRODUCT_FAIL,
       payload: err.response.data.error
     });
     dispatch(setAlert(`Failed: ${err.response.data.error}`, "warning"));

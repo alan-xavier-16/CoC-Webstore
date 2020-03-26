@@ -95,8 +95,6 @@ exports.deleteProduct = asyncHandler(async (req, res, next) => {
     );
   }
 
-  // TODO: Check user is Admin
-
   product.remove();
 
   res.status(200).json({ success: true, data: {} });

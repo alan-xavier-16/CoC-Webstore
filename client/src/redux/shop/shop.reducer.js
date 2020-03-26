@@ -46,6 +46,13 @@ const shopReducer = (state = INITIAL_STATE, action) => {
         ),
         loading: false
       };
+    case ShopActionTypes.DELETE_PRODUCT_SUCCESS:
+      return {
+        ...state,
+        products: state.products.filter(product => product._id !== payload),
+        product: null,
+        loading: false
+      };
     case ShopActionTypes.FETCH_PRODUCTS_SUCCESS:
       return {
         ...state,
@@ -65,6 +72,7 @@ const shopReducer = (state = INITIAL_STATE, action) => {
     case ShopActionTypes.ADD_CATEGORY_FAIL:
     case ShopActionTypes.ADD_PRODUCT_FAIL:
     case ShopActionTypes.DELETE_CATEGORY_FAIL:
+    case ShopActionTypes.DELETE_PRODUCT_FAIL:
       return {
         ...state,
         error: payload,

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { Link, useLocation, useRouteMatch } from "react-router-dom";
+import { Link, useLocation, useRouteMatch, useHistory } from "react-router-dom";
 import { createStructuredSelector } from "reselect";
 import PropTypes from "prop-types";
 
@@ -11,20 +11,29 @@ import {
   selectIsAuthenticated,
   selectUser
 } from "../../redux/auth/auth.selectors";
+
 import { modifyCartItem } from "../../redux/cart/cart.actions";
+import { deleteProduct } from "../../redux/shop/shop.actions";
 
 import "./Product.styles.scss";
 
-const Product = ({ product, isAuthenticated, modifyCartItem, user }) => {
-  // RELATIVE LINK & LOCATION OBJECT
+const Product = ({
+  product,
+  isAuthenticated,
+  modifyCartItem,
+  user,
+  deleteProduct
+}) => {
+  // RELATIVE LINK, HISTORY & LOCATION OBJECT
   const location = useLocation();
+  const history = useHistory();
   const { url } = useRouteMatch();
 
   // FORM LOGIC
   const [formData, setFormData] = useState({
     quantity: 1
   });
-  const { photo, name, price, description, inventory, details } = product;
+  const { _id, photo, name, price, description, inventory, details } = product;
 
   // CHANGE QUANTITY
   const handleChange = e => {
@@ -49,8 +58,7 @@ const Product = ({ product, isAuthenticated, modifyCartItem, user }) => {
         `Are you sure you want to delete ${name}? This cannot be undone.`
       )
     ) {
-      // deleteCategory(_id, history);
-      console.log("DELETING...");
+      deleteProduct(_id, history);
     }
   };
 
@@ -150,7 +158,9 @@ const Product = ({ product, isAuthenticated, modifyCartItem, user }) => {
 Product.propTypes = {
   product: PropTypes.object.isRequired,
   isAuthenticated: PropTypes.bool.isRequired,
-  user: PropTypes.object.isRequired
+  user: PropTypes.object.isRequired,
+  modifyCartItem: PropTypes.func.isRequired,
+  deleteProduct: PropTypes.func.isRequired
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -160,7 +170,8 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = {
-  modifyCartItem: item => modifyCartItem(item)
+  modifyCartItem: item => modifyCartItem(item),
+  deleteProduct: (productId, history) => deleteProduct(productId, history)
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Product);
