@@ -1,0 +1,13 @@
+@import "../../scss/config";
+@import "../../scss/mixins";
+
+.product-form {
+  & .product-form-header {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 0.25rem;
+    margin-bottom: 0.5rem;
+    border-bottom: 0.1rem solid map-get($map: $colors, $key: my-gold);
+    width: 100%;
+  }
+}

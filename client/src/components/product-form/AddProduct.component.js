@@ -5,6 +5,8 @@ import PropTypes from "prop-types";
 
 import { addProduct } from "../../redux/shop/shop.actions";
 
+import "./ProductForm.styles.scss";
+
 const AddProduct = ({ addProduct }) => {
   /* URL PARAMS, HISTORY && LOCATION OBJECT */
   const { categorySlug } = useParams();

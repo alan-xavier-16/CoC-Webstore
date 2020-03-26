@@ -7,6 +7,8 @@ import PropTypes from "prop-types";
 import { editProduct } from "../../redux/shop/shop.actions";
 import { selectProductItem } from "../../redux/shop/shop.selectors";
 
+import "./ProductForm.styles.scss";
+
 const EditProduct = ({ editProduct, product }) => {
   const { _id } = product;
   /* URL PARAMS, HISTORY && LOCATION OBJECT */
@@ -34,7 +36,7 @@ const EditProduct = ({ editProduct, product }) => {
   return (
     <div className="product-form">
       <div className="product-form-header">
-        <h1>Update {name} to your Shop!</h1>
+        <h1>Update the {product.name} Product!</h1>
       </div>
 
       <form className="form" onSubmit={handleSubmit}>
