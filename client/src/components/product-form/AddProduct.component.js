@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 import { Link, useHistory, useLocation, useParams } from "react-router-dom";
 import PropTypes from "prop-types";
 
+import AddDetails from "./AddDetails.component";
+
 import { addProduct } from "../../redux/shop/shop.actions";
 
 import "./ProductForm.styles.scss";
@@ -18,12 +20,17 @@ const AddProduct = ({ addProduct }) => {
     name: "",
     description: "",
     price: "",
-    inventory: 1
+    inventory: 1,
+    details: []
   });
   const { name, description, price, inventory } = formData;
 
   const handleChange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleDetails = detailsFromForm => {
+    setFormData({ ...formData, details: detailsFromForm });
   };
 
   const handleSubmit = e => {
@@ -88,6 +95,8 @@ const AddProduct = ({ addProduct }) => {
             Items available for sale. Allowable quantities range from 0 to 500.
           </small>
         </div>
+
+        <AddDetails handleDetails={handleDetails} />
 
         <button type="submit" className="btn btn-gold">
           Add Product <i className="fas fa-plus-square"></i>
