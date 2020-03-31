@@ -36,7 +36,13 @@ const AddProduct = ({ addProduct }) => {
   const handleSubmit = e => {
     e.preventDefault();
     addProduct(categorySlug, formData, history, location);
-    setFormData({ name: "", description: "", price: "", inventory: 1 });
+    setFormData({
+      name: "",
+      description: "",
+      price: "",
+      inventory: 1,
+      details: []
+    });
   };
 
   return (

@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { createStructuredSelector } from "reselect";
 import PropTypes from "prop-types";
+
+import AddDetails from "./AddDetails.component";
 
 import { editProduct } from "../../redux/shop/shop.actions";
 import { selectProductItem } from "../../redux/shop/shop.selectors";
@@ -13,19 +15,23 @@ const EditProduct = ({ editProduct, product }) => {
   const { _id } = product;
   /* URL PARAMS, HISTORY && LOCATION OBJECT */
   const location = useLocation();
-  const history = useHistory();
 
   // FORM LOGIC
   const [formData, setFormData] = useState({
     name: product.name ? product.name : "",
     description: product.description ? product.description : "",
     price: product.price ? (product.price / 100).toFixed(2) : "",
-    inventory: product.inventory ? product.inventory : 1
+    inventory: product.inventory ? product.inventory : 1,
+    details: product.details ? product.details : []
   });
-  const { name, description, price, inventory } = formData;
+  const { name, description, price, inventory, details } = formData;
 
   const handleChange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleDetails = detailsFromForm => {
+    setFormData({ ...formData, details: detailsFromForm });
   };
 
   const handleSubmit = e => {
@@ -76,6 +82,8 @@ const EditProduct = ({ editProduct, product }) => {
             required
           />
         </div>
+
+        <AddDetails handleDetails={handleDetails} productDetails={details} />
 
         <div className="form-group">
           <label htmlFor="inventory">Inventory</label>

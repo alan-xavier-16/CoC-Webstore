@@ -1,13 +1,17 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 
-const AddDetails = ({ handleDetails }) => {
-  let [details, setDetails] = useState([
-    {
-      title: "",
-      text: ""
-    }
-  ]);
+const AddDetails = ({ handleDetails, productDetails }) => {
+  let [details, setDetails] = useState(
+    productDetails
+      ? productDetails
+      : [
+          {
+            title: "",
+            text: ""
+          }
+        ]
+  );
 
   // UPDATE EACH DETAIL FIELD USING THE INDEX PASSED
   const handleChange = (idx, e) => {
