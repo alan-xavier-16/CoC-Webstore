@@ -9,11 +9,9 @@ import AddDetails from "./AddDetails.component";
 import { editProduct } from "../../redux/shop/shop.actions";
 import { selectProductItem } from "../../redux/shop/shop.selectors";
 
-import "./ProductForm.styles.scss";
-
 const EditProduct = ({ editProduct, product }) => {
   const { _id } = product;
-  /* URL PARAMS, HISTORY && LOCATION OBJECT */
+  /* LOCATION OBJECT */
   const location = useLocation();
 
   // FORM LOGIC
@@ -41,7 +39,8 @@ const EditProduct = ({ editProduct, product }) => {
 
   return (
     <div className="product-form">
-      <div className="product-form-header">
+      <form className="form" onSubmit={handleSubmit}></form>
+      <div className="form-header">
         <h1>Update the {product.name} Product!</h1>
       </div>
 
@@ -98,16 +97,18 @@ const EditProduct = ({ editProduct, product }) => {
           </small>
         </div>
 
-        <button type="submit" className="btn btn-gold">
-          Update Product <i className="fas fa-plus-square"></i>
-        </button>
-      </form>
+        <div className="form-actions">
+          <button type="submit" className="btn btn-gold">
+            <i className="fas fa-save"></i>
+          </button>
 
-      {location.state && location.state.from && (
-        <Link className="btn btn-dark" to={location.state.from}>
-          Go Back
-        </Link>
-      )}
+          {location.state && location.state.from && (
+            <Link className="btn btn-dark" to={location.state.from}>
+              <i className="fas fa-angle-left"></i>
+            </Link>
+          )}
+        </div>
+      </form>
     </div>
   );
 };

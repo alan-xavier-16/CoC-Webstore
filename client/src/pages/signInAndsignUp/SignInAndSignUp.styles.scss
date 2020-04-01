@@ -23,7 +23,8 @@
     min-width: 300px;
 
     @media screen and (min-width: map-get($map: $breakpoints, $key: sm)) {
-      min-width: 550px;
+      min-width: 500px;
+      max-width: 550px;
     }
 
     & .signin-actions {
@@ -50,22 +51,6 @@
         & span {
           color: map-get($map: $colors, $key: my-gold);
         }
-      }
-    }
-
-    & .go-back {
-      position: absolute;
-      top: 0;
-      right: 0;
-      font-size: 2rem;
-      padding: 0.5rem;
-      @include set-background(map-get($map: $colors, $key: light));
-      border-radius: 50%;
-      line-height: 0.5;
-      transition: all 0.5s ease-in-out;
-
-      &:hover {
-        @include set-btn-hover(map-get($map: $colors, $key: light));
       }
     }
   }

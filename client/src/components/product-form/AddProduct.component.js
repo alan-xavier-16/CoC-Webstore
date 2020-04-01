@@ -7,8 +7,6 @@ import AddDetails from "./AddDetails.component";
 
 import { addProduct } from "../../redux/shop/shop.actions";
 
-import "./ProductForm.styles.scss";
-
 const AddProduct = ({ addProduct }) => {
   /* URL PARAMS, HISTORY && LOCATION OBJECT */
   const { categorySlug } = useParams();
@@ -47,11 +45,11 @@ const AddProduct = ({ addProduct }) => {
 
   return (
     <div className="product-form">
-      <div className="product-form-header">
-        <h1>Add a New Product to your Shop!</h1>
-      </div>
-
       <form className="form" onSubmit={handleSubmit}>
+        <div className="form-header">
+          <h1>Add a New Product to your Shop!</h1>
+        </div>
+
         <div className="form-group">
           <label htmlFor="name">Name</label>
           <input
@@ -104,16 +102,18 @@ const AddProduct = ({ addProduct }) => {
 
         <AddDetails handleDetails={handleDetails} />
 
-        <button type="submit" className="btn btn-gold">
-          Add Product <i className="fas fa-plus-square"></i>
-        </button>
-      </form>
+        <div className="form-actions">
+          <button type="submit" className="btn btn-gold">
+            <i className="fas fa-plus-square"></i>
+          </button>
 
-      {location.state && location.state.from && (
-        <Link className="btn btn-dark" to={location.state.from}>
-          Go Back
-        </Link>
-      )}
+          {location.state && location.state.from && (
+            <Link className="btn btn-dark" to={location.state.from}>
+              <i className="fas fa-angle-left"></i>
+            </Link>
+          )}
+        </div>
+      </form>
     </div>
   );
 };

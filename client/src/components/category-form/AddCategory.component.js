@@ -5,8 +5,6 @@ import PropTypes from "prop-types";
 
 import { addCategory } from "../../redux/shop/shop.actions";
 
-import "./CategoryForm.styles.scss";
-
 const AddCategory = ({ addCategory }) => {
   /* RELATIVE LINK, HISTORY && LOCATION OBJECT */
   const location = useLocation();
@@ -31,11 +29,11 @@ const AddCategory = ({ addCategory }) => {
 
   return (
     <div className="category-form">
-      <div className="category-form-header">
-        <h1>Add a New Category to your Shop!</h1>
-      </div>
-
       <form className="form" onSubmit={handleSubmit}>
+        <div className="form-header">
+          <h1>Add a New Category to your Shop!</h1>
+        </div>
+
         <div className="form-group">
           <label htmlFor="name">Name</label>
           <input
@@ -59,16 +57,18 @@ const AddCategory = ({ addCategory }) => {
           ></textarea>
         </div>
 
-        <button type="submit" className="btn btn-gold">
-          Add Category <i className="fas fa-plus-square"></i>
-        </button>
-      </form>
+        <div className="form-actions">
+          <button type="submit" className="btn btn-gold">
+            <i className="fas fa-plus-square"></i>
+          </button>
 
-      {location.state && location.state.from && (
-        <Link className="btn btn-dark" to={location.state.from}>
-          Go Back
-        </Link>
-      )}
+          {location.state && location.state.from && (
+            <Link className="btn btn-dark" to={location.state.from}>
+              <i className="fas fa-angle-left"></i>
+            </Link>
+          )}
+        </div>
+      </form>
     </div>
   );
 };

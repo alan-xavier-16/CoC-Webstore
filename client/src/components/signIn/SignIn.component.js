@@ -72,9 +72,21 @@ const SignIn = ({ login }) => {
           ></i>
         </div>
 
-        <button type="submit" className="btn btn-gold">
-          Sign In
-        </button>
+        <div className="form-actions">
+          <button type="submit" className="btn btn-gold">
+            Sign In
+          </button>
+
+          {location.state && location.state.from ? (
+            <Link className="btn btn-dark" to={location.state.from}>
+              <i className="fas fa-angle-left"></i>
+            </Link>
+          ) : (
+            <Link className="btn btn-dark" to="/">
+              <i className="fas fa-angle-left"></i>
+            </Link>
+          )}
+        </div>
       </form>
 
       <div className="signin-actions">
@@ -89,16 +101,6 @@ const SignIn = ({ login }) => {
 
         <Link to={`${url}/identity`}>Forgot Password?</Link>
       </div>
-
-      {location.state && location.state.from ? (
-        <Link className="go-back" to={location.state.from}>
-          &times;
-        </Link>
-      ) : (
-        <Link className="go-back" to="/">
-          &times;
-        </Link>
-      )}
     </div>
   );
 };

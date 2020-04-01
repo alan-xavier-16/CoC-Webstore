@@ -9,7 +9,7 @@
     grid-column: 1 / 12;
     justify-self: center;
     text-align: center;
-    padding-bottom: 0.5rem;
+    padding: 0.5rem 0;
     border-bottom: 0.1rem solid map-get($map: $colors, $key: my-gold);
     width: 100%;
 
@@ -62,10 +62,9 @@
     }
   }
 
-  & button,
-  a {
+  & .form-actions {
     grid-column: 1 / 12;
-    margin: 0 auto;
-    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
   }
 }

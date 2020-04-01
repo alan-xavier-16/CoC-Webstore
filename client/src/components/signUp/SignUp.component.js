@@ -122,9 +122,21 @@ const SignUp = ({ setAlert, register }) => {
           ></i>
         </div>
 
-        <button type="submit" className="btn btn-gold">
-          Sign Up
-        </button>
+        <div className="form-actions">
+          <button type="submit" className="btn btn-gold">
+            Sign Up
+          </button>
+
+          {location.state && location.state.from ? (
+            <Link className="btn btn-dark" to={location.state.from}>
+              <i className="fas fa-angle-left"></i>
+            </Link>
+          ) : (
+            <Link className="btn btn-dark" to="/">
+              <i className="fas fa-angle-left"></i>
+            </Link>
+          )}
+        </div>
       </form>
 
       <div className="signin-actions">
@@ -137,16 +149,6 @@ const SignUp = ({ setAlert, register }) => {
           Already have an account? <span>Sign In</span>
         </Link>
       </div>
-
-      {location.state && location.state.from ? (
-        <Link className="go-back" to={location.state.from}>
-          &times;
-        </Link>
-      ) : (
-        <Link className="go-back" to="/">
-          &times;
-        </Link>
-      )}
     </div>
   );
 };

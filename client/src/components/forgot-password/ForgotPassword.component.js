@@ -44,14 +44,16 @@ const ForgotPassword = ({ forgotPassword }) => {
           />
         </div>
 
-        <button type="submit" className="btn btn-gold">
-          Reset Password
-        </button>
-      </form>
+        <div className="form-actions">
+          <button type="submit" className="btn btn-gold">
+            Reset Password
+          </button>
 
-      <div className="signin-actions">
-        <Link to={`/signin`}>Back to Sign In</Link>
-      </div>
+          <Link className="btn btn-dark" to={`/signin`}>
+            Back to Sign In
+          </Link>
+        </div>
+      </form>
     </div>
   );
 };
