@@ -45,7 +45,7 @@ const AddDetails = ({ handleDetails, productDetails }) => {
   };
 
   return (
-    <div className="details-input-grid">
+    <div className="form-group">
       {details.map((detail, idx) => (
         <div key={`detail-${idx}`} className={`details-input-item`}>
           <div className="form-group">
@@ -72,16 +72,18 @@ const AddDetails = ({ handleDetails, productDetails }) => {
             />
           </div>
 
-          <button className="btn btn-primary" onClick={handleAddInput}>
-            Add Detail <i className="fas fa-plus-square"></i>
-          </button>
+          <div className="details-btn-group">
+            <button className="btn btn-primary" onClick={handleAddInput}>
+              <i className="fas fa-plus-square"></i>
+            </button>
 
-          <button
-            className="btn btn-secondary"
-            onClick={e => handleRemoveInput(idx, e)}
-          >
-            Remove Detail <i className="fas fa-minus-square"></i>
-          </button>
+            <button
+              className="btn btn-secondary"
+              onClick={e => handleRemoveInput(idx, e)}
+            >
+              <i className="fas fa-minus-square"></i>
+            </button>
+          </div>
         </div>
       ))}
 

@@ -10,4 +10,47 @@
     border-bottom: 0.1rem solid map-get($map: $colors, $key: my-gold);
     width: 100%;
   }
+
+  // & .details-input-grid {
+  //   & .details-input-item {
+  //     display: grid;
+  //     grid-template-columns: repeat(auto-fill, minmax(250px, 100%));
+  //     grid-gap: 0.75rem;
+
+  //     & .details-group {
+  //       & label {
+  //         display: block;
+  //         margin-bottom: 0.25rem;
+  //       }
+
+  //       & input[type="text"],
+  //       input[type="email"],
+  //       input[type="password"],
+  //       input[type="number"],
+  //       textarea {
+  //         width: 100%;
+  //         padding: 0.5rem;
+  //         font: inherit;
+  //       }
+  //     }
+  //   }
+
+  //   & .details-btn-group {
+  //     display: flex;
+  //     justify-content: space-around;
+
+  //     & button {
+  //       border-radius: 50%;
+  //       position: relative;
+
+  //       i {
+  //         position: absolute;
+  //         top: 50%;
+  //         right: 50%;
+  //         transform: translate(50%, -50%);
+  //         transition: 0.4s ease-in-out;
+  //       }
+  //     }
+  //   }
+  // }
 }

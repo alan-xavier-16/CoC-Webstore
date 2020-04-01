@@ -26,12 +26,12 @@ const ForgotPassword = ({ forgotPassword }) => {
 
   return (
     <div className="forgot-password">
-      <div className="form-header">
-        <h1>Forgot Password?</h1>
-        <p>You can reset your password here</p>
-      </div>
-
       <form className="form" onSubmit={handleSubmit}>
+        <div className="form-header">
+          <h1>Forgot Password?</h1>
+          <p>You can reset your password here</p>
+        </div>
+
         <div className="form-group">
           <label htmlFor="email">Reset Email</label>
           <input

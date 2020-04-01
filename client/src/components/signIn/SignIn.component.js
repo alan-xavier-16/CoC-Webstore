@@ -34,14 +34,14 @@ const SignIn = ({ login }) => {
 
   return (
     <div className="signin">
-      <div className="form-header">
-        <h1>Sign In</h1>
-        <p>
-          <i className="fas fa-sign-in-alt"></i> Welcome back
-        </p>
-      </div>
-
       <form className="form" onSubmit={handleSubmit}>
+        <div className="form-header">
+          <h1>Sign In</h1>
+          <p>
+            <i className="fas fa-sign-in-alt"></i> Welcome back
+          </p>
+        </div>
+
         <div className="form-group">
           <label htmlFor="email">Email</label>
           <input
@@ -54,7 +54,7 @@ const SignIn = ({ login }) => {
           />
         </div>
 
-        <div className="form-group">
+        <div className="form-group form-group-icon">
           <label htmlFor="password">Password</label>
           <input
             type={pwdType}
@@ -78,19 +78,16 @@ const SignIn = ({ login }) => {
       </form>
 
       <div className="signin-actions">
-        <Link to={`${url}/identity`}>Forgot Password?</Link>
+        <Link
+          to={{
+            pathname: `${url}/signup`,
+            state: { from: location.pathname }
+          }}
+        >
+          New to Circles? <span>Sign Up Now</span>
+        </Link>
 
-        <div className="signin-new">
-          <p className="lead">New to Circles?</p>
-          <Link
-            to={{
-              pathname: `${url}/signup`,
-              state: { from: location.pathname }
-            }}
-          >
-            Sign Up Now
-          </Link>
-        </div>
+        <Link to={`${url}/identity`}>Forgot Password?</Link>
       </div>
 
       {location.state && location.state.from ? (

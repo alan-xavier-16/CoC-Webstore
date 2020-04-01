@@ -43,15 +43,15 @@ const SignUp = ({ setAlert, register }) => {
 
   return (
     <div className="signup">
-      <div className="form-header">
-        <h1>Sign Up</h1>
-        <p>
-          <i className="fas fa-user-plus"></i> Create an account and begin your
-          journey
-        </p>
-      </div>
-
       <form className="form" onSubmit={handleSubmit}>
+        <div className="form-header">
+          <h1>Sign Up</h1>
+          <p>
+            <i className="fas fa-user-plus"></i> Create an account and begin
+            your journey
+          </p>
+        </div>
+
         <div className="form-group">
           <label htmlFor="name">Name</label>
           <input
@@ -76,7 +76,7 @@ const SignUp = ({ setAlert, register }) => {
           />
         </div>
 
-        <div className="form-group">
+        <div className="form-group form-group-icon">
           <label htmlFor="password">Password</label>
           <input
             type={pwdType.pwd1}
@@ -102,7 +102,7 @@ const SignUp = ({ setAlert, register }) => {
           character
         </small>
 
-        <div className="form-group">
+        <div className="form-group form-group-icon">
           <label htmlFor="confirmPwd">Confirm Password</label>
           <input
             type={pwdType.pwd2}
@@ -128,17 +128,14 @@ const SignUp = ({ setAlert, register }) => {
       </form>
 
       <div className="signin-actions">
-        <div className="signin-exist">
-          <p className="lead">Already have an account?</p>
-          <Link
-            to={{
-              pathname: "/signin",
-              state: { from: location.pathname }
-            }}
-          >
-            Sign In
-          </Link>
-        </div>
+        <Link
+          to={{
+            pathname: "/signin",
+            state: { from: location.pathname }
+          }}
+        >
+          Already have an account? <span>Sign In</span>
+        </Link>
       </div>
 
       {location.state && location.state.from ? (

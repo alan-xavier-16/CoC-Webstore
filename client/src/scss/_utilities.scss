@@ -9,6 +9,27 @@
   overflow: hidden;
 }
 
+/* TYPOGRAPHY */
+.main-header {
+  font-size: 2rem;
+  font-weight: bold;
+  letter-spacing: 0.1rem;
+  line-height: 1.25;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  letter-spacing: 0.25rem;
+  line-height: 1;
+}
+
+.lead {
+  font-size: 1.25rem;
+  font-weight: 500;
+  line-height: 1;
+}
+
 /* BACKGROUNDS */
 .bg {
   &-primary {
@@ -367,27 +388,6 @@
       }
     }
   }
-}
-
-/* TYPOGRAPHY */
-.main-header {
-  font-size: 2rem;
-  font-weight: bold;
-  letter-spacing: 0.1rem;
-  line-height: 1.25;
-}
-
-.title {
-  font-size: 1.5rem;
-  font-weight: bold;
-  letter-spacing: 0.25rem;
-  line-height: 1;
-}
-
-.lead {
-  font-size: 1.25rem;
-  font-weight: 500;
-  line-height: 1;
 }
 
 /* OUT OF STOCK IMAGES */
