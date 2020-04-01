@@ -47,7 +47,7 @@ const AddProduct = ({ addProduct }) => {
     <div className="product-form">
       <form className="form" onSubmit={handleSubmit}>
         <div className="form-header">
-          <h1>Add a New Product to your Shop!</h1>
+          <h1>Add a New Product</h1>
         </div>
 
         <div className="form-group">

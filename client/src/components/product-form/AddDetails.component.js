@@ -20,9 +20,11 @@ const AddDetails = ({ handleDetails, productDetails }) => {
     setDetails(details);
   };
 
-  // ADD / REMOVE INPUT FIELDS
+  // PASS DETAILS TO PARENT && ADD BLANK DETAIL INPUT FIELD
   const handleAddInput = e => {
     e.preventDefault();
+    handleDetails(details);
+
     details = [...details];
     details.push({
       title: "",
@@ -31,6 +33,7 @@ const AddDetails = ({ handleDetails, productDetails }) => {
     setDetails(details);
   };
 
+  // REMOVE DETAIL INPUT FIELDS
   const handleRemoveInput = (idx, e) => {
     e.preventDefault();
     details = [...details];
@@ -38,16 +41,12 @@ const AddDetails = ({ handleDetails, productDetails }) => {
     setDetails(details);
   };
 
-  // PASS DETAILS TO PARENT FORM
-  const handleAddDetails = e => {
-    e.preventDefault();
-    handleDetails(details);
-  };
-
   return (
-    <div className="form-group">
+    <fieldset className="form-group fieldset">
+      <legend>Details</legend>
+
       {details.map((detail, idx) => (
-        <div key={`detail-${idx}`} className={`details-input-item`}>
+        <div key={`detail-${idx}`} className={`field-item`}>
           <div className="form-group">
             <label htmlFor={`title`}>Title</label>
             <input
@@ -56,7 +55,6 @@ const AddDetails = ({ handleDetails, productDetails }) => {
               value={detail.title}
               onChange={e => handleChange(idx, e)}
               placeholder="Color"
-              required
             />
           </div>
 
@@ -68,17 +66,12 @@ const AddDetails = ({ handleDetails, productDetails }) => {
               value={detail.text}
               onChange={e => handleChange(idx, e)}
               placeholder="A dark shade of lavender"
-              required
             />
           </div>
 
-          <div className="details-btn-group">
-            <button className="btn btn-primary" onClick={handleAddInput}>
-              <i className="fas fa-plus-square"></i>
-            </button>
-
+          <div className="form-actions single">
             <button
-              className="btn btn-secondary"
+              className="btn btn-danger"
               onClick={e => handleRemoveInput(idx, e)}
             >
               <i className="fas fa-minus-square"></i>
@@ -87,10 +80,12 @@ const AddDetails = ({ handleDetails, productDetails }) => {
         </div>
       ))}
 
-      <button className="btn btn-gold" onClick={handleAddDetails}>
-        Add All Details <i className="fas fa-plus-square"></i>
-      </button>
-    </div>
+      <div className="form-actions single">
+        <button className="btn btn-primary" onClick={handleAddInput}>
+          <i className="fas fa-plus-square"></i>
+        </button>
+      </div>
+    </fieldset>
   );
 };
 

@@ -39,12 +39,11 @@ const EditProduct = ({ editProduct, product }) => {
 
   return (
     <div className="product-form">
-      <form className="form" onSubmit={handleSubmit}></form>
-      <div className="form-header">
-        <h1>Update the {product.name} Product!</h1>
-      </div>
-
       <form className="form" onSubmit={handleSubmit}>
+        <div className="form-header">
+          <h1>Update {product.name}</h1>
+        </div>
+
         <div className="form-group">
           <label htmlFor="name">Name</label>
           <input

@@ -31,7 +31,7 @@ const EditCategory = ({ editCategory, category }) => {
     <div className="category-form">
       <form className="form" onSubmit={handleSubmit}>
         <div className="form-header">
-          <h1>{`Update ${category.name}!`}</h1>
+          <h1>{`Update ${category.name}`}</h1>
         </div>
 
         <div className="form-group">

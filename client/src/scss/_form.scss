@@ -1,4 +1,5 @@
 @import "../scss/config";
+@import "./_mixins.scss";
 
 .form {
   display: grid;
@@ -39,6 +40,11 @@
       width: 100%;
       padding: 0.5rem;
       font: inherit;
+
+      &:focus {
+        background-color: lighten(map-get($map: $colors, $key: my-gold), 20%);
+        outline: none;
+      }
     }
   }
 
@@ -66,5 +72,22 @@
     grid-column: 1 / 12;
     display: flex;
     justify-content: space-between;
+
+    &.single {
+      justify-content: flex-end;
+    }
+  }
+
+  & .fieldset {
+    padding: 0.25rem;
+    border: 0.05rem solid map-get($map: $colors, $key: my-gold);
+
+    & .field-item {
+      display: grid;
+      grid-gap: 0.25rem;
+      padding-bottom: 0.25rem;
+      margin-bottom: 0.25rem;
+      border-bottom: 0.05rem dashed map-get($map: $colors, $key: my-gold);
+    }
   }
 }

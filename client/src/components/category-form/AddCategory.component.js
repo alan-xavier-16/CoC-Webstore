@@ -31,7 +31,7 @@ const AddCategory = ({ addCategory }) => {
     <div className="category-form">
       <form className="form" onSubmit={handleSubmit}>
         <div className="form-header">
-          <h1>Add a New Category to your Shop!</h1>
+          <h1>Add a New Category</h1>
         </div>
 
         <div className="form-group">

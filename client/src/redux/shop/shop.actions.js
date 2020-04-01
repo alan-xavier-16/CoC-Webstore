@@ -137,13 +137,13 @@ export const getProducts = () => async dispatch => {
 };
 
 /** GET ONE PRODUCT */
-export const getProduct = productSlug => async dispatch => {
+export const getProduct = productId => async dispatch => {
   try {
     dispatch({
       type: ShopActionTypes.FETCH_START
     });
 
-    const res = await axios.get(`/api/v1/products/${productSlug}`);
+    const res = await axios.get(`/api/v1/products/${productId}`);
     dispatch({
       type: ShopActionTypes.FETCH_PRODUCT_SUCCESS,
       payload: res.data
@@ -214,6 +214,7 @@ export const editProduct = (productId, formData) => async dispatch => {
     });
 
     dispatch(getCategories());
+    dispatch(getProduct(res.data.data._id));
 
     dispatch(setAlert(`${formData.name} updated`, "success"));
   } catch (err) {
