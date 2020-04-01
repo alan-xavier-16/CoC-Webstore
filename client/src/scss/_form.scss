@@ -73,14 +73,14 @@
     display: flex;
     justify-content: space-between;
 
-    &.single {
-      justify-content: flex-end;
+    &.center {
+      justify-content: center;
     }
   }
 
   & .fieldset {
     padding: 0.25rem;
-    border: 0.05rem solid map-get($map: $colors, $key: my-gold);
+    border: 0.125rem solid map-get($map: $colors, $key: my-gold);
 
     & .field-item {
       display: grid;

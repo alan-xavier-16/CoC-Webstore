@@ -104,7 +104,7 @@ const AddProduct = ({ addProduct }) => {
 
         <div className="form-actions">
           <button type="submit" className="btn btn-gold">
-            <i className="fas fa-plus-square"></i>
+            <i className="fas fa-save"></i>
           </button>
 
           {location.state && location.state.from && (

@@ -185,6 +185,7 @@ export const addProduct = (
 
     dispatch(setAlert(`${formData.name} added`, "success"));
 
+    dispatch(getCategories());
     history.push(`${location.state.from}`);
   } catch (err) {
     dispatch({

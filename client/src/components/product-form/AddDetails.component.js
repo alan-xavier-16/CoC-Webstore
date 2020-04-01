@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 
 const AddDetails = ({ handleDetails, productDetails }) => {
+  // USER INTERFACE WARNING
+  const [isModified, setIsModified] = useState(false);
+
+  // PRODUCT DETAILS STATE
   let [details, setDetails] = useState(
     productDetails
       ? productDetails
@@ -18,13 +22,12 @@ const AddDetails = ({ handleDetails, productDetails }) => {
     details = [...details]; // ARRAY
     details[idx][e.target.name] = e.target.value;
     setDetails(details);
+    setIsModified(true);
   };
 
-  // PASS DETAILS TO PARENT && ADD BLANK DETAIL INPUT FIELD
+  // ADD BLANK DETAIL INPUT FIELD
   const handleAddInput = e => {
     e.preventDefault();
-    handleDetails(details);
-
     details = [...details];
     details.push({
       title: "",
@@ -39,6 +42,14 @@ const AddDetails = ({ handleDetails, productDetails }) => {
     details = [...details];
     details.splice(idx, 1);
     setDetails(details);
+    setIsModified(true);
+  };
+
+  // PASS DETAILS TO PARENT
+  const handleAddDetails = e => {
+    e.preventDefault();
+    handleDetails(details);
+    setIsModified(false);
   };
 
   return (
@@ -55,6 +66,7 @@ const AddDetails = ({ handleDetails, productDetails }) => {
               value={detail.title}
               onChange={e => handleChange(idx, e)}
               placeholder="Color"
+              required
             />
           </div>
 
@@ -66,24 +78,31 @@ const AddDetails = ({ handleDetails, productDetails }) => {
               value={detail.text}
               onChange={e => handleChange(idx, e)}
               placeholder="A dark shade of lavender"
+              required
             />
           </div>
 
-          <div className="form-actions single">
+          <div className="form-actions">
             <button
               className="btn btn-danger"
               onClick={e => handleRemoveInput(idx, e)}
             >
               <i className="fas fa-minus-square"></i>
             </button>
+
+            <button className="btn btn-primary" onClick={handleAddInput}>
+              <i className="fas fa-chevron-circle-down"></i>
+            </button>
           </div>
         </div>
       ))}
 
-      <div className="form-actions single">
-        <button className="btn btn-primary" onClick={handleAddInput}>
-          <i className="fas fa-plus-square"></i>
-        </button>
+      <div className="form-actions center">
+        {isModified && (
+          <button className="btn btn-success" onClick={handleAddDetails}>
+            <i className="fas fa-check-circle"></i>
+          </button>
+        )}
       </div>
     </fieldset>
   );
