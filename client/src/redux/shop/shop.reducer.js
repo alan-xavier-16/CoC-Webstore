@@ -32,6 +32,7 @@ const shopReducer = (state = INITIAL_STATE, action) => {
         loading: false
       };
     case ShopActionTypes.ADD_PRODUCT_SUCCESS:
+    case ShopActionTypes.ADD_PRODUCT_PHOTO_SUCCESS:
       return {
         ...state,
         products: [...state.products, payload.data],
@@ -71,6 +72,7 @@ const shopReducer = (state = INITIAL_STATE, action) => {
     case ShopActionTypes.FETCH_PRODUCT_FAIL:
     case ShopActionTypes.ADD_CATEGORY_FAIL:
     case ShopActionTypes.ADD_PRODUCT_FAIL:
+    case ShopActionTypes.ADD_PRODUCT_PHOTO_FAIL:
     case ShopActionTypes.DELETE_CATEGORY_FAIL:
     case ShopActionTypes.DELETE_PRODUCT_FAIL:
       return {

@@ -250,3 +250,38 @@ export const deleteProduct = (productId, history) => async dispatch => {
     dispatch(setAlert(`Failed: ${err.response.data.error}`, "warning"));
   }
 };
+
+/** EDIT A PRODUCT PHOTO */
+export const editProductPhoto = (productId, formData) => async dispatch => {
+  try {
+    const config = {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    };
+
+    const body = JSON.stringify(formData);
+
+    const res = await axios.put(
+      `/api/v1/products/${productId}/photo`,
+      body,
+      config
+    );
+
+    dispatch({
+      type: ShopActionTypes.ADD_PRODUCT_PHOTO_SUCCESS,
+      payload: res.data
+    });
+
+    dispatch(getCategories());
+    dispatch(getProduct(res.data.data._id));
+
+    dispatch(setAlert(`${formData.name} photo updated`, "success"));
+  } catch (err) {
+    dispatch({
+      type: ShopActionTypes.ADD_PRODUCT_PHOTO_FAIL,
+      payload: err.response.data.error
+    });
+    dispatch(setAlert(`Failed: ${err.response.data.error}`, "warning"));
+  }
+};

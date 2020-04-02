@@ -38,7 +38,7 @@ const ProductSchema = new mongoose.Schema({
     }
   },
   photo: {
-    type: String,
+    type: [String],
     default: "no-photo.jpg"
   },
   inventory: {
