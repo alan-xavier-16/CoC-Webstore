@@ -9,7 +9,7 @@ const tinify = require("tinify");
 tinify.key = process.env.TINIFY_KEY;
 const ErrorResponse = require("../utils/errorResponse.utils");
 
-const fileUpload = model => async (req, res, next) => {
+const fileUpload = (model) => async (req, res, next) => {
   let resource = await model.findById(req.params.id);
 
   // Check Resource Exists
@@ -21,7 +21,7 @@ const fileUpload = model => async (req, res, next) => {
 
   // Remove 'no-photo.jpg'
   resource = await model.findByIdAndUpdate(req.params.id, {
-    photo: resource.photo.filter(photoName => photoName !== "no-photo.jpg")
+    photo: resource.photo.filter((photoName) => photoName !== "no-photo.jpg"),
   });
 
   // Check Resource Length
@@ -52,15 +52,13 @@ const fileUpload = model => async (req, res, next) => {
   }
 
   // Rename File
-  file.name = `${resource.slug}-${resource.photo.length}${
-    path.parse(file.name).ext
-  }`;
+  file.name = `${resource.slug}-${file.name}${path.parse(file.name).ext}`;
 
   // Delete old file if exists
   fs.access(
     path.join(__dirname, `../public/uploads/${file.name}`),
     fs.constants.F_OK,
-    err => {
+    (err) => {
       if (err) {
         console.error(
           `${path.join(__dirname, `../public/uploads/${file.name}`)} ${
@@ -71,7 +69,7 @@ const fileUpload = model => async (req, res, next) => {
         // File exists
         fs.unlink(
           path.join(__dirname, `../public/uploads/${file.name}`),
-          async err => {
+          async (err) => {
             if (err) {
               console.error(err);
               return next(new ErrorResponse(`Problem with file upload`, 500));
@@ -88,16 +86,16 @@ const fileUpload = model => async (req, res, next) => {
     .resize({
       method: "fit",
       width: 600,
-      height: 700
+      height: 700,
     })
-    .toFile(`${process.env.FILE_UPLOAD_PATH}/${file.name}`, async err => {
+    .toFile(`${process.env.FILE_UPLOAD_PATH}/${file.name}`, async (err) => {
       if (err) {
         console.error(err);
         return next(new ErrorResponse(`Problem with file upload`, 500));
       }
 
       await model.findByIdAndUpdate(req.params.id, {
-        photo: [...resource.photo, file.name]
+        photo: [...resource.photo, file.name],
       });
 
       res.status(200).json({ success: true, data: file.name });

@@ -17,6 +17,8 @@ import ProductContainer from "../product/Product.container";
 import AddProduct from "../../components/product-form/AddProduct.component";
 import EditProduct from "../../components/product-form/EditProduct.component";
 
+import FileUpload from "../../components/file-upload/FileUpload.component";
+
 import { getCategories } from "../../redux/shop/shop.actions";
 import { selectCategories } from "../../redux/shop/shop.selectors";
 import { selectIsAuthenticated } from "../../redux/auth/auth.selectors";
@@ -77,6 +79,10 @@ const Shop = ({ isAuthenticated, getCategories, categories }) => {
       <AdminRoute
         path={`${path}/products/:productSlug/edit`}
         component={EditProduct}
+      />
+      <AdminRoute
+        path={`${path}/products/:productSlug/photo-upload`}
+        component={FileUpload}
       />
     </div>
   );

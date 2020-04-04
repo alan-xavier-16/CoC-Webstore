@@ -32,12 +32,20 @@ const shopReducer = (state = INITIAL_STATE, action) => {
         loading: false
       };
     case ShopActionTypes.ADD_PRODUCT_SUCCESS:
-    case ShopActionTypes.ADD_PRODUCT_PHOTO_SUCCESS:
       return {
         ...state,
         products: [...state.products, payload.data],
         loading: false,
         product: payload.data
+      };
+    case ShopActionTypes.ADD_PRODUCT_PHOTO_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        product: {
+          ...state.product,
+          photo: [...state.product.photo, payload.data]
+        }
       };
     case ShopActionTypes.DELETE_CATEGORY_SUCCESS:
       return {

@@ -33,7 +33,16 @@ const Product = ({
   const [formData, setFormData] = useState({
     quantity: 1
   });
-  const { _id, photo, name, price, description, inventory, details } = product;
+  const {
+    _id,
+    photo,
+    name,
+    price,
+    description,
+    inventory,
+    details,
+    slug
+  } = product;
 
   // CHANGE QUANTITY
   const handleChange = e => {
@@ -66,9 +75,22 @@ const Product = ({
     <form className="product" onSubmit={handleSubmit}>
       <div className="product-card">
         <div className={`product-card-img ${inventory === 0 && "disabled"}`}>
-          <img src={`/uploads/${photo}`} alt={`product-${name}`} />
-          {inventory === 0 && (
-            <span className="img-no-stock">Out of Stock</span>
+          <img src={`/uploads/${photo[0]}`} alt={`product-${name}`} />
+
+          {inventory === 0 && <div className="img-text">Out of Stock</div>}
+
+          {user.role && user.role === "admin" && (
+            <div className="img-link">
+              <Link
+                className="btn btn-success"
+                to={{
+                  pathname: `/shop/products/${slug}/photo-upload`,
+                  state: { from: location.pathname }
+                }}
+              >
+                <i className="fas fa-camera"></i>
+              </Link>
+            </div>
           )}
         </div>
 

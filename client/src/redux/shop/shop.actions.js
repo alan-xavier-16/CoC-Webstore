@@ -260,11 +260,9 @@ export const editProductPhoto = (productId, formData) => async dispatch => {
       }
     };
 
-    const body = JSON.stringify(formData);
-
     const res = await axios.put(
       `/api/v1/products/${productId}/photo`,
-      body,
+      formData,
       config
     );
 
@@ -274,9 +272,9 @@ export const editProductPhoto = (productId, formData) => async dispatch => {
     });
 
     dispatch(getCategories());
-    dispatch(getProduct(res.data.data._id));
+    dispatch(getProduct(productId));
 
-    dispatch(setAlert(`${formData.name} photo updated`, "success"));
+    dispatch(setAlert(`Photo updated`, "success"));
   } catch (err) {
     dispatch({
       type: ShopActionTypes.ADD_PRODUCT_PHOTO_FAIL,

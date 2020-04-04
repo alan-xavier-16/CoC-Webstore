@@ -42,10 +42,8 @@ const ProductItem = ({
           }}
           onClick={handleRedirect}
         >
-          <img src={`/uploads/${photo}`} alt={`product-${name}`} />
-          {inventory === 0 && (
-            <span className="img-no-stock">Out of Stock</span>
-          )}
+          <img src={`/uploads/${photo[0]}`} alt={`product-${name}`} />
+          {inventory === 0 && <span className="img-text">Out of Stock</span>}
         </Link>
       </div>
 

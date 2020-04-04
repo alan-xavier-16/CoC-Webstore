@@ -78,6 +78,24 @@
     }
   }
 
+  & .form-files {
+    display: flex;
+    flex-direction: column;
+
+    & .form-file {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.5rem;
+      overflow: hidden;
+      box-sizing: border-box;
+
+      & img {
+        min-width: 150px;
+      }
+    }
+  }
+
   & .fieldset {
     padding: 0.25rem;
     border: 0.125rem solid map-get($map: $colors, $key: my-gold);
