@@ -18,7 +18,7 @@ const File = ({ file }) => {
       });
     };
     reader.readAsDataURL(file);
-  }, []);
+  }, [file, fileAdded, setFileAdded]);
 
   return (
     <div className="form-file">

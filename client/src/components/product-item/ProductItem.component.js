@@ -14,18 +14,18 @@ const ProductItem = ({
   product,
   modifyCartItem,
   isAuthenticated,
-  getProduct
+  getProduct,
 }) => {
   const { photo, name, price, description, inventory, slug } = product;
 
   // ADD TO CART
-  const handleModify = e => {
+  const handleModify = (e) => {
     const item = { product };
     modifyCartItem(item);
   };
 
   // FETCH SPECIFIC PRODUCT
-  const handleRedirect = e => {
+  const handleRedirect = (e) => {
     getProduct(product._id);
   };
 
@@ -38,11 +38,11 @@ const ProductItem = ({
         <Link
           to={{
             pathname: `/shop/products/${slug}`,
-            state: { from: location.pathname }
+            state: { from: location.pathname },
           }}
           onClick={handleRedirect}
         >
-          <img src={`/uploads/${photo[0]}`} alt={`product-${name}`} />
+          <img src={`/uploads/${photo[0]}`} alt={`product`} />
           {inventory === 0 && <span className="img-text">Out of Stock</span>}
         </Link>
       </div>
@@ -53,8 +53,9 @@ const ProductItem = ({
         <p className="card-description">{description}</p>
 
         <button
-          className={`btn btn-gold ${(inventory === 0 || !isAuthenticated) &&
-            "disabled"}`}
+          className={`btn btn-gold ${
+            (inventory === 0 || !isAuthenticated) && "disabled"
+          }`}
           disabled={!inventory || !isAuthenticated}
           onClick={handleModify}
         >
@@ -70,16 +71,16 @@ ProductItem.propTypes = {
   product: PropTypes.object.isRequired,
   modifyCartItem: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool.isRequired,
-  getProduct: PropTypes.func.isRequired
+  getProduct: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
-  isAuthenticated: selectIsAuthenticated
+  isAuthenticated: selectIsAuthenticated,
 });
 
 const mapDispatchToProps = {
-  modifyCartItem: item => modifyCartItem(item),
-  getProduct: productSlug => getProduct(productSlug)
+  modifyCartItem: (item) => modifyCartItem(item),
+  getProduct: (productSlug) => getProduct(productSlug),
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductItem);

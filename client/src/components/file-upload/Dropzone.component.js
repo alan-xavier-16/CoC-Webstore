@@ -4,29 +4,26 @@ import PropTypes from "prop-types";
 import "./Dropzone.styles.scss";
 
 const Dropzone = ({ onFilesAdded, disabled }) => {
+  const [highlight, setHighlight] = useState(false);
+
   /* REFERENCE HIDDEN INPUT OF TYPE 'FILE' */
   let fileInputRef = createRef();
 
-  /* OPEN FILE DIALOG EVENT LISTENER ON CLICK */
+  /* SEND FILES TO PARENT (FILEUPLOAD) */
+  const handleFilesAdded = (e) => {
+    if (disabled) return;
+    const files = e.target.files; // FILE LIST
+    const filesArray = [...files]; // CONVERT FILE LIST TO JS ARRAY
+    onFilesAdded(filesArray);
+  };
+
+  /* OPEN FILE DIALOG CLICK EVENT LISTENER */
   const openFileDialog = (e) => {
     if (disabled) return;
     fileInputRef.current.click();
   };
 
-  /* SEND FILES TO PARENT (FILEUPLOAD) */
-  const handleFilesAdded = (e) => {
-    if (disabled) return;
-
-    const files = e.target.files; // ARRAY
-
-    /* CONVERT FILES TO A JS ARRAY */
-    const filesArray = [...files];
-    onFilesAdded(filesArray);
-  };
-
-  /* DROPZONE EVENT METHODS */
-  const [highlight, setHighlight] = useState(false);
-
+  /* DRAG & DROP EVENT METHODS */
   const onDragOver = (e) => {
     e.preventDefault();
     if (disabled) return;
@@ -41,13 +38,9 @@ const Dropzone = ({ onFilesAdded, disabled }) => {
   const onDrop = (e) => {
     e.preventDefault();
     if (disabled) return;
-
-    const files = e.dataTransfer.files; // ARRAY
-
-    /* CONVERT FILES TO A JS ARRAY */
-    const filesArray = [...files];
+    const files = e.dataTransfer.files; // FILE LIST
+    const filesArray = [...files]; // CONVERT FILE LIST TO JS ARRAY
     onFilesAdded(filesArray);
-
     setHighlight(false);
   };
 

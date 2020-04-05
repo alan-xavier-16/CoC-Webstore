@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useHistory } from "react-router-dom";
 import { createStructuredSelector } from "reselect";
 import PropTypes from "prop-types";
 
@@ -14,6 +14,7 @@ const FileUpload = ({ product, editProductPhoto }) => {
   const { _id, name } = product;
   /* LOCATION OBJECT */
   const location = useLocation();
+  const history = useHistory();
 
   /* FILE UPLOAD STATE */
   const [uploads, setUploads] = useState({
@@ -27,45 +28,19 @@ const FileUpload = ({ product, editProductPhoto }) => {
     setUploads({ ...uploads, files: [...files] });
   };
 
-  /* FORM ACTIONS */
-  const renderActions = () => {
-    if (uploads.successfulUpload) {
-      return (
-        <button
-          className="btn btn-warning"
-          onClick={() => setUploads({ files: [], successfulUpload: false })}
-        >
-          <i className="fas fa-ban"></i>
-        </button>
-      );
-    } else {
-      return (
-        <button
-          className="btn btn-primary"
-          disabled={uploads.uploading}
-          type="submit"
-        >
-          <i className="fas fa-file-upload"></i>
-        </button>
-      );
-    }
-  };
-
   /* UPLOAD EACH FILE */
   const uploadFiles = (e) => {
     e.preventDefault();
     setUploads({ uploading: true });
+    const formData = new FormData();
 
     uploads.files.forEach((file, idx) => {
       const fileName = `${idx}.${file.name.split(".")[1]}`;
-
-      const formData = new FormData();
-      formData.append("file", file, fileName);
-
-      editProductPhoto(_id, formData);
+      formData.append(`file`, file, fileName);
     });
 
-    setUploads({ uploading: false, successfulUpload: true });
+    editProductPhoto(_id, formData, history, location);
+    setUploads({ uploading: false, successfulUpload: true, files: [] });
   };
 
   return (
@@ -86,7 +61,9 @@ const FileUpload = ({ product, editProductPhoto }) => {
       </div>
 
       <div className="form-actions">
-        {renderActions()}
+        <button className="btn btn-primary" type="submit">
+          <i className="fas fa-file-upload"></i>
+        </button>
 
         {location.state && location.state.from && (
           <Link className="btn btn-dark" to={location.state.from}>
@@ -107,8 +84,8 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = {
-  editProductPhoto: (productId, formData) =>
-    editProductPhoto(productId, formData),
+  editProductPhoto: (productId, formData, history, location) =>
+    editProductPhoto(productId, formData, history, location),
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FileUpload);

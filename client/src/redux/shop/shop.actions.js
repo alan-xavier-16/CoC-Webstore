@@ -3,37 +3,34 @@ import axios from "axios";
 import { setAlert } from "../alerts/alert.actions";
 
 /** GET ALL CATEGORIES */
-export const getCategories = () => async dispatch => {
+export const getCategories = () => async (dispatch) => {
   try {
     dispatch({
-      type: ShopActionTypes.FETCH_START
+      type: ShopActionTypes.FETCH_START,
     });
 
     const res = await axios.get("/api/v1/categories");
     dispatch({
       type: ShopActionTypes.FETCH_CATEGORIES_SUCCESS,
-      payload: res.data
+      payload: res.data,
     });
   } catch (err) {
     dispatch({
       type: ShopActionTypes.FETCH_CATEGORIES_FAIL,
-      payload: err.response.data.error
+      payload: err.response.data.error,
     });
   }
 };
 
 /** ADD NEW CATEGORY */
-export const addCategory = ({
-  name,
-  description,
-  history,
-  location
-}) => async dispatch => {
+export const addCategory = ({ name, description, history, location }) => async (
+  dispatch
+) => {
   try {
     const config = {
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     };
 
     const body = JSON.stringify({ name, description });
@@ -42,7 +39,7 @@ export const addCategory = ({
 
     dispatch({
       type: ShopActionTypes.ADD_CATEGORY_SUCCESS,
-      payload: res.data
+      payload: res.data,
     });
 
     dispatch(setAlert(`${name} added`, "success"));
@@ -51,22 +48,21 @@ export const addCategory = ({
   } catch (err) {
     dispatch({
       type: ShopActionTypes.ADD_CATEGORY_FAIL,
-      payload: err.response.data.error
+      payload: err.response.data.error,
     });
     dispatch(setAlert(`Failed: ${err.response.data.error}`, "warning"));
   }
 };
 
 /** EDIT A CATEGORY */
-export const editCategory = (
-  categoryId,
-  { name, description }
-) => async dispatch => {
+export const editCategory = (categoryId, { name, description }) => async (
+  dispatch
+) => {
   try {
     const config = {
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     };
 
     const body = JSON.stringify({ name, description });
@@ -79,7 +75,7 @@ export const editCategory = (
 
     dispatch({
       type: ShopActionTypes.ADD_CATEGORY_SUCCESS,
-      payload: res.data
+      payload: res.data,
     });
 
     dispatch(setAlert(`${name} updated`, "success"));
@@ -88,14 +84,14 @@ export const editCategory = (
   } catch (err) {
     dispatch({
       type: ShopActionTypes.ADD_CATEGORY_FAIL,
-      payload: err.response.data.error
+      payload: err.response.data.error,
     });
     dispatch(setAlert(`Failed: ${err.response.data.error}`, "warning"));
   }
 };
 
 /** DELETE SINGLE CATEGORY */
-export const deleteCategory = (categoryId, history) => async dispatch => {
+export const deleteCategory = (categoryId, history) => async (dispatch) => {
   try {
     await axios.delete(`/api/v1/categories/${categoryId}`);
 
@@ -103,71 +99,68 @@ export const deleteCategory = (categoryId, history) => async dispatch => {
 
     dispatch({
       type: ShopActionTypes.DELETE_CATEGORY_SUCCESS,
-      payload: categoryId
+      payload: categoryId,
     });
 
     dispatch(setAlert(`Category deleted`, "success"));
   } catch (err) {
     dispatch({
       type: ShopActionTypes.DELETE_CATEGORY_FAIL,
-      payload: err.response.data.error
+      payload: err.response.data.error,
     });
     dispatch(setAlert(`Failed: ${err.response.data.error}`, "warning"));
   }
 };
 
 /** GET ALL PRODUCTS */
-export const getProducts = () => async dispatch => {
+export const getProducts = () => async (dispatch) => {
   try {
     dispatch({
-      type: ShopActionTypes.FETCH_START
+      type: ShopActionTypes.FETCH_START,
     });
 
     const res = await axios.get("/api/v1/products");
     dispatch({
       type: ShopActionTypes.FETCH_PRODUCTS_SUCCESS,
-      payload: res.data
+      payload: res.data,
     });
   } catch (err) {
     dispatch({
       type: ShopActionTypes.FETCH_PRODUCTS_FAIL,
-      payload: err.response.data.error
+      payload: err.response.data.error,
     });
   }
 };
 
 /** GET ONE PRODUCT */
-export const getProduct = productId => async dispatch => {
+export const getProduct = (productId) => async (dispatch) => {
   try {
     dispatch({
-      type: ShopActionTypes.FETCH_START
+      type: ShopActionTypes.FETCH_START,
     });
 
     const res = await axios.get(`/api/v1/products/${productId}`);
     dispatch({
       type: ShopActionTypes.FETCH_PRODUCT_SUCCESS,
-      payload: res.data
+      payload: res.data,
     });
   } catch (err) {
     dispatch({
       type: ShopActionTypes.FETCH_PRODUCT_FAIL,
-      payload: err.response.data.error
+      payload: err.response.data.error,
     });
   }
 };
 
 /** CREATE A PRODUCT */
-export const addProduct = (
-  categorySlug,
-  formData,
-  history,
-  location
-) => async dispatch => {
+export const addProduct = (categorySlug, formData, history, location) => async (
+  dispatch
+) => {
   try {
     const config = {
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     };
 
     const body = JSON.stringify(formData);
@@ -180,7 +173,7 @@ export const addProduct = (
 
     dispatch({
       type: ShopActionTypes.ADD_PRODUCT_SUCCESS,
-      payload: res.data
+      payload: res.data,
     });
 
     dispatch(setAlert(`${formData.name} added`, "success"));
@@ -190,19 +183,19 @@ export const addProduct = (
   } catch (err) {
     dispatch({
       type: ShopActionTypes.ADD_PRODUCT_FAIL,
-      payload: err.response.data.error
+      payload: err.response.data.error,
     });
     dispatch(setAlert(`Failed: ${err.response.data.error}`, "warning"));
   }
 };
 
 /** EDIT A PRODUCT */
-export const editProduct = (productId, formData) => async dispatch => {
+export const editProduct = (productId, formData) => async (dispatch) => {
   try {
     const config = {
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     };
 
     const body = JSON.stringify(formData);
@@ -211,7 +204,7 @@ export const editProduct = (productId, formData) => async dispatch => {
 
     dispatch({
       type: ShopActionTypes.ADD_PRODUCT_SUCCESS,
-      payload: res.data
+      payload: res.data,
     });
 
     dispatch(getCategories());
@@ -221,14 +214,14 @@ export const editProduct = (productId, formData) => async dispatch => {
   } catch (err) {
     dispatch({
       type: ShopActionTypes.ADD_PRODUCT_FAIL,
-      payload: err.response.data.error
+      payload: err.response.data.error,
     });
     dispatch(setAlert(`Failed: ${err.response.data.error}`, "warning"));
   }
 };
 
 /** DELETE SINGLE PRODUCT */
-export const deleteProduct = (productId, history) => async dispatch => {
+export const deleteProduct = (productId, history) => async (dispatch) => {
   try {
     await axios.delete(`/api/v1/products/${productId}`);
 
@@ -236,7 +229,7 @@ export const deleteProduct = (productId, history) => async dispatch => {
 
     dispatch({
       type: ShopActionTypes.DELETE_PRODUCT_SUCCESS,
-      payload: productId
+      payload: productId,
     });
 
     dispatch(getCategories());
@@ -245,19 +238,24 @@ export const deleteProduct = (productId, history) => async dispatch => {
   } catch (err) {
     dispatch({
       type: ShopActionTypes.DELETE_PRODUCT_FAIL,
-      payload: err.response.data.error
+      payload: err.response.data.error,
     });
     dispatch(setAlert(`Failed: ${err.response.data.error}`, "warning"));
   }
 };
 
 /** EDIT A PRODUCT PHOTO */
-export const editProductPhoto = (productId, formData) => async dispatch => {
+export const editProductPhoto = (
+  productId,
+  formData,
+  history,
+  location
+) => async (dispatch) => {
   try {
     const config = {
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     };
 
     const res = await axios.put(
@@ -268,17 +266,17 @@ export const editProductPhoto = (productId, formData) => async dispatch => {
 
     dispatch({
       type: ShopActionTypes.ADD_PRODUCT_PHOTO_SUCCESS,
-      payload: res.data
+      payload: res.data,
     });
 
     dispatch(getCategories());
     dispatch(getProduct(productId));
 
-    dispatch(setAlert(`Photo updated`, "success"));
+    history.push(`${location.state.from}`);
   } catch (err) {
     dispatch({
       type: ShopActionTypes.ADD_PRODUCT_PHOTO_FAIL,
-      payload: err.response.data.error
+      payload: err.response.data.error,
     });
     dispatch(setAlert(`Failed: ${err.response.data.error}`, "warning"));
   }

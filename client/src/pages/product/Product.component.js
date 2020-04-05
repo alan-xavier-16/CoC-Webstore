@@ -9,7 +9,7 @@ import DashboardBtns from "../../components/dashboard-btns/DashboardBtns.compone
 import { selectProductItem } from "../../redux/shop/shop.selectors";
 import {
   selectIsAuthenticated,
-  selectUser
+  selectUser,
 } from "../../redux/auth/auth.selectors";
 
 import { modifyCartItem } from "../../redux/cart/cart.actions";
@@ -22,7 +22,7 @@ const Product = ({
   isAuthenticated,
   modifyCartItem,
   user,
-  deleteProduct
+  deleteProduct,
 }) => {
   // RELATIVE LINK, HISTORY & LOCATION OBJECT
   const location = useLocation();
@@ -31,7 +31,7 @@ const Product = ({
 
   // FORM LOGIC
   const [formData, setFormData] = useState({
-    quantity: 1
+    quantity: 1,
   });
   const {
     _id,
@@ -41,27 +41,27 @@ const Product = ({
     description,
     inventory,
     details,
-    slug
+    slug,
   } = product;
 
   // CHANGE QUANTITY
-  const handleChange = e => {
+  const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   const { quantity } = formData;
 
   // ADD PRODUCT TO CART
-  const handleModify = e => {
+  const handleModify = (e) => {
     const item = { product: { ...product }, ...formData };
     modifyCartItem(item);
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
   };
 
   /**  DELETE ACTION */
-  const handleDelete = e => {
+  const handleDelete = (e) => {
     if (
       window.confirm(
         `Are you sure you want to delete ${name}? This cannot be undone.`
@@ -75,7 +75,7 @@ const Product = ({
     <form className="product" onSubmit={handleSubmit}>
       <div className="product-card">
         <div className={`product-card-img ${inventory === 0 && "disabled"}`}>
-          <img src={`/uploads/${photo[0]}`} alt={`product-${name}`} />
+          <img src={`/uploads/${photo[0]}`} alt={`product`} />
 
           {inventory === 0 && <div className="img-text">Out of Stock</div>}
 
@@ -85,7 +85,7 @@ const Product = ({
                 className="btn btn-success"
                 to={{
                   pathname: `/shop/products/${slug}/photo-upload`,
-                  state: { from: location.pathname }
+                  state: { from: location.pathname },
                 }}
               >
                 <i className="fas fa-camera"></i>
@@ -144,7 +144,7 @@ const Product = ({
               <div className="card-body-item card-details">
                 <div className="card-lead">Details:</div>
                 <ul className="card-list">
-                  {details.map(detail => (
+                  {details.map((detail) => (
                     <li key={detail._id} className="card-list-item">
                       <span>{detail.title}</span>: {detail.text}
                     </li>
@@ -156,9 +156,9 @@ const Product = ({
 
           <div className="user-actions">
             <button
-              className={`btn btn-gold ${(inventory === 0 ||
-                !isAuthenticated) &&
-                "disabled"}`}
+              className={`btn btn-gold ${
+                (inventory === 0 || !isAuthenticated) && "disabled"
+              }`}
               disabled={!inventory || !isAuthenticated}
               onClick={handleModify}
             >
@@ -182,18 +182,18 @@ Product.propTypes = {
   isAuthenticated: PropTypes.bool.isRequired,
   user: PropTypes.object.isRequired,
   modifyCartItem: PropTypes.func.isRequired,
-  deleteProduct: PropTypes.func.isRequired
+  deleteProduct: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
   product: selectProductItem,
   isAuthenticated: selectIsAuthenticated,
-  user: selectUser
+  user: selectUser,
 });
 
 const mapDispatchToProps = {
-  modifyCartItem: item => modifyCartItem(item),
-  deleteProduct: (productId, history) => deleteProduct(productId, history)
+  modifyCartItem: (item) => modifyCartItem(item),
+  deleteProduct: (productId, history) => deleteProduct(productId, history),
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Product);

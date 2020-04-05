@@ -2,6 +2,7 @@
 Handles Requests with File Uploads
   - Accepts a model as an argument
   - Performs file upload with express-fileupload
+  - Expects MULTIPLE files
 */
 const path = require("path");
 const fs = require("fs");
@@ -19,87 +20,89 @@ const fileUpload = (model) => async (req, res, next) => {
     );
   }
 
-  // Remove 'no-photo.jpg'
-  resource = await model.findByIdAndUpdate(req.params.id, {
-    photo: resource.photo.filter((photoName) => photoName !== "no-photo.jpg"),
-  });
-
-  // Check Resource Length
-  if (resource.photo.length >= 5) {
-    return next(
-      new ErrorResponse(`${resource.name} already has 5 photos`, 400)
-    );
-  }
-
   // Ensure Files is Selected
   if (!req.files) {
-    return next(new ErrorResponse(`Please select a file to upload`, 400));
+    return next(new ErrorResponse(`Please select an image to upload`, 400));
   }
 
-  const file = req.files.file;
-
-  // Check Files is an Image
-  if (!file.mimetype.startsWith("image")) {
-    return next(new ErrorResponse(`Please upload an image`, 400));
+  /* 
+  Convert Files Array
+    - Check if only ONE file is uploaded, i.e. one object and convert to an array
+    - Otherwise, destructure all files to an array
+  */
+  let files = [];
+  if (req.files.file.hasOwnProperty("name")) {
+    files = [req.files.file];
+  } else {
+    files = [...req.files.file];
   }
 
-  // Check Image is Less than 1 Mb
-  if (file.size > process.env.MAX_FILE_UPLOAD) {
-    const fileSize = process.env.MAX_FILE_UPLOAD / 1000000;
-    return next(
-      new ErrorResponse(`Please upload an image less than ${fileSize} Mb`, 400)
-    );
-  }
-
-  // Rename File
-  file.name = `${resource.slug}-${file.name}${path.parse(file.name).ext}`;
-
-  // Delete old file if exists
-  fs.access(
-    path.join(__dirname, `../public/uploads/${file.name}`),
-    fs.constants.F_OK,
-    (err) => {
-      if (err) {
-        console.error(
-          `${path.join(__dirname, `../public/uploads/${file.name}`)} ${
-            err ? "does not exist" : "exists"
-          }`
-        );
-      } else {
-        // File exists
-        fs.unlink(
-          path.join(__dirname, `../public/uploads/${file.name}`),
-          async (err) => {
-            if (err) {
-              console.error(err);
-              return next(new ErrorResponse(`Problem with file upload`, 500));
-            }
-          }
-        );
-      }
+  files.map(async (file, idx) => {
+    // Check Files is an Image
+    if (!file.mimetype.startsWith("image")) {
+      return next(new ErrorResponse(`Please upload an image`, 400));
     }
-  );
 
-  // Compress Image and Upload
-  await tinify
-    .fromBuffer(file.data)
-    .resize({
-      method: "fit",
-      width: 600,
-      height: 700,
-    })
-    .toFile(`${process.env.FILE_UPLOAD_PATH}/${file.name}`, async (err) => {
-      if (err) {
-        console.error(err);
-        return next(new ErrorResponse(`Problem with file upload`, 500));
+    // Check Image is Less than 1 Mb
+    if (file.size > process.env.MAX_FILE_UPLOAD) {
+      const fileSize = process.env.MAX_FILE_UPLOAD / 1000000;
+      return next(
+        new ErrorResponse(`Ensure ALL images are less than ${fileSize} Mb`, 400)
+      );
+    }
+
+    // Rename File
+    file.name = `${resource.slug}-${idx}${path.parse(file.name).ext}`;
+
+    // Delete old file if exists
+    fs.access(
+      path.join(__dirname, `../public/uploads/${file.name}`),
+      fs.constants.F_OK,
+      (err) => {
+        if (err) {
+          console.error(
+            `${path.join(
+              __dirname,
+              `../public/uploads/${file.name}`
+            )} ${"does not exist"}`
+          );
+        } else {
+          // File exists
+          fs.unlink(
+            path.join(__dirname, `../public/uploads/${file.name}`),
+            async (err) => {
+              if (err) {
+                console.error(err);
+                return next(new ErrorResponse(`Problem with file upload`, 500));
+              }
+            }
+          );
+        }
       }
+    );
 
-      await model.findByIdAndUpdate(req.params.id, {
-        photo: [...resource.photo, file.name],
+    // Compress Image and Upload
+    await tinify
+      .fromBuffer(file.data)
+      .resize({
+        method: "fit",
+        width: 600,
+        height: 700,
+      })
+      .toFile(`${process.env.FILE_UPLOAD_PATH}/${file.name}`, (err) => {
+        if (err) {
+          console.error(err);
+          return next(new ErrorResponse(`Problem with file upload`, 500));
+        }
       });
+  });
 
-      res.status(200).json({ success: true, data: file.name });
-    });
+  // Remove OLD photo refs && add NEW photo refs from database
+  await model.findByIdAndUpdate(req.params.id, {
+    photo: files.map((file) => file.name),
+  });
+
+  res.status(200).json({ success: true, data: files.map((file) => file.name) });
 };
 
 module.exports = fileUpload;
