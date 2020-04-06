@@ -5,6 +5,7 @@ import { createStructuredSelector } from "reselect";
 import PropTypes from "prop-types";
 
 import DashboardBtns from "../../components/dashboard-btns/DashboardBtns.component";
+import Slider from "../../components/slider/Slider.component";
 
 import { selectProductItem } from "../../redux/shop/shop.selectors";
 import {
@@ -66,7 +67,8 @@ const Product = ({
     <form className="product" onSubmit={handleSubmit}>
       <div className="product-card">
         <div className={`product-card-img ${inventory === 0 && "disabled"}`}>
-          <img src={`/uploads/${photo[0]}`} alt={`product`} />
+          <Slider />
+          {/* <img src={`/uploads/${photo[0]}`} alt={`product`} /> */}
 
           {inventory === 0 && <div className="img-text">Out of Stock</div>}
         </div>
