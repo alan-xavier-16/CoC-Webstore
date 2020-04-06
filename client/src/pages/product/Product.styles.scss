@@ -10,12 +10,10 @@
   }
 
   .product-card {
-    position: relative;
-
-    & .dashboard-btns {
-      position: absolute;
-      top: 0;
-      right: 0.25rem;
-    }
+    // & .dashboard-btns {
+    //   position: absolute;
+    //   top: 0;
+    //   right: 0.25rem;
+    // }
   }
 }

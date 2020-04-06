@@ -33,16 +33,7 @@ const Product = ({
   const [formData, setFormData] = useState({
     quantity: 1,
   });
-  const {
-    _id,
-    photo,
-    name,
-    price,
-    description,
-    inventory,
-    details,
-    slug,
-  } = product;
+  const { _id, photo, name, price, description, inventory, details } = product;
 
   // CHANGE QUANTITY
   const handleChange = (e) => {
@@ -78,31 +69,19 @@ const Product = ({
           <img src={`/uploads/${photo[0]}`} alt={`product`} />
 
           {inventory === 0 && <div className="img-text">Out of Stock</div>}
-
-          {user.role && user.role === "admin" && (
-            <div className="img-link">
-              <Link
-                className="btn btn-success"
-                to={{
-                  pathname: `/shop/products/${slug}/photo-upload`,
-                  state: { from: location.pathname },
-                }}
-              >
-                <i className="fas fa-camera"></i>
-              </Link>
-            </div>
-          )}
         </div>
 
-        <div className="product-card-body">
-          {user.role && user.role === "admin" && (
+        {user.role && user.role === "admin" && (
+          <div className="img-link">
             <DashboardBtns
-              btns={{ add: false, edit: true, remove: true }}
+              btns={{ add: false, edit: true, remove: true, photo: true }}
               removeAction={handleDelete}
               pathName={`${url}`}
             />
-          )}
+          </div>
+        )}
 
+        <div className="product-card-body">
           <div className="product-card-detail">
             <div className="product-card-header">
               <h3 className="card-title">{name}</h3>
