@@ -34,18 +34,20 @@ const ProductItem = ({
 
   return (
     <div className="card">
-      <div className={`card-img ${inventory === 0 && "disabled"}`}>
-        <Link
-          to={{
-            pathname: `/shop/products/${slug}`,
-            state: { from: location.pathname },
-          }}
-          onClick={handleRedirect}
-        >
-          <img src={`/uploads/${photo[0]}`} alt={`product`} />
-          {inventory === 0 && <span className="img-text">Out of Stock</span>}
-        </Link>
-      </div>
+      <Link
+        to={{
+          pathname: `/shop/products/${slug}`,
+          state: { from: location.pathname },
+        }}
+        onClick={handleRedirect}
+      >
+        <img
+          src={`/uploads/${photo[0]}`}
+          alt={`product`}
+          className={`card-img ${inventory === 0 && "disabled"}`}
+        />
+        {inventory === 0 && <span className="img-text">Out of Stock</span>}
+      </Link>
 
       <div className="card-body">
         <h3 className="card-title">{name}</h3>

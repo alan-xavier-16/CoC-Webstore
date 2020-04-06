@@ -257,7 +257,6 @@
       background-size: cover;
       min-height: 180px;
       background-position: center;
-      position: relative;
 
       &.disabled {
         opacity: 0.65;
@@ -402,6 +401,7 @@
   width: 100%;
   text-align: center;
   @include set-background(map-get($map: $colors, $key: my-red));
+  opacity: 0.8;
   font-size: 1.5rem;
   font-weight: bold;
   letter-spacing: 0.2rem;
