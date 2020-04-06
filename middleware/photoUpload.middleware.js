@@ -85,9 +85,9 @@ const fileUpload = (model) => async (req, res, next) => {
     await tinify
       .fromBuffer(file.data)
       .resize({
-        method: "fit",
-        width: 600,
-        height: 700,
+        method: "thumb",
+        width: 550,
+        height: 550,
       })
       .toFile(`${process.env.FILE_UPLOAD_PATH}/${file.name}`, (err) => {
         if (err) {

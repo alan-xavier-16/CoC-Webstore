@@ -254,8 +254,9 @@
     @include set-background(map-get($map: $colors, $key: light));
 
     & .card-img {
-      background-size: cover;
-      min-height: 180px;
+      object-fit: cover;
+      min-height: 250px;
+      max-height: 250px;
       background-position: center;
 
       &.disabled {
@@ -296,11 +297,14 @@
   @media screen and (min-width: map-get($map: $breakpoints, $key: sm)) {
     flex-direction: row;
     align-items: center;
+    min-height: 80vh;
+    max-height: 80vh;
+    overflow: hidden;
   }
 
   & .product-card-img {
-    background-size: cover;
-    min-height: 180px;
+    object-fit: cover;
+    min-height: 225px;
     background-position: center;
     position: relative;
 

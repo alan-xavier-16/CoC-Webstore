@@ -34,7 +34,7 @@ const Product = ({
   const [formData, setFormData] = useState({
     quantity: 1,
   });
-  const { _id, photo, name, price, description, inventory, details } = product;
+  const { _id, name, price, description, inventory, details } = product;
 
   // CHANGE QUANTITY
   const handleChange = (e) => {
@@ -68,7 +68,6 @@ const Product = ({
       <div className="product-card">
         <div className={`product-card-img ${inventory === 0 && "disabled"}`}>
           <Slider />
-          {/* <img src={`/uploads/${photo[0]}`} alt={`product`} /> */}
 
           {inventory === 0 && <div className="img-text">Out of Stock</div>}
         </div>
