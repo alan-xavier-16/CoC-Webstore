@@ -78,9 +78,9 @@ export const editCategory = (categoryId, { name, description }) => async (
       payload: res.data,
     });
 
-    dispatch(setAlert(`${name} updated`, "success"));
-
     dispatch(getCategories());
+
+    dispatch(setAlert(`${name} updated`, "success"));
   } catch (err) {
     dispatch({
       type: ShopActionTypes.ADD_CATEGORY_FAIL,
@@ -178,8 +178,8 @@ export const addProduct = (categorySlug, formData, history, location) => async (
 
     dispatch(setAlert(`${formData.name} added`, "success"));
 
-    dispatch(getCategories());
     history.push(`${location.state.from}`);
+    window.location.reload();
   } catch (err) {
     dispatch({
       type: ShopActionTypes.ADD_PRODUCT_FAIL,
@@ -207,9 +207,6 @@ export const editProduct = (productId, formData) => async (dispatch) => {
       payload: res.data,
     });
 
-    dispatch(getCategories());
-    dispatch(getProduct(res.data.data._id));
-
     dispatch(setAlert(`${formData.name} updated`, "success"));
   } catch (err) {
     dispatch({
@@ -231,8 +228,6 @@ export const deleteProduct = (productId, history) => async (dispatch) => {
       type: ShopActionTypes.DELETE_PRODUCT_SUCCESS,
       payload: productId,
     });
-
-    dispatch(getCategories());
 
     dispatch(setAlert(`Product deleted`, "success"));
   } catch (err) {
@@ -270,6 +265,9 @@ export const editProductPhoto = (
     });
 
     history.push(`${location.state.from}`);
+    window.location.reload();
+
+    dispatch(setAlert(`Product photos updated`, "success"));
   } catch (err) {
     dispatch({
       type: ShopActionTypes.ADD_PRODUCT_PHOTO_FAIL,
