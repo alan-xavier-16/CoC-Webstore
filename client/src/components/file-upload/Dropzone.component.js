@@ -46,7 +46,7 @@ const Dropzone = ({ onFilesAdded, disabled }) => {
 
   return (
     <div
-      className={`dropzone ${disabled && "disabled"} ${
+      className={`dropzone form-group ${disabled && "disabled"} ${
         highlight && "highlight"
       }`}
       onClick={openFileDialog}

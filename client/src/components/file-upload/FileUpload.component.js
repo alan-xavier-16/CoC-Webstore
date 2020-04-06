@@ -46,15 +46,20 @@ const FileUpload = ({ product, editProductPhoto }) => {
     setUploads({ uploading: false, successfulUpload: true, files: [] });
   };
 
+  /* REMOVE FILES */
+  const handleClear = (e) => {
+    e.preventDefault();
+    setUploads({ ...uploads, files: [] });
+  };
+
   return (
     <form className="form" onSubmit={uploadFiles}>
       <div className="form-header">
-        <h1>Update {name}</h1>
+        <h1>Add photos to {name}</h1>
+        <p>Be aware that this replaces all existing photos for this product!</p>
       </div>
 
-      <div className="form-group">
-        <Dropzone onFilesAdded={onFilesAdded} disabled={uploads.uploading} />
-      </div>
+      <Dropzone onFilesAdded={onFilesAdded} disabled={uploads.uploading} />
 
       <div className="form-files">
         {!uploads.uploading &&
@@ -67,6 +72,10 @@ const FileUpload = ({ product, editProductPhoto }) => {
       <div className="form-actions">
         <button className="btn btn-primary" type="submit">
           <i className="fas fa-file-upload"></i>
+        </button>
+
+        <button className="btn btn-warning" onClick={handleClear}>
+          <i className="fas fa-ban"></i>
         </button>
 
         {location.state && location.state.from && (

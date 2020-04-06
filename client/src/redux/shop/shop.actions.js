@@ -269,9 +269,6 @@ export const editProductPhoto = (
       payload: res.data,
     });
 
-    dispatch(getCategories());
-    dispatch(getProduct(productId));
-
     history.push(`${location.state.from}`);
   } catch (err) {
     dispatch({

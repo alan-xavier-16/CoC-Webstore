@@ -17,15 +17,11 @@ const File = ({ file }) => {
   }, [file, preview]);
   return (
     <div className="form-file">
-      <span className="lead">{file.name}</span>
-
-      <div className="file-preview">
-        {preview.previewUrl ? (
-          <img src={preview.previewUrl} alt="Preview" />
-        ) : (
-          <p>No preview to display</p>
-        )}
-      </div>
+      {preview.previewUrl ? (
+        <img src={preview.previewUrl} alt="Preview" />
+      ) : (
+        <p>No preview to display</p>
+      )}
     </div>
   );
 };
