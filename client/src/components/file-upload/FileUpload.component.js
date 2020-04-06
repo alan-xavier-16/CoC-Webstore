@@ -25,7 +25,10 @@ const FileUpload = ({ product, editProductPhoto }) => {
 
   /* HANDLE FILES FROM DROPZONE */
   const onFilesAdded = (files) => {
-    setUploads({ ...uploads, files: [...files] });
+    setUploads({
+      ...uploads,
+      files: [...files],
+    });
   };
 
   /* UPLOAD EACH FILE */
@@ -54,7 +57,8 @@ const FileUpload = ({ product, editProductPhoto }) => {
       </div>
 
       <div className="form-files">
-        {uploads.files &&
+        {!uploads.uploading &&
+          uploads.files &&
           uploads.files.map((file, idx) => (
             <File key={`file-${idx}`} file={file} />
           ))}

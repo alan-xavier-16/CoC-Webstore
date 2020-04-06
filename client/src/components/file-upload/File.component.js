@@ -1,32 +1,27 @@
 import React, { useState, useEffect } from "react";
 
 const File = ({ file }) => {
-  /* FILE OBJECT & PREVIEW URL */
-  const [fileAdded, setFileAdded] = useState({
-    selectedFile: file ? file : null,
+  const [preview, setPreview] = useState({
     previewUrl: null,
   });
 
-  /* CREATE FILE PREVIEW */
   useEffect(() => {
+    // Set Image Preview
     let reader = new FileReader();
     reader.onloadend = () => {
-      setFileAdded({
-        ...fileAdded,
-        selectedFile: file,
-        previewUrl: reader.result,
-      });
+      setPreview({ ...preview, previewUrl: reader.result });
     };
     reader.readAsDataURL(file);
-  }, [file, fileAdded, setFileAdded]);
 
+    return () => reader.abort();
+  }, [file, preview]);
   return (
     <div className="form-file">
       <span className="lead">{file.name}</span>
 
       <div className="file-preview">
-        {fileAdded.previewUrl ? (
-          <img src={fileAdded.previewUrl} alt="Preview" />
+        {preview.previewUrl ? (
+          <img src={preview.previewUrl} alt="Preview" />
         ) : (
           <p>No preview to display</p>
         )}
