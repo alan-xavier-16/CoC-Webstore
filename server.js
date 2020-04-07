@@ -4,10 +4,12 @@ const dotenv = require("dotenv");
 const morgan = require("morgan");
 const fileupload = require("express-fileupload");
 const connectDB = require("./config/db");
+const paypalConfig = require("./config/paypal");
 const errorResponse = require("./middleware/errorResponse.middleware");
 
 dotenv.config({ path: "./config/config.env" }); //** Env Variables */
 connectDB(); /** Connect to DB */
+paypalConfig(); /** Paypal Config */
 
 /** Get Route Files */
 const categories = require("./routes/category.routes");
