@@ -38,7 +38,7 @@ let PayPalButton = ({ isScriptLoaded, isScriptLoadSucceed, ...rest }) => {
           description: `Paypal Payment`,
           amount: {
             currency_code: "USD",
-            value: data.amount,
+            value: (data.amount / 6.5).toFixed(2),
           },
         },
       ],
