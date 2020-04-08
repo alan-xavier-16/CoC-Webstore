@@ -26,7 +26,7 @@ const DashboardOverview = ({ user }) => {
       </div>
 
       <div className="dashboard-items cards">
-        {resources.map(resource => (
+        {resources.map((resource) => (
           <DashboardAction key={resource} resource={resource} />
         ))}
       </div>
@@ -35,11 +35,11 @@ const DashboardOverview = ({ user }) => {
 };
 
 DashboardOverview.propTypes = {
-  user: PropTypes.object.isRequired
+  user: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
-  user: selectUser
+  user: selectUser,
 });
 
 export default connect(mapStateToProps)(DashboardOverview);

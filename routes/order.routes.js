@@ -4,7 +4,7 @@ const {
   getOrder,
   addOrder,
   updateOrder,
-  deleteOrder
+  deleteOrder,
 } = require("../controllers/order.controllers");
 const router = express.Router({ mergeParams: true });
 
@@ -12,7 +12,6 @@ const router = express.Router({ mergeParams: true });
 const Order = require("../models/order.model");
 
 /** Other Resource Routers */
-const orderItemsRouter = require("../routes/orderItem.routes");
 const productRouter = require("../routes/product.routes");
 
 /** Middlewares */
@@ -21,7 +20,6 @@ const advancedResults = require("../middleware/advancedResults.middleware");
 
 router.use(protect);
 
-router.use("/:orderId/orderitems", orderItemsRouter);
 router.use("/:orderId/products", productRouter);
 
 router
@@ -32,10 +30,6 @@ router
   )
   .post(addOrder);
 
-router
-  .route("/:id")
-  .get(getOrder)
-  .put(updateOrder)
-  .delete(deleteOrder);
+router.route("/:id").get(getOrder).put(updateOrder).delete(deleteOrder);
 
 module.exports = router;

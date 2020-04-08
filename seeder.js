@@ -9,7 +9,6 @@ const Category = require("./models/category.model");
 const Product = require("./models/product.model");
 const User = require("./models/user.model");
 const CartItem = require("./models/cartItem.model");
-const OrderItem = require("./models/orderItem.model");
 const Order = require("./models/order.model");
 
 /* Connect to DB */
@@ -17,7 +16,7 @@ mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
-  useFindAndModify: false
+  useFindAndModify: false,
 });
 
 /** Read JSON files */
@@ -37,10 +36,6 @@ const cartItems = JSON.parse(
   fs.readFileSync(`${__dirname}/_data/cartItem.json`, "utf-8")
 );
 
-const orderItems = JSON.parse(
-  fs.readFileSync(`${__dirname}/_data/orderItem.json`, "utf-8")
-);
-
 const orders = JSON.parse(
   fs.readFileSync(`${__dirname}/_data/orders.json`, "utf-8")
 );
@@ -52,7 +47,6 @@ const importData = async () => {
     await Product.create(products);
     await User.create(users);
     await CartItem.create(cartItems);
-    await OrderItem.create(orderItems);
     await Order.create(orders);
     console.log("Data Imported...");
     process.exit();
@@ -68,7 +62,6 @@ const deleteData = async () => {
     await Product.deleteMany();
     await User.deleteMany();
     await CartItem.deleteMany();
-    await OrderItem.deleteMany();
     await Order.deleteMany();
     console.log("Data Destroyed...");
     process.exit();

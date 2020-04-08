@@ -7,20 +7,22 @@ import alertReducer from "./alerts/alert.reducer";
 import authReducer from "./auth/auth.reducer";
 import shopReducer from "./shop/shop.reducer";
 import cartReducer from "./cart/cart.reducer";
+import orderReducer from "./orders/order.reducer";
 
 /* PERSIST CONFIG */
 const rootPersistConfig = {
   key: "root",
   storage,
   stateReconciler: autoMergeLevel2,
-  whitelist: ["auth", "shop", "cart"]
+  whitelist: ["auth", "shop", "cart"],
 };
 
 const rootReducer = combineReducers({
   alert: alertReducer,
   auth: authReducer,
   shop: shopReducer,
-  cart: cartReducer
+  cart: cartReducer,
+  orders: orderReducer,
 });
 
 export default persistReducer(rootPersistConfig, rootReducer);

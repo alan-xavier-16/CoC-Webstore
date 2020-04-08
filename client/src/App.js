@@ -16,6 +16,8 @@ import SignInAndSignUp from "./pages/signInAndsignUp/SignInAndSignUp.component";
 import Shop from "./pages/shop/Shop.component";
 import Cart from "./pages/cart/Cart.component";
 
+import Checkout from "./pages/checkout/Checkout.component";
+
 import { loadUser } from "./redux/auth/auth.actions";
 import { selectIsAuthenticated } from "./redux/auth/auth.selectors";
 
@@ -43,6 +45,8 @@ const App = ({ loadUser, isAuthenticated }) => {
             <PrivateRoute path="/cart" component={Cart} />
             <AdminRoute path="/dashboard" component={Dashboard} />
             <UserRoute path="/signin" component={SignInAndSignUp} />
+
+            <PrivateRoute path="/checkout" component={Checkout} />
           </Switch>
         </div>
       )}
@@ -54,15 +58,15 @@ const App = ({ loadUser, isAuthenticated }) => {
 
 App.propTypes = {
   loadUser: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.bool.isRequired
+  isAuthenticated: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
-  isAuthenticated: selectIsAuthenticated
+  isAuthenticated: selectIsAuthenticated,
 });
 
 const mapDispatchToProps = {
-  loadUser: () => loadUser()
+  loadUser: () => loadUser(),
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

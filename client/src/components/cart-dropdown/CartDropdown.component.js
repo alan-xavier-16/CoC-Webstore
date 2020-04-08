@@ -9,7 +9,7 @@ import CartDropdownItem from "../cart-dropdown-item/CartDropdownItem.component";
 import { toggleCart } from "../../redux/cart/cart.actions";
 import {
   selectCartItems,
-  selectCartTotal
+  selectCartTotal,
 } from "../../redux/cart/cart.selectors";
 import { selectIsAuthenticated } from "../../redux/auth/auth.selectors";
 
@@ -32,18 +32,19 @@ const CartDropdown = ({ cart, total, dispatch, isAuthenticated }) => {
           Total: <span className="cart-dropdown-price">TT${total}</span>
         </div>
         <button
-          className={`btn btn-gold ${(!cart || !isAuthenticated) &&
-            "disabled"}`}
+          className={`btn btn-gold ${
+            (!cart || !isAuthenticated) && "disabled"
+          }`}
           disabled={!cart || !isAuthenticated}
           onClick={handleClick}
         >
-          Cart <i className="fas fa-angle-right"></i>
+          To Cart <i className="fas fa-angle-right"></i>
         </button>
       </div>
 
       <div className="cart-items">
         {cart ? (
-          cart.map(cartItem => (
+          cart.map((cartItem) => (
             <CartDropdownItem key={cartItem._id} item={cartItem} />
           ))
         ) : (
@@ -57,13 +58,13 @@ const CartDropdown = ({ cart, total, dispatch, isAuthenticated }) => {
 CartDropdown.propTypes = {
   cart: PropTypes.array.isRequired,
   total: PropTypes.number.isRequired,
-  isAuthenticated: PropTypes.bool.isRequired
+  isAuthenticated: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
   cart: selectCartItems,
   total: selectCartTotal,
-  isAuthenticated: selectIsAuthenticated
+  isAuthenticated: selectIsAuthenticated,
 });
 
 export default connect(mapStateToProps)(CartDropdown);

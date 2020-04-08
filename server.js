@@ -4,12 +4,10 @@ const dotenv = require("dotenv");
 const morgan = require("morgan");
 const fileupload = require("express-fileupload");
 const connectDB = require("./config/db");
-const paypalConfig = require("./config/paypal");
 const errorResponse = require("./middleware/errorResponse.middleware");
 
 dotenv.config({ path: "./config/config.env" }); //** Env Variables */
 connectDB(); /** Connect to DB */
-paypalConfig(); /** Paypal Config */
 
 /** Get Route Files */
 const categories = require("./routes/category.routes");
@@ -18,8 +16,6 @@ const auth = require("./routes/auth.routes");
 const users = require("./routes/user.routes");
 const cartItems = require("./routes/cartItem.routes");
 const orders = require("./routes/order.routes");
-const orderItems = require("./routes/orderItem.routes");
-const paypalPurchases = require("./routes/paypal.routes");
 
 const app = express(); /** Instantiate Express */
 app.use(express.json()); /** Body Parser for Requests */
@@ -42,8 +38,6 @@ app.use("/api/v1/auth", auth);
 app.use("/api/v1/users", users);
 app.use("/api/v1/cart", cartItems);
 app.use("/api/v1/orders", orders);
-app.use("/api/v1/orderitems", orderItems);
-app.use("/api/v1/paypal", paypalPurchases);
 
 // Error Response Middleware
 app.use(errorResponse);

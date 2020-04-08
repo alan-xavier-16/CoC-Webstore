@@ -38,4 +38,32 @@
       padding: 0.25rem 1rem;
     }
   }
+
+  & .btn-paypal {
+    background-image: linear-gradient(#fff0a8, #f9b421);
+    &:hover {
+      background-image: linear-gradient(#f9b421, #fff0a8);
+      background-image: linear-gradient(#253b80, #179bd7);
+    }
+
+    & .paypal-logo {
+      font-weight: bold;
+
+      i:first-child {
+        color: #253b80;
+      }
+      i:last-child {
+        color: #179bd7;
+      }
+    }
+
+    &:hover .paypal-logo {
+      i:first-child {
+        color: #f9b421;
+      }
+      i:last-child {
+        color: #fff0a8;
+      }
+    }
+  }
 }

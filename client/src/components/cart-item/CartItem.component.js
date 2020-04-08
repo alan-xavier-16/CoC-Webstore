@@ -8,37 +8,35 @@ import "./CartItem.styles.scss";
 
 const CartItem = ({ item, modifyCartItem, clearCartItem }) => {
   const {
-    product: { name, photo, description, price, inventory }
+    product: { name, photo, description, price, inventory },
   } = item;
 
   /* Set Quantity of Product on Form */
   const [formData, setFormData] = useState({
-    quantity: item.quantity ? item.quantity : 1
+    quantity: item.quantity ? item.quantity : 1,
   });
   const { quantity } = formData;
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   // Modify Cart Item Button
-  const handleModify = e => {
+  const handleModify = (e) => {
+    e.preventDefault();
     const updatedItem = { ...item, ...formData };
     modifyCartItem(updatedItem);
   };
 
   // Remove Cart Item Button
-  const handleRemove = e => {
+  const handleRemove = (e) => {
+    e.preventDefault();
     const removeItem = { ...item };
     clearCartItem(removeItem);
   };
 
-  const handleSubmit = e => {
-    e.preventDefault();
-  };
-
   return (
-    <form className="cart-item" onSubmit={handleSubmit}>
+    <div className="cart-item">
       <div className={`cart-item-img ${inventory === 0 && "disabled"}`}>
         <img src={`/uploads/${photo}`} alt={`product ${name}`} />
         {inventory === 0 && <span className="img-no-stock">Out of Stock</span>}
@@ -73,19 +71,19 @@ const CartItem = ({ item, modifyCartItem, clearCartItem }) => {
           </button>
         </div>
       </div>
-    </form>
+    </div>
   );
 };
 
 CartItem.propTypes = {
   item: PropTypes.object.isRequired,
   modifyCartItem: PropTypes.func.isRequired,
-  clearCartItem: PropTypes.func.isRequired
+  clearCartItem: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = {
-  modifyCartItem: cartItem => modifyCartItem(cartItem),
-  clearCartItem: cartItem => clearCartItem(cartItem)
+  modifyCartItem: (cartItem) => modifyCartItem(cartItem),
+  clearCartItem: (cartItem) => clearCartItem(cartItem),
 };
 
 export default connect(null, mapDispatchToProps)(CartItem);

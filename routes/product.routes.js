@@ -5,7 +5,7 @@ const {
   addProduct,
   updateProduct,
   deleteProduct,
-  productFileUpload
+  productFileUpload,
 } = require("../controllers/product.controllers");
 const router = express.Router({ mergeParams: true });
 
@@ -16,13 +16,11 @@ const fileUpload = require("../middleware/photoUpload.middleware");
 
 // Other Resource Files
 const cartItemRouter = require("../routes/cartItem.routes");
-const orderItemRouter = require("../routes/orderItem.routes");
 
 // Models
 const Product = require("../models/product.model");
 
 router.use("/:productId/cart", cartItemRouter);
-router.use("/:productId/orderitems", orderItemRouter);
 
 router
   .route("/")

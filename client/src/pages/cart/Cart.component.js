@@ -8,30 +8,39 @@ import CartItem from "../../components/cart-item/CartItem.component";
 
 import {
   selectCartItems,
-  selectCartTotal
+  selectCartTotal,
 } from "../../redux/cart/cart.selectors";
+
 import { deleteCart } from "../../redux/cart/cart.actions";
 
 import "./Cart.styles.scss";
 
-const Cart = ({ cart, total, deleteCart }) => {
+const Cart = ({ cart, cartTotal, deleteCart }) => {
   let history = useHistory();
-  const handleDelete = e => {
+
+  // DELETE ENTIRE CART
+  const handleDelete = (e) => {
     deleteCart(history);
     history.push("/shop");
   };
 
+  // TO PAYPAL PORTAL
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    history.push("/checkout");
+  };
+
   return (
-    <div className="cart-page">
+    <form className="cart-page" onSubmit={handleSubmit}>
       <div className="cart-page-header">
         <h1>
           <i className="fas fa-shopping-cart"></i> Cart
         </h1>
-        <div className="cart-total">TT${total}</div>
+        <div className="cart-total">TT${cartTotal}</div>
       </div>
 
       <div className="cart">
-        {cart.map(cartItem => (
+        {cart.map((cartItem) => (
           <CartItem key={cartItem._id} item={cartItem} />
         ))}
       </div>
@@ -40,27 +49,28 @@ const Cart = ({ cart, total, deleteCart }) => {
         <button className="btn btn-danger" onClick={handleDelete}>
           Delete Cart <i className="fas fa-trash-alt"></i>
         </button>
-        <button className="btn btn-gold">
-          To Checkout <i className="fas fa-money-check-alt"></i>
+
+        <button type="submit" className="btn btn-gold">
+          To Checkout
         </button>
       </div>
-    </div>
+    </form>
   );
 };
 
 Cart.propTypes = {
   cart: PropTypes.array.isRequired,
-  total: PropTypes.number.isRequired,
-  deleteCart: PropTypes.func.isRequired
+  cartTotal: PropTypes.number.isRequired,
+  deleteCart: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
   cart: selectCartItems,
-  total: selectCartTotal
+  cartTotal: selectCartTotal,
 });
 
 const mapDispatchToProps = {
-  deleteCart: () => deleteCart()
+  deleteCart: () => deleteCart(),
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cart);
