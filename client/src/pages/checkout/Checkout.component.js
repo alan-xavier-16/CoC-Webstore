@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
+import { useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
 
 import PayPalButton from "../../components/paypal-button/PayPalButton.component";
@@ -13,6 +14,8 @@ import {
 import { addOrder } from "../../redux/orders/order.actions";
 
 const Checkout = ({ cart, cartTotal, addOrder }) => {
+  const history = useHistory();
+
   // CREATE ORDER ITEM
   let orderItem = {
     amount: cartTotal,
@@ -27,7 +30,7 @@ const Checkout = ({ cart, cartTotal, addOrder }) => {
   /* CHECKOUT METHODS */
   const onSuccess = (paymentData) => {
     orderItem = { ...orderItem, paymentData };
-    addOrder(orderItem);
+    addOrder(orderItem, history);
   };
   const onError = (error) => {
     console.log(`Something went wrong with payment ${error}`);
@@ -64,7 +67,7 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = {
-  addOrder: (orderData) => addOrder(orderData),
+  addOrder: (orderData, history) => addOrder(orderData, history),
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Checkout);

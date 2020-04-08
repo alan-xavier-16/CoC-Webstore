@@ -4,7 +4,7 @@ import { deleteCart } from "../cart/cart.actions";
 import { setAlert } from "../alerts/alert.actions";
 
 /** CREATE AN ORDER */
-export const addOrder = (formData) => async (dispatch) => {
+export const addOrder = (orderItem, history) => async (dispatch) => {
   try {
     const config = {
       headers: {
@@ -12,7 +12,7 @@ export const addOrder = (formData) => async (dispatch) => {
       },
     };
 
-    const body = JSON.stringify(formData);
+    const body = JSON.stringify(orderItem);
 
     const res = await axios.post(`/api/v1/orders`, body, config);
 
@@ -22,6 +22,8 @@ export const addOrder = (formData) => async (dispatch) => {
     });
 
     dispatch(deleteCart());
+
+    history.push("/shop");
   } catch (err) {
     console.error(err);
     dispatch({
