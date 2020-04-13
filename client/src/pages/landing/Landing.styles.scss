@@ -2,51 +2,61 @@
 @import "../../scss/mixins";
 
 .landing {
-  &-showcase {
+  & .landing-showcase {
     background-image: url("../../assets/four-rocks.jpg");
     background-size: cover;
     background-position: center;
-    color: map-get($map: $colors, $key: my-gold);
     height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    text-align: center;
-    padding: 0 20px;
-    top: 2.5rem;
 
-    & h1,
-    p {
+    & .landing-header {
+      color: map-get($map: $colors, $key: my-gold);
+      text-align: center;
       text-shadow: 0.2rem 0.2rem 0.25rem rgba(239, 239, 239, 0.774);
-    }
-
-    & h1 {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
+      padding: 1rem;
+      background-color: map-get($map: $colors, $key: dark);
+      opacity: 0.75;
+      border-radius: 5rem;
 
       @media screen and (min-width: map-get($map: $breakpoints, $key: md)) {
-        font-size: 5rem;
+        padding: 2rem;
+      }
+
+      & h1 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+
+        @media screen and (min-width: map-get($map: $breakpoints, $key: md)) {
+          font-size: 4.5rem;
+        }
+      }
+
+      & p {
+        font-size: 1.25rem;
+
+        @media screen and (min-width: map-get($map: $breakpoints, $key: md)) {
+          font-size: 2.25rem;
+        }
       }
     }
 
-    & p {
-      font-size: 1.25rem;
-      padding-bottom: 1rem;
-      border-bottom: solid map-get($map: $colors, $key: my-gold) 0.05rem;
-
-      @media screen and (min-width: map-get($map: $breakpoints, $key: md)) {
-        font-size: 2.25rem;
-      }
-    }
-
-    & a {
-      font-size: 1.25rem;
+    & hr {
+      display: block;
       margin-top: 0.5rem;
+      margin-bottom: 0.5rem;
+      margin-left: auto;
+      margin-right: auto;
+      border: 0.05rem solid map-get($map: $colors, $key: my-gold);
+      width: 90%;
+    }
 
-      @media screen and (min-width: map-get($map: $breakpoints, $key: md)) {
+    & .user-actions {
+      & a,
+      button {
         font-size: 2rem;
-        margin-top: 1rem;
       }
     }
   }

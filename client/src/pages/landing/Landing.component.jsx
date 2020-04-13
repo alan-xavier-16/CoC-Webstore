@@ -3,14 +3,18 @@ import { Link } from "react-router-dom";
 
 import "./Landing.styles.scss";
 
-const Landing = props => {
+const Landing = (props) => {
   return (
     <section className="landing">
       <div className="landing-showcase">
-        <h1>Circles of Consciousness</h1>
-        <p>Experience the Oneness of Mind-Body-Soul</p>
+        <div className="landing-header">
+          <h1>Circles of Consciousness</h1>
+          <p>Experience the Oneness of Mind-Body-Soul</p>
+        </div>
 
-        <div className="buttons">
+        <hr></hr>
+
+        <div className="user-actions">
           <Link to="/services" className="btn btn-gold">
             <i className="fas fa-praying-hands"></i> View Services
           </Link>
