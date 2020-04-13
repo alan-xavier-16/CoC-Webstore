@@ -16,8 +16,6 @@ import {
 import { modifyCartItem } from "../../redux/cart/cart.actions";
 import { deleteProduct } from "../../redux/shop/shop.actions";
 
-import "./Product.styles.scss";
-
 const Product = ({
   product,
   isAuthenticated,
@@ -74,11 +72,13 @@ const Product = ({
 
         {user.role && user.role === "admin" && (
           <div className="img-link">
-            <DashboardBtns
-              btns={{ add: false, edit: true, remove: true, photo: true }}
-              removeAction={handleDelete}
-              pathName={`${url}`}
-            />
+            <div className="user-actions">
+              <DashboardBtns
+                btns={{ add: false, edit: true, remove: true, photo: true }}
+                removeAction={handleDelete}
+                pathName={`${url}`}
+              />
+            </div>
           </div>
         )}
 

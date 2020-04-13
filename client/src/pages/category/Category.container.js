@@ -8,7 +8,7 @@ import Category from "./Category.component";
 import { selectShopLoading } from "../../redux/shop/shop.selectors";
 
 const mapStateToProps = createStructuredSelector({
-  loading: selectShopLoading
+  loading: selectShopLoading,
 });
 
 const CategoryContainer = compose(

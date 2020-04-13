@@ -20,7 +20,7 @@ const Category = ({ category, user, deleteCategory }) => {
   const { url } = useRouteMatch();
 
   /**  DELETE ACTION */
-  const handleDelete = e => {
+  const handleDelete = (e) => {
     if (
       window.confirm(
         `Are you sure you want to delete ${name}? This cannot be undone.`
@@ -37,28 +37,30 @@ const Category = ({ category, user, deleteCategory }) => {
         <p className="lead">{description}</p>
       </div>
 
-      {user.role && user.role === "admin" && (
-        <DashboardBtns
-          btns={{ add: false, edit: true, remove: true }}
-          removeAction={handleDelete}
-          pathName={`${url}`}
-        />
-      )}
+      <div className="user-actions">
+        {user.role && user.role === "admin" && (
+          <DashboardBtns
+            btns={{ add: false, edit: true, remove: true }}
+            removeAction={handleDelete}
+            pathName={`${url}`}
+          />
+        )}
+      </div>
 
       <div className="cards">
         {products &&
-          products.map(product => (
+          products.map((product) => (
             <ProductItem key={product._id} product={product} />
           ))}
 
         {user.role && user.role === "admin" && (
-          <div className="card">
+          <div className="user-actions card">
             <DashboardBtns
               pathName={`${url}/create-product`}
               btns={{
                 add: true,
                 edit: false,
-                remove: false
+                remove: false,
               }}
             />
           </div>
@@ -75,16 +77,16 @@ const Category = ({ category, user, deleteCategory }) => {
 Category.propTypes = {
   category: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
-  deleteCategory: PropTypes.func.isRequired
+  deleteCategory: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => ({
   category: selectCategory(ownProps.match.params.categorySlug)(state),
-  user: selectUser(state)
+  user: selectUser(state),
 });
 
 const mapDispatchToProps = {
-  deleteCategory: (categoryId, history) => deleteCategory(categoryId, history)
+  deleteCategory: (categoryId, history) => deleteCategory(categoryId, history),
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Category);

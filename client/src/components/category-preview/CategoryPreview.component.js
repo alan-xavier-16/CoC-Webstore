@@ -33,7 +33,7 @@ const CategoryPreview = ({
       <div className="preview-header">
         <h3 className="title">{name.toUpperCase()}</h3>
 
-        <div className="header-actions">
+        <div className="user-actions">
           <Link
             to={{
               pathname: `${url}/categories/${slug}`,

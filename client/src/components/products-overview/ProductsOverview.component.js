@@ -8,8 +8,6 @@ import ProductItem from "../product-item/ProductItem.component";
 
 import { selectProducts } from "../../redux/shop/shop.selectors";
 
-import "./ProductsOverview.styles.scss";
-
 const ProductsOverview = ({ products }) => {
   /** LOCATION OBJECT & RELATIVE PATH FROM URL */
   const location = useLocation();

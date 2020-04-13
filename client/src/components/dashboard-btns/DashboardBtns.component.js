@@ -1,8 +1,6 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 
-import "./DashboardBtns.styles.scss";
-
 const DashboardBtns = ({
   pathName,
   btns: { add, edit, remove, photo },
@@ -12,7 +10,7 @@ const DashboardBtns = ({
   const location = useLocation();
 
   return (
-    <div className="dashboard-btns">
+    <>
       {add && (
         <Link
           to={{
@@ -54,7 +52,7 @@ const DashboardBtns = ({
           <i className="fas fa-camera"></i>
         </Link>
       )}
-    </div>
+    </>
   );
 };
 

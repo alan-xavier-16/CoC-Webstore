@@ -61,8 +61,7 @@ const ProductItem = ({
           disabled={!inventory || !isAuthenticated}
           onClick={handleModify}
         >
-          <i className="fas fa-cart-plus"></i>{" "}
-          <span className="show-md">Add To Cart</span>
+          <i className="fas fa-cart-plus"></i> Add To Cart
         </button>
       </div>
     </div>
