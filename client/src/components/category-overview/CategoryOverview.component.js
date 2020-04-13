@@ -7,48 +7,42 @@ import PropTypes from "prop-types";
 import CategoryPreview from "../category-preview/CategoryPreview.component";
 import DashboardBtns from "../dashboard-btns/DashboardBtns.component";
 
-import {
-  selectCategories,
-  selectProducts
-} from "../../redux/shop/shop.selectors";
+import { selectCategories } from "../../redux/shop/shop.selectors";
 import { selectUser } from "../../redux/auth/auth.selectors";
 
 import { getProducts } from "../../redux/shop/shop.actions";
 import { deleteCategory } from "../../redux/shop/shop.actions";
 
-import "./CategoryOverview.styles.scss";
-
 const CategoryOverview = ({
   categories,
-  products,
   user,
   getProducts,
-  deleteCategory
+  deleteCategory,
 }) => {
   /** LOCATION OBJECT & RELATIVE PATH FROM URL */
   const location = useLocation();
   const { url } = useRouteMatch();
 
   /** FETCH PRODUCTS ON BTN CLICK */
-  const handleFetch = e => {
-    products.length === 0 && getProducts();
+  const handleFetch = (e) => {
+    getProducts();
   };
 
   return (
     <div className="category-overview">
-      <h1 className="main-header">
+      <h1 className="page-header">
         Browse the Lil Herbal{" "}
-        <span className="herb">
+        <span>
           <i className="fas fa-feather-alt"></i>
         </span>{" "}
         In-Shop Collections!
       </h1>
 
-      <div className="to-products">
+      <div className="user-actions">
         <Link
           to={{
             pathname: `${url}/products`,
-            state: { from: location.pathname }
+            state: { from: location.pathname },
           }}
           onClick={handleFetch}
           className="btn btn-dark"
@@ -62,7 +56,7 @@ const CategoryOverview = ({
             btns={{
               add: true,
               edit: false,
-              remove: false
+              remove: false,
             }}
           />
         )}
@@ -82,21 +76,19 @@ const CategoryOverview = ({
 
 CategoryOverview.propTypes = {
   categories: PropTypes.array.isRequired,
-  products: PropTypes.array.isRequired,
   getProducts: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
-  deleteCategory: PropTypes.func.isRequired
+  deleteCategory: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
   categories: selectCategories,
-  products: selectProducts,
-  user: selectUser
+  user: selectUser,
 });
 
 const mapDispatchToProps = {
   getProducts: () => getProducts(),
-  deleteCategory: (categoryId, history) => deleteCategory(categoryId, history)
+  deleteCategory: (categoryId, history) => deleteCategory(categoryId, history),
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CategoryOverview);

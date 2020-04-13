@@ -4,15 +4,13 @@ import { useRouteMatch, Link, useLocation, useHistory } from "react-router-dom";
 import ProductItem from "../product-item/ProductItem.component";
 import DashboardBtns from "../../components/dashboard-btns/DashboardBtns.component";
 
-import "./CategoryPreview.styles.scss";
-
 const CategoryPreview = ({
   _id,
   slug,
   name,
   products,
   user,
-  deleteCategory
+  deleteCategory,
 }) => {
   /** RELATIVE LINK, ACCESS LOCATION & HISTORY OBJECT  */
   const { url } = useRouteMatch();
@@ -20,7 +18,7 @@ const CategoryPreview = ({
   const history = useHistory();
 
   /**  DELETE ACTION */
-  const handleDelete = e => {
+  const handleDelete = (e) => {
     if (
       window.confirm(
         `Are you sure you want to delete ${name}? This cannot be undone.`
@@ -31,7 +29,7 @@ const CategoryPreview = ({
   };
 
   return (
-    <div className="category-preview">
+    <div className="preview">
       <div className="preview-header">
         <h3 className="title">{name.toUpperCase()}</h3>
 
@@ -39,7 +37,7 @@ const CategoryPreview = ({
           <Link
             to={{
               pathname: `${url}/categories/${slug}`,
-              state: { from: location.pathname }
+              state: { from: location.pathname },
             }}
             className="btn btn-dark"
           >
@@ -60,7 +58,7 @@ const CategoryPreview = ({
         {products &&
           products
             .filter((product, idx) => idx < 5)
-            .map(product => (
+            .map((product) => (
               <ProductItem key={product._id} product={product} />
             ))}
       </div>

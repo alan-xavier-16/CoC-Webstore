@@ -20,10 +20,7 @@ import EditProduct from "../../components/product-form/EditProduct.component";
 import FileUpload from "../../components/file-upload/FileUpload.component";
 
 import { getCategories } from "../../redux/shop/shop.actions";
-import { selectCategories } from "../../redux/shop/shop.selectors";
 import { selectIsAuthenticated } from "../../redux/auth/auth.selectors";
-
-import "./Shop.styles.scss";
 
 /*
 Renders:
@@ -35,7 +32,7 @@ Renders:
   - Create Category
 */
 
-const Shop = ({ isAuthenticated, getCategories, categories }) => {
+const Shop = ({ isAuthenticated, getCategories }) => {
   // FETCH RESOURCES
   useEffect(() => {
     getCategories();
@@ -45,7 +42,7 @@ const Shop = ({ isAuthenticated, getCategories, categories }) => {
   const { path } = useRouteMatch();
 
   return (
-    <div className="shop-page">
+    <div className="page">
       {!isAuthenticated && (
         <Popup>Please sign in to add items to your cart!</Popup>
       )}
@@ -90,16 +87,15 @@ const Shop = ({ isAuthenticated, getCategories, categories }) => {
 
 Shop.propTypes = {
   isAuthenticated: PropTypes.bool.isRequired,
-  getCategories: PropTypes.func.isRequired
+  getCategories: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
   isAuthenticated: selectIsAuthenticated,
-  categories: selectCategories
 });
 
 const mapDispatchToProps = {
-  getCategories: () => getCategories()
+  getCategories: () => getCategories(),
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Shop);

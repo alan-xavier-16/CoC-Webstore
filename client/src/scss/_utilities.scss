@@ -9,6 +9,39 @@
   overflow: hidden;
 }
 
+/* PAGE DEFAULTS */
+.page {
+  padding: 0.75rem;
+
+  & .page-header {
+    font-size: 2rem;
+    font-weight: bold;
+    letter-spacing: 0.1rem;
+    line-height: 1.25;
+
+    & span > i {
+      color: map-get($map: $colors, $key: my-gold);
+    }
+  }
+}
+
+/* PREVIEW DISPLAY */
+.preview {
+  margin: 0.5rem 0;
+  padding: 0.5rem;
+  @include set-background(map-get($map: $colors, $key: my-gold));
+  border-radius: 0.25rem;
+  box-shadow: -0.75rem 0rem 0.9rem -0.5rem map-get($map: $colors, $key: dark),
+    0.75rem 0rem 0.9rem -0.5rem map-get($map: $colors, $key: dark),
+    0.35rem 0.35rem 1rem 0.35rem rgba(0, 0, 0, 0);
+
+  & .preview-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
 /* TYPOGRAPHY */
 .main-header {
   font-size: 2rem;
@@ -422,12 +455,16 @@
 /* USER CALL-TO-ACTIONS */
 .user-actions {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(11, 1fr);
   grid-gap: 0.25rem;
   justify-content: center;
 
   & a,
   button {
-    margin: 0;
+    grid-column: 1 / 12;
+
+    @media screen and (min-width: map-get($map: $breakpoints, $key: md)) {
+      grid-column: 1 / 6;
+    }
   }
 }

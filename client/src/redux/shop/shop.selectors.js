@@ -34,8 +34,19 @@ export const selectProductItemPhotos = createSelector(
   (product) => product.photo
 );
 
-/* LOADING */
+/* GETS LOADING */
 export const selectShopLoading = createSelector(
   [selectShop],
   (shop) => shop.loading
+);
+
+/* CATEGORIES || PRODUCTS LOADED */
+export const selectShopLoaded = createSelector(
+  [selectShop],
+  (shop) => !!shop.categories
+);
+
+export const selectProductsLoaded = createSelector(
+  [selectShop],
+  (shop) => !!shop.products
 );

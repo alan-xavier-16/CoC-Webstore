@@ -5,10 +5,10 @@ import { createStructuredSelector } from "reselect";
 import WithSpinner from "../layout/spinner/WithSpinner.component";
 import ProductsOverview from "./ProductsOverview.component";
 
-import { selectShopLoading } from "../../redux/shop/shop.selectors";
+import { selectProductsLoaded } from "../../redux/shop/shop.selectors";
 
 const mapStateToProps = createStructuredSelector({
-  loading: selectShopLoading
+  loading: (state) => !selectProductsLoaded(state),
 });
 
 const ProductsOverviewContainer = compose(

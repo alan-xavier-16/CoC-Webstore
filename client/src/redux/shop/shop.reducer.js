@@ -1,11 +1,11 @@
 import ShopActionTypes from "./shop.types";
 
 const INITIAL_STATE = {
-  categories: [],
-  products: [],
+  categories: null,
+  products: null,
   product: {},
   pagination: null,
-  loading: true,
+  loading: false,
   error: null,
 };
 
