@@ -11,9 +11,7 @@ export const selectCategories = createSelector(
 /* CATEGORY MATCHING SLUG FROM URL */
 export const selectCategory = (categoryUrlParam) =>
   createSelector([selectCategories], (categories) =>
-    categories
-      ? categories.find((category) => category["slug"] === categoryUrlParam)
-      : null
+    categories ? categories[categoryUrlParam] : null
   );
 
 /* ALL PRODUCTS */
@@ -22,19 +20,13 @@ export const selectProducts = createSelector(
   (shop) => shop.products
 );
 
-/* SINGLE PRODUCT */
-export const selectProductItem = createSelector(
-  [selectShop],
-  (shop) => shop.product
-);
+/* SINGLE PRODUCT MATCHING SLUG FROM URL */
+export const selectProductItem = (productUrlParam) =>
+  createSelector([selectProducts], (products) =>
+    products ? products[productUrlParam] : null
+  );
 
-/* SINGLE PRODUCT PHOTOS */
-export const selectProductItemPhotos = createSelector(
-  [selectProductItem],
-  (product) => product.photo
-);
-
-/* GETS LOADING */
+/* LOADING */
 export const selectShopLoading = createSelector(
   [selectShop],
   (shop) => shop.loading

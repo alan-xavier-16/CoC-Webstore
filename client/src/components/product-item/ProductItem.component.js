@@ -6,7 +6,6 @@ import PropTypes from "prop-types";
 
 import { modifyCartItem } from "../../redux/cart/cart.actions";
 import { selectIsAuthenticated } from "../../redux/auth/auth.selectors";
-import { getProduct } from "../../redux/shop/shop.actions";
 
 import "./ProductItem.styles.scss";
 
@@ -24,11 +23,6 @@ const ProductItem = ({
     modifyCartItem(item);
   };
 
-  // FETCH SPECIFIC PRODUCT
-  const handleRedirect = (e) => {
-    getProduct(product._id);
-  };
-
   // ACCESS LOCATION OBJECT
   const location = useLocation();
 
@@ -39,7 +33,6 @@ const ProductItem = ({
           pathname: `/shop/products/${slug}`,
           state: { from: location.pathname },
         }}
-        onClick={handleRedirect}
       >
         <img
           src={`/uploads/${photo[0]}`}
@@ -72,7 +65,6 @@ ProductItem.propTypes = {
   product: PropTypes.object.isRequired,
   modifyCartItem: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool.isRequired,
-  getProduct: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -81,7 +73,6 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = {
   modifyCartItem: (item) => modifyCartItem(item),
-  getProduct: (productSlug) => getProduct(productSlug),
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductItem);

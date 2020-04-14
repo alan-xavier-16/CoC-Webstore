@@ -1,5 +1,6 @@
 import ShopActionTypes from "./shop.types";
 import axios from "axios";
+import { arrayToObject } from "./shop.utils";
 import { setAlert } from "../alerts/alert.actions";
 
 /** GET ALL CATEGORIES */
@@ -10,13 +11,39 @@ export const getCategories = () => async (dispatch) => {
     });
 
     const res = await axios.get("/api/v1/categories");
+    // CONVERT CATEGORIES ARRAY TO OBJECT
+    const categoriesMap = arrayToObject(res.data.data, "slug");
+
     dispatch({
       type: ShopActionTypes.FETCH_CATEGORIES_SUCCESS,
-      payload: res.data,
+      payload: { ...res.data, data: categoriesMap },
     });
   } catch (err) {
     dispatch({
       type: ShopActionTypes.FETCH_CATEGORIES_FAIL,
+      payload: err.response.data.error,
+    });
+  }
+};
+
+/** GET ALL PRODUCTS */
+export const getProducts = () => async (dispatch) => {
+  try {
+    dispatch({
+      type: ShopActionTypes.FETCH_START,
+    });
+
+    const res = await axios.get("/api/v1/products");
+    // CONVERT PRODUCTS ARRAY TO OBJECT
+    const productsMap = arrayToObject(res.data.data, "slug");
+
+    dispatch({
+      type: ShopActionTypes.FETCH_PRODUCTS_SUCCESS,
+      payload: { ...res.data, data: productsMap },
+    });
+  } catch (err) {
+    dispatch({
+      type: ShopActionTypes.FETCH_PRODUCTS_FAIL,
       payload: err.response.data.error,
     });
   }
@@ -109,26 +136,6 @@ export const deleteCategory = (categoryId, history) => async (dispatch) => {
       payload: err.response.data.error,
     });
     dispatch(setAlert(`Failed: ${err.response.data.error}`, "warning"));
-  }
-};
-
-/** GET ALL PRODUCTS */
-export const getProducts = () => async (dispatch) => {
-  try {
-    dispatch({
-      type: ShopActionTypes.FETCH_START,
-    });
-
-    const res = await axios.get("/api/v1/products");
-    dispatch({
-      type: ShopActionTypes.FETCH_PRODUCTS_SUCCESS,
-      payload: res.data,
-    });
-  } catch (err) {
-    dispatch({
-      type: ShopActionTypes.FETCH_PRODUCTS_FAIL,
-      payload: err.response.data.error,
-    });
   }
 };
 

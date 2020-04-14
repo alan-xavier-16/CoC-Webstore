@@ -37,8 +37,8 @@ const ProductsOverview = ({ products }) => {
       <div className="preview">
         <div className="cards">
           {products &&
-            products.map((product) => (
-              <ProductItem key={product._id} product={product} />
+            Object.entries(products).map(([slug, product]) => (
+              <ProductItem key={slug} product={product} />
             ))}
         </div>
       </div>
@@ -47,7 +47,7 @@ const ProductsOverview = ({ products }) => {
 };
 
 ProductsOverview.propTypes = {
-  products: PropTypes.array.isRequired,
+  products: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({

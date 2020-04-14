@@ -24,22 +24,17 @@ import { selectIsAuthenticated } from "../../redux/auth/auth.selectors";
 
 /*
 Renders:
-- Categories Overview by default
-- Has an option for ALL Products Overview instead
-- Has routes to:
-  - Category Container with Products
-  - Product Item
-  - Create Category
+  - View CATEGORIES by default
+  - Option to view by PRODUCTS
 */
 
 const Shop = ({ isAuthenticated, getCategories }) => {
-  // FETCH RESOURCES
+  /** RELATIVE PATH FROM APP */
+  const { path } = useRouteMatch();
+
   useEffect(() => {
     getCategories();
   }, [getCategories]);
-
-  /** RELATIVE PATH FROM APP */
-  const { path } = useRouteMatch();
 
   return (
     <div className="page">

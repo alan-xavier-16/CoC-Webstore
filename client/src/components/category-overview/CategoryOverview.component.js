@@ -62,20 +62,21 @@ const CategoryOverview = ({
         )}
       </div>
 
-      {categories.map(({ id, ...rest }) => (
-        <CategoryPreview
-          key={id}
-          {...rest}
-          deleteCategory={deleteCategory}
-          user={user}
-        />
-      ))}
+      {categories &&
+        Object.entries(categories).map(([slug, category]) => (
+          <CategoryPreview
+            key={slug}
+            {...category}
+            deleteCategory={deleteCategory}
+            user={user}
+          />
+        ))}
     </div>
   );
 };
 
 CategoryOverview.propTypes = {
-  categories: PropTypes.array.isRequired,
+  categories: PropTypes.object.isRequired,
   getProducts: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
   deleteCategory: PropTypes.func.isRequired,

@@ -1,9 +1,5 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
-import { createStructuredSelector } from "reselect";
 import PropTypes from "prop-types";
-
-import { selectProductItemPhotos } from "../../redux/shop/shop.selectors";
 
 import "./Slider.styles.scss";
 
@@ -81,8 +77,4 @@ Slider.propTypes = {
   photo: PropTypes.array.isRequired,
 };
 
-const mapStateToProps = createStructuredSelector({
-  photo: selectProductItemPhotos,
-});
-
-export default connect(mapStateToProps)(Slider);
+export default Slider;

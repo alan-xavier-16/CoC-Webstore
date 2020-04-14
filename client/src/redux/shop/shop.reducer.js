@@ -3,7 +3,6 @@ import ShopActionTypes from "./shop.types";
 const INITIAL_STATE = {
   categories: null,
   products: null,
-  product: {},
   pagination: null,
   loading: false,
   error: null,
@@ -18,6 +17,7 @@ const shopReducer = (state = INITIAL_STATE, action) => {
         ...state,
         loading: true,
       };
+
     case ShopActionTypes.FETCH_CATEGORIES_SUCCESS:
       return {
         ...state,
@@ -25,43 +25,14 @@ const shopReducer = (state = INITIAL_STATE, action) => {
         pagination: payload.pagination || null,
         loading: false,
       };
-    case ShopActionTypes.ADD_CATEGORY_SUCCESS:
+
+    case ShopActionTypes.UPDATE_CATEGORY_SUCCESS:
       return {
         ...state,
-        categories: [...state.categories, payload.data],
+        categories: payload.data,
         loading: false,
       };
-    case ShopActionTypes.ADD_PRODUCT_SUCCESS:
-      return {
-        ...state,
-        products: [...state.products, payload.data],
-        loading: false,
-        product: payload.data,
-      };
-    case ShopActionTypes.ADD_PRODUCT_PHOTO_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        product: {
-          ...state.product,
-          photo: [...payload.data],
-        },
-      };
-    case ShopActionTypes.DELETE_CATEGORY_SUCCESS:
-      return {
-        ...state,
-        categories: state.categories.filter(
-          (category) => category._id !== payload
-        ),
-        loading: false,
-      };
-    case ShopActionTypes.DELETE_PRODUCT_SUCCESS:
-      return {
-        ...state,
-        products: state.products.filter((product) => product._id !== payload),
-        product: {},
-        loading: false,
-      };
+
     case ShopActionTypes.FETCH_PRODUCTS_SUCCESS:
       return {
         ...state,
@@ -69,20 +40,25 @@ const shopReducer = (state = INITIAL_STATE, action) => {
         pagination: payload.pagination || null,
         loading: false,
       };
-    case ShopActionTypes.FETCH_PRODUCT_SUCCESS:
+
+    case ShopActionTypes.UPDATE_PRODUCTS_SUCCESS:
       return {
         ...state,
-        product: payload.data,
+        products: payload.data,
         loading: false,
       };
+
+    case ShopActionTypes.ADD_PRODUCT_PHOTO_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+      };
+
     case ShopActionTypes.FETCH_CATEGORIES_FAIL:
     case ShopActionTypes.FETCH_PRODUCTS_FAIL:
-    case ShopActionTypes.FETCH_PRODUCT_FAIL:
-    case ShopActionTypes.ADD_CATEGORY_FAIL:
-    case ShopActionTypes.ADD_PRODUCT_FAIL:
+    case ShopActionTypes.UPDATE_CATEGORIES_FAIL:
+    case ShopActionTypes.UPDATE_PRODUCTS_FAIL:
     case ShopActionTypes.ADD_PRODUCT_PHOTO_FAIL:
-    case ShopActionTypes.DELETE_CATEGORY_FAIL:
-    case ShopActionTypes.DELETE_PRODUCT_FAIL:
       return {
         ...state,
         error: payload,

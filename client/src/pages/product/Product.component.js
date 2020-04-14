@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Link, useLocation, useRouteMatch, useHistory } from "react-router-dom";
-import { createStructuredSelector } from "reselect";
 import PropTypes from "prop-types";
 
 import DashboardBtns from "../../components/dashboard-btns/DashboardBtns.component";
@@ -32,7 +31,7 @@ const Product = ({
   const [formData, setFormData] = useState({
     quantity: 1,
   });
-  const { _id, name, price, description, inventory, details } = product;
+  const { _id, name, price, description, inventory, details, photo } = product;
 
   // CHANGE QUANTITY
   const handleChange = (e) => {
@@ -65,7 +64,7 @@ const Product = ({
     <form className="product" onSubmit={handleSubmit}>
       <div className="product-card">
         <div className={`product-card-img ${inventory === 0 && "disabled"}`}>
-          <Slider />
+          <Slider photo={photo} />
 
           {inventory === 0 && <div className="img-text">Out of Stock</div>}
         </div>
@@ -165,10 +164,10 @@ Product.propTypes = {
   deleteProduct: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = createStructuredSelector({
-  product: selectProductItem,
-  isAuthenticated: selectIsAuthenticated,
-  user: selectUser,
+const mapStateToProps = (state, ownProps) => ({
+  product: selectProductItem(ownProps.match.params.productSlug)(state),
+  isAuthenticated: selectIsAuthenticated(state),
+  user: selectUser(state),
 });
 
 const mapDispatchToProps = {
