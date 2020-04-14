@@ -14,23 +14,23 @@ const SignUp = ({ setAlert, register }) => {
     name: "",
     email: "",
     password: "",
-    confirmPwd: ""
+    confirmPwd: "",
   });
 
   const [pwdType, setPwdType] = useState({
     pwd1: "password",
-    pwd2: "password"
+    pwd2: "password",
   });
 
   const { name, email, password, confirmPwd } = formData;
 
   // Form Input Changes
-  const handleChange = e => {
+  const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   // Form Submit
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (password !== confirmPwd) {
       setAlert(`Passwords do not match`, "danger");
@@ -89,7 +89,7 @@ const SignUp = ({ setAlert, register }) => {
           <i
             className="fas fa-eye-slash"
             name="password-field"
-            onClick={e =>
+            onClick={(e) =>
               pwdType.pwd1 === "text"
                 ? setPwdType({ ...pwdType, pwd1: "password" })
                 : setPwdType({ ...pwdType, pwd1: "text" })
@@ -114,7 +114,7 @@ const SignUp = ({ setAlert, register }) => {
           />
           <i
             className="fas fa-eye-slash"
-            onClick={e =>
+            onClick={(e) =>
               pwdType.pwd2 === "text"
                 ? setPwdType({ ...pwdType, pwd2: "password" })
                 : setPwdType({ ...pwdType, pwd2: "text" })
@@ -129,11 +129,11 @@ const SignUp = ({ setAlert, register }) => {
 
           {location.state && location.state.from ? (
             <Link className="btn btn-dark" to={location.state.from}>
-              <i className="fas fa-angle-left"></i>
+              Go Back
             </Link>
           ) : (
             <Link className="btn btn-dark" to="/">
-              <i className="fas fa-angle-left"></i>
+              Go Back
             </Link>
           )}
         </div>
@@ -143,7 +143,7 @@ const SignUp = ({ setAlert, register }) => {
         <Link
           to={{
             pathname: "/signin",
-            state: { from: location.pathname }
+            state: { from: location.pathname },
           }}
         >
           Already have an account? <span>Sign In</span>
@@ -155,12 +155,12 @@ const SignUp = ({ setAlert, register }) => {
 
 SignUp.propTypes = {
   setAlert: PropTypes.func.isRequired,
-  register: PropTypes.func.isRequired
+  register: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = {
   setAlert: (msg, alertType) => setAlert(msg, alertType),
-  register: formData => register(formData)
+  register: (formData) => register(formData),
 };
 
 export default connect(null, mapDispatchToProps)(SignUp);

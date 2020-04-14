@@ -13,7 +13,7 @@ const SignIn = ({ login }) => {
 
   const [formData, setFormData] = useState({
     email: "",
-    password: ""
+    password: "",
   });
 
   const [pwdType, setPwdType] = useState("password");
@@ -21,12 +21,12 @@ const SignIn = ({ login }) => {
   const { email, password } = formData;
 
   // Form Input Changes
-  const handleChange = e => {
+  const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   // Form Submit
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     login(formData);
     setFormData({ email: "", password: "" });
@@ -66,7 +66,7 @@ const SignIn = ({ login }) => {
           />
           <i
             className="fas fa-eye-slash"
-            onClick={e =>
+            onClick={(e) =>
               pwdType === "text" ? setPwdType("password") : setPwdType("text")
             }
           ></i>
@@ -79,11 +79,11 @@ const SignIn = ({ login }) => {
 
           {location.state && location.state.from ? (
             <Link className="btn btn-dark" to={location.state.from}>
-              <i className="fas fa-angle-left"></i>
+              Go Back
             </Link>
           ) : (
             <Link className="btn btn-dark" to="/">
-              <i className="fas fa-angle-left"></i>
+              Go Back
             </Link>
           )}
         </div>
@@ -93,7 +93,7 @@ const SignIn = ({ login }) => {
         <Link
           to={{
             pathname: `${url}/signup`,
-            state: { from: location.pathname }
+            state: { from: location.pathname },
           }}
         >
           New to Circles? <span>Sign Up Now</span>
@@ -106,11 +106,11 @@ const SignIn = ({ login }) => {
 };
 
 SignIn.propTypes = {
-  login: PropTypes.func.isRequired
+  login: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = {
-  login: formData => login(formData)
+  login: (formData) => login(formData),
 };
 
 export default connect(null, mapDispatchToProps)(SignIn);
