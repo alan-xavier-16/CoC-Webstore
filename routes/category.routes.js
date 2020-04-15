@@ -5,7 +5,7 @@ const {
   addCategory,
   updateCategory,
   deleteCategory,
-  categoryFileUpload
+  categoryFileUpload,
 } = require("../controllers/category.controllers");
 const router = express.Router();
 
@@ -20,13 +20,13 @@ const advancedResults = require("../middleware/advancedResults.middleware");
 const { protect, authorize } = require("../middleware/auth.middleware");
 const fileUpload = require("../middleware/photoUpload.middleware");
 
-router.use("/:categorySlug/products", productRouter);
+router.use("/:categoryId/products", productRouter);
 
 router
   .route("/")
   .get(
     advancedResults(Category, {
-      path: "products"
+      path: "products",
     }),
     getCategories
   )

@@ -27,13 +27,20 @@ export const getCategories = () => async (dispatch) => {
 };
 
 /** GET ALL PRODUCTS */
-export const getProducts = () => async (dispatch) => {
+export const getProducts = (categoryId = null) => async (dispatch) => {
   try {
     dispatch({
       type: ShopActionTypes.FETCH_START,
     });
 
-    const res = await axios.get("/api/v1/products");
+    let res;
+    if (categoryId === null) {
+      res = await axios.get("/api/v1/products");
+    } else {
+      res = await axios.get(`/api/v1/categories/${categoryId}/products`);
+    }
+    console.log(res);
+
     // CONVERT PRODUCTS ARRAY TO OBJECT
     const productsMap = arrayToObject(res.data.data, "slug");
 
@@ -128,7 +135,7 @@ export const createProduct = (
     // CONVERT OBJECT TO OBJECT MAP
     const productMap = objectToMap(res.data.data, "slug");
 
-    history.push(`${location.state.from}`);
+    history.push(`/shop`);
 
     dispatch({
       type: ShopActionTypes.UPDATE_PRODUCTS_SUCCESS,
@@ -139,6 +146,7 @@ export const createProduct = (
       setAlert(`${formData.name} ${edit ? "updated" : "added"}`, "success")
     );
   } catch (err) {
+    console.error(err);
     dispatch({
       type: ShopActionTypes.UPDATE_PRODUCTS_FAIL,
       payload: err.response.data.error,

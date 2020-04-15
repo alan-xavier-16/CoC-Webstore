@@ -24,8 +24,8 @@ const CategoryOverview = ({
   const { url } = useRouteMatch();
 
   /** FETCH PRODUCTS ON BTN CLICK */
-  const handleFetch = (e) => {
-    getProducts();
+  const handleFetch = (categoryId) => {
+    getProducts(categoryId);
   };
 
   return (
@@ -44,7 +44,7 @@ const CategoryOverview = ({
             pathname: `${url}/products`,
             state: { from: location.pathname },
           }}
-          onClick={handleFetch}
+          onClick={() => getProducts()}
           className="btn btn-dark"
         >
           Or view all products <i className="fas fa-caret-right"></i>
@@ -69,6 +69,7 @@ const CategoryOverview = ({
             category={category}
             deleteCategory={deleteCategory}
             user={user}
+            handleFetch={handleFetch}
           />
         ))}
     </div>
@@ -88,7 +89,7 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = {
-  getProducts: () => getProducts(),
+  getProducts: (categoryId) => getProducts(categoryId),
   deleteCategory: (category, history) => deleteCategory(category, history),
 };
 

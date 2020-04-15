@@ -25,7 +25,10 @@ router.use("/:productId/cart", cartItemRouter);
 router
   .route("/")
   .get(
-    advancedResults(Product, { path: "category", select: "name description" }),
+    advancedResults(Product, {
+      path: "category",
+      select: "name description",
+    }),
     getProducts
   )
   .post(protect, authorize("admin"), addProduct);
