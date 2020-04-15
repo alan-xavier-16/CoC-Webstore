@@ -14,7 +14,7 @@ import { selectUser } from "../../redux/auth/auth.selectors";
 import "./Category.styles.scss";
 
 const Category = ({ category, user, deleteCategory }) => {
-  const { _id, name, description, products } = category;
+  const { name, description, products } = category;
   // RELATIVE LINK & HISTORY OBJECT
   const history = useHistory();
   const { url } = useRouteMatch();
@@ -26,7 +26,7 @@ const Category = ({ category, user, deleteCategory }) => {
         `Are you sure you want to delete ${name}? This cannot be undone.`
       )
     ) {
-      deleteCategory(_id, history);
+      deleteCategory(category, history);
     }
   };
 
@@ -86,7 +86,7 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = {
-  deleteCategory: (categoryId, history) => deleteCategory(categoryId, history),
+  deleteCategory: (category, history) => deleteCategory(category, history),
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Category);

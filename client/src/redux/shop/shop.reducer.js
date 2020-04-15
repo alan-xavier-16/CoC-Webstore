@@ -65,6 +65,7 @@ const shopReducer = (state = INITIAL_STATE, action) => {
     case ShopActionTypes.FETCH_CATEGORIES_FAIL:
     case ShopActionTypes.FETCH_PRODUCTS_FAIL:
     case ShopActionTypes.UPDATE_CATEGORIES_FAIL:
+    case ShopActionTypes.DELETE_CATEGORIES_FAIL:
     case ShopActionTypes.UPDATE_PRODUCTS_FAIL:
     case ShopActionTypes.ADD_PRODUCT_PHOTO_FAIL:
       return {

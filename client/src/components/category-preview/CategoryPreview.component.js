@@ -5,7 +5,7 @@ import ProductItem from "../product-item/ProductItem.component";
 import DashboardBtns from "../../components/dashboard-btns/DashboardBtns.component";
 
 const CategoryPreview = ({ category, user, deleteCategory }) => {
-  const { _id, slug, name, products } = category;
+  const { slug, name, products } = category;
   /** RELATIVE LINK, ACCESS LOCATION & HISTORY OBJECT  */
   const { url } = useRouteMatch();
   const location = useLocation();
