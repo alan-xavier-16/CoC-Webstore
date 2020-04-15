@@ -52,7 +52,7 @@ exports.updateCategory = asyncHandler(async (req, res, next) => {
     runValidators: true,
   });
 
-  category.save();
+  await category.save();
 
   res.status(200).json({ success: true, data: category });
 });

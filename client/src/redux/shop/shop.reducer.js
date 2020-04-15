@@ -1,5 +1,5 @@
 import ShopActionTypes from "./shop.types";
-import { updateCategory, removeCategory } from "./shop.utils";
+import { updateItem, removeItem } from "./shop.utils";
 
 const INITIAL_STATE = {
   categories: null,
@@ -30,14 +30,14 @@ const shopReducer = (state = INITIAL_STATE, action) => {
     case ShopActionTypes.UPDATE_CATEGORIES_SUCCESS:
       return {
         ...state,
-        categories: updateCategory(state.categories, payload),
+        categories: updateItem(state.categories, payload),
         loading: false,
       };
 
     case ShopActionTypes.DELETE_CATEGORIES_SUCCESS:
       return {
         ...state,
-        categories: removeCategory(state.categories, payload),
+        categories: removeItem(state.categories, payload),
         loading: false,
       };
 
@@ -52,7 +52,14 @@ const shopReducer = (state = INITIAL_STATE, action) => {
     case ShopActionTypes.UPDATE_PRODUCTS_SUCCESS:
       return {
         ...state,
-        products: payload.data,
+        products: updateItem(state.products, payload),
+        loading: false,
+      };
+
+    case ShopActionTypes.DELETE_PRODUCTS_SUCCESS:
+      return {
+        ...state,
+        categories: removeItem(state.products, payload),
         loading: false,
       };
 

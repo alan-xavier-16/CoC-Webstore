@@ -5,9 +5,9 @@ import PropTypes from "prop-types";
 
 import AddDetails from "./AddDetails.component";
 
-import { addProduct } from "../../redux/shop/shop.actions";
+import { createProduct } from "../../redux/shop/shop.actions";
 
-const AddProduct = ({ addProduct }) => {
+const AddProduct = ({ createProduct }) => {
   /* URL PARAMS, HISTORY && LOCATION OBJECT */
   const { categorySlug } = useParams();
   const location = useLocation();
@@ -19,27 +19,27 @@ const AddProduct = ({ addProduct }) => {
     description: "",
     price: "",
     inventory: 1,
-    details: []
+    details: [],
   });
   const { name, description, price, inventory } = formData;
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleDetails = detailsFromForm => {
+  const handleDetails = (detailsFromForm) => {
     setFormData({ ...formData, details: detailsFromForm });
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    addProduct(categorySlug, formData, history, location);
+    createProduct(formData, history, location, categorySlug);
     setFormData({
       name: "",
       description: "",
       price: "",
       inventory: 1,
-      details: []
+      details: [],
     });
   };
 
@@ -119,12 +119,12 @@ const AddProduct = ({ addProduct }) => {
 };
 
 AddProduct.propTypes = {
-  addProduct: PropTypes.func.isRequired
+  createProduct: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = {
-  addProduct: (categorySlug, formData, history, location) =>
-    addProduct(categorySlug, formData, history, location)
+  createProduct: (formData, history, location, identifier) =>
+    createProduct(formData, history, location, identifier),
 };
 
 export default connect(null, mapDispatchToProps)(AddProduct);

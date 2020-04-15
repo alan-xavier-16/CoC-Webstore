@@ -11,19 +11,27 @@ export const objectToMap = (object, key) => {
 };
 
 /* ADD OR UPDATE ITEM TO 'CATEGORY || PRODUCT' */
-export const updateCategory = (categories, categoryToAdd) => {
-  return { ...categories, ...categoryToAdd };
+export const updateItem = (items, itemToAdd) => {
+  // REMOVE EXISTING ITEM
+  const filteredItems = Object.entries(items)
+    .filter(([slug, category]) => {
+      return category._id !== Object.values(itemToAdd)[0]["_id"];
+    })
+    .reduce((obj, item) => {
+      return { ...obj, [item[0]]: item[1] };
+    }, {});
+
+  // APPEND NEW ITEM
+  return { ...filteredItems, ...itemToAdd };
 };
 
 /* REMOVE ITEM TO 'CATEGORY || PRODUCT' */
-export const removeCategory = (categories, categoryToRemove) => {
-  const existingCategory = categories.hasOwnProperty(
-    Object.keys(categoryToRemove)[0]
-  );
+export const removeItem = (items, itemToRemove) => {
+  const existingItem = items.hasOwnProperty(Object.keys(itemToRemove)[0]);
 
-  if (existingCategory) {
-    delete categories[Object.keys(categoryToRemove)[0]];
+  if (existingItem) {
+    delete items[Object.keys(itemToRemove)[0]];
   }
 
-  return { ...categories };
+  return { ...items };
 };

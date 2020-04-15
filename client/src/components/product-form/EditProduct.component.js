@@ -1,18 +1,18 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useHistory } from "react-router-dom";
 import { createStructuredSelector } from "reselect";
 import PropTypes from "prop-types";
 
 import AddDetails from "./AddDetails.component";
 
-import { editProduct } from "../../redux/shop/shop.actions";
+import { createProduct } from "../../redux/shop/shop.actions";
 import { selectProductItem } from "../../redux/shop/shop.selectors";
 
-const EditProduct = ({ editProduct, product }) => {
-  const { _id } = product;
-  /* LOCATION OBJECT */
+const EditProduct = ({ createProduct, product }) => {
+  /* LOCATION && HISTORY OBJECT */
   const location = useLocation();
+  const history = useHistory();
 
   // FORM LOGIC
   const [formData, setFormData] = useState({
@@ -20,21 +20,21 @@ const EditProduct = ({ editProduct, product }) => {
     description: product.description ? product.description : "",
     price: product.price ? (product.price / 100).toFixed(2) : "",
     inventory: product.inventory ? product.inventory : 1,
-    details: product.details ? product.details : []
+    details: product.details ? product.details : [],
   });
   const { name, description, price, inventory, details } = formData;
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleDetails = detailsFromForm => {
+  const handleDetails = (detailsFromForm) => {
     setFormData({ ...formData, details: detailsFromForm });
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    editProduct(_id, formData);
+    createProduct(formData, history, location, product._id, true);
   };
 
   return (
@@ -113,16 +113,17 @@ const EditProduct = ({ editProduct, product }) => {
 };
 
 EditProduct.propTypes = {
-  editProduct: PropTypes.func.isRequired,
-  product: PropTypes.object.isRequired
+  createProduct: PropTypes.func.isRequired,
+  product: PropTypes.object.isRequired,
 };
 
 const mapStateToProp = createStructuredSelector({
-  product: selectProductItem
+  product: selectProductItem,
 });
 
 const mapDispatchToProps = {
-  editProduct: (productId, formData) => editProduct(productId, formData)
+  createProduct: (formData, history, location, identifier, edit) =>
+    createProduct(formData, history, location, identifier, edit),
 };
 
 export default connect(mapStateToProp, mapDispatchToProps)(EditProduct);
