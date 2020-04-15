@@ -66,7 +66,7 @@ const CategoryOverview = ({
         Object.entries(categories).map(([slug, category]) => (
           <CategoryPreview
             key={slug}
-            {...category}
+            category={category}
             deleteCategory={deleteCategory}
             user={user}
           />
@@ -89,7 +89,7 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = {
   getProducts: () => getProducts(),
-  deleteCategory: (categoryId, history) => deleteCategory(categoryId, history),
+  deleteCategory: (category, history) => deleteCategory(category, history),
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CategoryOverview);

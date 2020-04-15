@@ -1,4 +1,5 @@
 import ShopActionTypes from "./shop.types";
+import { updateCategory, removeCategory } from "./shop.utils";
 
 const INITIAL_STATE = {
   categories: null,
@@ -26,10 +27,17 @@ const shopReducer = (state = INITIAL_STATE, action) => {
         loading: false,
       };
 
-    case ShopActionTypes.UPDATE_CATEGORY_SUCCESS:
+    case ShopActionTypes.UPDATE_CATEGORIES_SUCCESS:
       return {
         ...state,
-        categories: payload.data,
+        categories: updateCategory(state.categories, payload),
+        loading: false,
+      };
+
+    case ShopActionTypes.DELETE_CATEGORIES_SUCCESS:
+      return {
+        ...state,
+        categories: removeCategory(state.categories, payload),
         loading: false,
       };
 

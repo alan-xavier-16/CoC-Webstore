@@ -3,9 +3,9 @@ import { connect } from "react-redux";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
 
-import { addCategory } from "../../redux/shop/shop.actions";
+import { createCategory } from "../../redux/shop/shop.actions";
 
-const AddCategory = ({ addCategory }) => {
+const AddCategory = ({ createCategory }) => {
   /* RELATIVE LINK, HISTORY && LOCATION OBJECT */
   const location = useLocation();
   const history = useHistory();
@@ -13,18 +13,17 @@ const AddCategory = ({ addCategory }) => {
   // FORM LOGIC
   const [formData, setFormData] = useState({
     name: "",
-    description: ""
+    description: "",
   });
   const { name, description } = formData;
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    addCategory({ name, description, history, location });
-    setFormData({ name: "", description: "" });
+    createCategory(formData, history, location);
   };
 
   return (
@@ -64,7 +63,7 @@ const AddCategory = ({ addCategory }) => {
 
           {location.state && location.state.from && (
             <Link className="btn btn-dark" to={location.state.from}>
-              <i className="fas fa-angle-left"></i>
+              Go Back
             </Link>
           )}
         </div>
@@ -74,12 +73,12 @@ const AddCategory = ({ addCategory }) => {
 };
 
 AddCategory.propTypes = {
-  addCategory: PropTypes.func.isRequired
+  createCategory: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = {
-  addCategory: ({ name, description, history, location }) =>
-    addCategory({ name, description, history, location })
+  createCategory: (formData, history, location) =>
+    createCategory(formData, history, location),
 };
 
 export default connect(null, mapDispatchToProps)(AddCategory);

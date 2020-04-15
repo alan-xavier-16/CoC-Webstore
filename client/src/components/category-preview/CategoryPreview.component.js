@@ -4,14 +4,8 @@ import { useRouteMatch, Link, useLocation, useHistory } from "react-router-dom";
 import ProductItem from "../product-item/ProductItem.component";
 import DashboardBtns from "../../components/dashboard-btns/DashboardBtns.component";
 
-const CategoryPreview = ({
-  _id,
-  slug,
-  name,
-  products,
-  user,
-  deleteCategory,
-}) => {
+const CategoryPreview = ({ category, user, deleteCategory }) => {
+  const { _id, slug, name, products } = category;
   /** RELATIVE LINK, ACCESS LOCATION & HISTORY OBJECT  */
   const { url } = useRouteMatch();
   const location = useLocation();
@@ -24,7 +18,7 @@ const CategoryPreview = ({
         `Are you sure you want to delete ${name}? This cannot be undone.`
       )
     ) {
-      deleteCategory(_id, history);
+      deleteCategory(category, history);
     }
   };
 

@@ -49,8 +49,10 @@ exports.updateCategory = asyncHandler(async (req, res, next) => {
 
   category = await Category.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
-    runValidators: true
+    runValidators: true,
   });
+
+  category.save();
 
   res.status(200).json({ success: true, data: category });
 });

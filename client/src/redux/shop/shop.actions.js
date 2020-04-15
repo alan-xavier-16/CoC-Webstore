@@ -1,6 +1,6 @@
 import ShopActionTypes from "./shop.types";
 import axios from "axios";
-import { arrayToObject } from "./shop.utils";
+import { arrayToObject, objectToMap } from "./shop.utils";
 import { setAlert } from "../alerts/alert.actions";
 
 /** GET ALL CATEGORIES */
@@ -49,10 +49,14 @@ export const getProducts = () => async (dispatch) => {
   }
 };
 
-/** ADD NEW CATEGORY */
-export const addCategory = ({ name, description, history, location }) => async (
-  dispatch
-) => {
+/** ADD || UPDATE CATEGORY */
+export const createCategory = (
+  formData,
+  history,
+  location,
+  categoryId = null,
+  edit = false
+) => async (dispatch) => {
   try {
     const config = {
       headers: {
@@ -60,79 +64,63 @@ export const addCategory = ({ name, description, history, location }) => async (
       },
     };
 
-    const body = JSON.stringify({ name, description });
+    let res;
+    if (categoryId !== null) {
+      res = await axios.put(
+        `/api/v1/categories/${categoryId}`,
+        formData,
+        config
+      );
+    } else {
+      res = await axios.post(`/api/v1/categories`, formData, config);
+    }
 
-    const res = await axios.post(`/api/v1/categories`, body, config);
+    // CONVERT OBJECT TO OBJECT MAP
+    const categoryMap = objectToMap(res.data.data, "slug");
 
     dispatch({
-      type: ShopActionTypes.ADD_CATEGORY_SUCCESS,
-      payload: res.data,
+      type: ShopActionTypes.UPDATE_CATEGORIES_SUCCESS,
+      payload: categoryMap,
     });
 
-    dispatch(setAlert(`${name} added`, "success"));
-
-    history.push(`${location.state.from}`);
-  } catch (err) {
-    dispatch({
-      type: ShopActionTypes.ADD_CATEGORY_FAIL,
-      payload: err.response.data.error,
-    });
-    dispatch(setAlert(`Failed: ${err.response.data.error}`, "warning"));
-  }
-};
-
-/** EDIT A CATEGORY */
-export const editCategory = (categoryId, { name, description }) => async (
-  dispatch
-) => {
-  try {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-
-    const body = JSON.stringify({ name, description });
-
-    const res = await axios.put(
-      `/api/v1/categories/${categoryId}`,
-      body,
-      config
+    dispatch(
+      setAlert(`${formData.name} ${edit ? "updated" : "added"}`, "success")
     );
 
-    dispatch({
-      type: ShopActionTypes.ADD_CATEGORY_SUCCESS,
-      payload: res.data,
-    });
-
-    dispatch(getCategories());
-
-    dispatch(setAlert(`${name} updated`, "success"));
+    if (!edit) {
+      history.push(`${location.state.from}`);
+    }
   } catch (err) {
+    console.error(err);
     dispatch({
-      type: ShopActionTypes.ADD_CATEGORY_FAIL,
+      type: ShopActionTypes.UPDATE_CATEGORIES_FAIL,
       payload: err.response.data.error,
     });
+
     dispatch(setAlert(`Failed: ${err.response.data.error}`, "warning"));
   }
 };
 
 /** DELETE SINGLE CATEGORY */
-export const deleteCategory = (categoryId, history) => async (dispatch) => {
+export const deleteCategory = (category, history) => async (dispatch) => {
   try {
-    await axios.delete(`/api/v1/categories/${categoryId}`);
+    await axios.delete(`/api/v1/categories/${category._id}`);
 
     history.push(`/shop`);
 
+    // CONVERT OBJECT TO OBJECT MAP
+    const categoryMap = objectToMap(category, "slug");
+
     dispatch({
-      type: ShopActionTypes.DELETE_CATEGORY_SUCCESS,
-      payload: categoryId,
+      type: ShopActionTypes.DELETE_CATEGORIES_SUCCESS,
+      payload: categoryMap,
     });
 
     dispatch(setAlert(`Category deleted`, "success"));
   } catch (err) {
+    console.error(err);
     dispatch({
-      type: ShopActionTypes.DELETE_CATEGORY_FAIL,
+      type: ShopActionTypes.DELETE_CATEGORIES_FAIL,
       payload: err.response.data.error,
     });
     dispatch(setAlert(`Failed: ${err.response.data.error}`, "warning"));

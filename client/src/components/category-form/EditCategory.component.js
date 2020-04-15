@@ -1,30 +1,30 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
 
-import { editCategory } from "../../redux/shop/shop.actions";
+import { createCategory } from "../../redux/shop/shop.actions";
 import { selectCategory } from "../../redux/shop/shop.selectors";
 
-const EditCategory = ({ editCategory, category }) => {
-  const { _id } = category;
+const EditCategory = ({ createCategory, category }) => {
   /* LOCATION OBJECT */
   const location = useLocation();
+  const history = useHistory();
 
   // FORM LOGIC
   const [formData, setFormData] = useState({
     name: category.name ? category.name : "",
-    description: category.description ? category.description : ""
+    description: category.description ? category.description : "",
   });
   const { name, description } = formData;
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    editCategory(_id, { name, description });
+    createCategory(formData, history, location, category._id, true);
   };
 
   return (
@@ -73,16 +73,17 @@ const EditCategory = ({ editCategory, category }) => {
 };
 
 EditCategory.propTypes = {
-  editCategory: PropTypes.func.isRequired,
-  category: PropTypes.object.isRequired
+  createCategory: PropTypes.func.isRequired,
+  category: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => ({
-  category: selectCategory(ownProps.match.params.categorySlug)(state)
+  category: selectCategory(ownProps.match.params.categorySlug)(state),
 });
 
 const mapDispatchToProps = {
-  editCategory: (categoryId, formData) => editCategory(categoryId, formData)
+  createCategory: (formData, history, location, categoryId, edit) =>
+    createCategory(formData, history, location, categoryId, edit),
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditCategory);
