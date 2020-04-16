@@ -10,7 +10,12 @@ const asyncHandler = require("../middleware/asyncHandler.middleware");
 exports.getProducts = asyncHandler(async (req, res, next) => {
   // Apply filter for SPECIFIC Category
   if (req.params.categoryId) {
-    const products = await Product.find({ category: req.params.categoryId });
+    const products = await Product.find({
+      category: req.params.categoryId,
+    }).populate({
+      path: "category",
+      select: "name description",
+    });
 
     return res
       .status(200)
@@ -24,7 +29,7 @@ exports.getProducts = asyncHandler(async (req, res, next) => {
 // @route   GET /api/v1/products/:id
 // @access  Public
 exports.getProduct = asyncHandler(async (req, res, next) => {
-  const product = await Product.findById(req.params.id);
+  const product = await await Product.findById(req.params.id);
 
   // Check Resource Exists
   if (!product) {
@@ -37,22 +42,22 @@ exports.getProduct = asyncHandler(async (req, res, next) => {
 });
 
 // @desc    Create new product
-// @route   POST /api/v1/categories/:categorySlug/products
+// @route   POST /api/v1/categories/:categoryId/products
 // @access  Private
 exports.addProduct = asyncHandler(async (req, res, next) => {
-  const category = await Category.findOne({ slug: req.params.categorySlug });
+  const category = await Category.findById(req.params.categoryId);
 
   // Check Resource Exists
   if (!category) {
     return next(
       new ErrorResponse(
-        `Resource not found with id ${req.params.categorySlug}`,
+        `Resource not found with id ${req.params.categoryId}`,
         404
       )
     );
   }
 
-  req.body.category = category._id;
+  req.body.category = req.params.categoryId;
 
   const product = await Product.create(req.body);
 
@@ -77,7 +82,7 @@ exports.updateProduct = asyncHandler(async (req, res, next) => {
     product[key] = req.body[key];
   }
 
-  product.save();
+  await product.save();
 
   res.status(200).json({ success: true, data: product });
 });

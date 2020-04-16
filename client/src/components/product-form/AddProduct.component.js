@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { Link, useHistory, useLocation, useParams } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
 
 import AddDetails from "./AddDetails.component";
 
 import { createProduct } from "../../redux/shop/shop.actions";
+import { selectCategory } from "../../redux/shop/shop.selectors";
 
-const AddProduct = ({ createProduct }) => {
-  /* URL PARAMS, HISTORY && LOCATION OBJECT */
-  const { categorySlug } = useParams();
+const AddProduct = ({ createProduct, category }) => {
+  /* HISTORY && LOCATION OBJECT */
   const location = useLocation();
   const history = useHistory();
 
@@ -33,7 +33,7 @@ const AddProduct = ({ createProduct }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    createProduct(formData, history, location, categorySlug);
+    createProduct(formData, history, location, category._id);
     setFormData({
       name: "",
       description: "",
@@ -120,11 +120,16 @@ const AddProduct = ({ createProduct }) => {
 
 AddProduct.propTypes = {
   createProduct: PropTypes.func.isRequired,
+  category: PropTypes.object.isRequired,
 };
+
+const mapStateToProps = (state, ownProps) => ({
+  category: selectCategory(ownProps.match.params.categorySlug)(state),
+});
 
 const mapDispatchToProps = {
   createProduct: (formData, history, location, identifier) =>
     createProduct(formData, history, location, identifier),
 };
 
-export default connect(null, mapDispatchToProps)(AddProduct);
+export default connect(mapStateToProps, mapDispatchToProps)(AddProduct);

@@ -39,7 +39,6 @@ export const getProducts = (categoryId = null) => async (dispatch) => {
     } else {
       res = await axios.get(`/api/v1/categories/${categoryId}/products`);
     }
-    console.log(res);
 
     // CONVERT PRODUCTS ARRAY TO OBJECT
     const productsMap = arrayToObject(res.data.data, "slug");
@@ -134,13 +133,14 @@ export const createProduct = (
 
     // CONVERT OBJECT TO OBJECT MAP
     const productMap = objectToMap(res.data.data, "slug");
-
-    history.push(`/shop`);
+    console.log(productMap);
 
     dispatch({
       type: ShopActionTypes.UPDATE_PRODUCTS_SUCCESS,
       payload: productMap,
     });
+
+    history.push(`${location.state.from}`);
 
     dispatch(
       setAlert(`${formData.name} ${edit ? "updated" : "added"}`, "success")

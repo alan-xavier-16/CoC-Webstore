@@ -22,7 +22,7 @@ const shopReducer = (state = INITIAL_STATE, action) => {
     case ShopActionTypes.FETCH_CATEGORIES_SUCCESS:
       return {
         ...state,
-        categories: payload.data,
+        categories: { ...state.categories, ...payload.data },
         pagination: payload.pagination || null,
         loading: false,
       };
@@ -44,7 +44,7 @@ const shopReducer = (state = INITIAL_STATE, action) => {
     case ShopActionTypes.FETCH_PRODUCTS_SUCCESS:
       return {
         ...state,
-        products: payload.data,
+        products: { ...state.products, ...payload.data },
         pagination: payload.pagination || null,
         loading: false,
       };

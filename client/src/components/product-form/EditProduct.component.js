@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Link, useLocation, useHistory } from "react-router-dom";
-import { createStructuredSelector } from "reselect";
 import PropTypes from "prop-types";
 
 import AddDetails from "./AddDetails.component";
@@ -117,8 +116,8 @@ EditProduct.propTypes = {
   product: PropTypes.object.isRequired,
 };
 
-const mapStateToProp = createStructuredSelector({
-  product: selectProductItem,
+const mapStateToProp = (state, ownProps) => ({
+  product: selectProductItem(ownProps.match.params.productSlug)(state),
 });
 
 const mapDispatchToProps = {
