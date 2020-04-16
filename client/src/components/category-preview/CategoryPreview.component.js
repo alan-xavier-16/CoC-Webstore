@@ -51,10 +51,10 @@ const CategoryPreview = ({ category, user, deleteCategory, handleFetch }) => {
 
       <div className="cards">
         {products &&
-          products
-            .filter((product, idx) => idx < 5)
-            .map((product) => (
-              <ProductItem key={product._id} product={product} />
+          Object.entries(products)
+            .filter(([slug, product], idx) => idx < 5)
+            .map(([slug, product]) => (
+              <ProductItem key={slug} product={product} />
             ))}
       </div>
     </div>

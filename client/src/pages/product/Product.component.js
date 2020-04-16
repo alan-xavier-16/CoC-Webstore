@@ -31,7 +31,7 @@ const Product = ({
   const [formData, setFormData] = useState({
     quantity: 1,
   });
-  const { _id, name, price, description, inventory, details, photo } = product;
+  const { name, price, description, inventory, details, photo } = product;
 
   // CHANGE QUANTITY
   const handleChange = (e) => {
@@ -56,7 +56,7 @@ const Product = ({
         `Are you sure you want to delete ${name}? This cannot be undone.`
       )
     ) {
-      deleteProduct(_id, history);
+      deleteProduct(product, history);
     }
   };
 
@@ -172,7 +172,7 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = {
   modifyCartItem: (item) => modifyCartItem(item),
-  deleteProduct: (productId, history) => deleteProduct(productId, history),
+  deleteProduct: (product, history) => deleteProduct(product, history),
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Product);

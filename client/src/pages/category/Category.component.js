@@ -49,8 +49,8 @@ const Category = ({ category, user, deleteCategory }) => {
 
       <div className="cards">
         {products &&
-          products.map((product) => (
-            <ProductItem key={product._id} product={product} />
+          Object.entries(products).map(([slug, product]) => (
+            <ProductItem key={slug} product={product} />
           ))}
 
         {user.role && user.role === "admin" && (

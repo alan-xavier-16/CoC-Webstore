@@ -11,14 +11,24 @@ export const getCategories = () => async (dispatch) => {
     });
 
     const res = await axios.get("/api/v1/categories");
+
+    // CONVERT CATEGORIES[PRODUCTS] ARRAY TO OBJECT
+    const categoryArrayWithProductsMap = res.data.data.map((category) => {
+      return {
+        ...category,
+        products: arrayToObject(category.products, "slug"),
+      };
+    });
+
     // CONVERT CATEGORIES ARRAY TO OBJECT
-    const categoriesMap = arrayToObject(res.data.data, "slug");
+    let categoriesMap = arrayToObject(categoryArrayWithProductsMap, "slug");
 
     dispatch({
       type: ShopActionTypes.FETCH_CATEGORIES_SUCCESS,
       payload: { ...res.data, data: categoriesMap },
     });
   } catch (err) {
+    console.error(err);
     dispatch({
       type: ShopActionTypes.FETCH_CATEGORIES_FAIL,
       payload: err.response.data.error,
@@ -133,12 +143,13 @@ export const createProduct = (
 
     // CONVERT OBJECT TO OBJECT MAP
     const productMap = objectToMap(res.data.data, "slug");
-    console.log(productMap);
 
     dispatch({
       type: ShopActionTypes.UPDATE_PRODUCTS_SUCCESS,
       payload: productMap,
     });
+
+    dispatch(getCategories());
 
     history.push(`${location.state.from}`);
 
@@ -181,6 +192,36 @@ export const deleteCategory = (category, history) => async (dispatch) => {
   }
 };
 
+/** DELETE SINGLE PRODUCT */
+export const deleteProduct = (product, history) => async (dispatch) => {
+  try {
+    await axios.delete(`/api/v1/products/${product._id}`);
+
+    history.push(`/shop`);
+
+    // CONVERT OBJECT TO OBJECT MAP
+    const productMap = objectToMap(product, "slug");
+
+    dispatch({
+      type: ShopActionTypes.DELETE_PRODUCTS_SUCCESS,
+      payload: productMap,
+    });
+
+    dispatch(getCategories());
+
+    dispatch(setAlert(`Product deleted`, "success"));
+  } catch (err) {
+    console.error(err);
+    dispatch({
+      type: ShopActionTypes.DELETE_PRODUCTS_FAIL,
+      payload: err.response.data.error,
+    });
+    dispatch(setAlert(`Failed: ${err.response.data.error}`, "warning"));
+  }
+};
+
+/****************************************/
+
 /** GET ONE PRODUCT */
 export const getProduct = (productId) => async (dispatch) => {
   try {
@@ -198,28 +239,6 @@ export const getProduct = (productId) => async (dispatch) => {
       type: ShopActionTypes.FETCH_PRODUCT_FAIL,
       payload: err.response.data.error,
     });
-  }
-};
-
-/** DELETE SINGLE PRODUCT */
-export const deleteProduct = (productId, history) => async (dispatch) => {
-  try {
-    await axios.delete(`/api/v1/products/${productId}`);
-
-    history.push(`/shop`);
-
-    dispatch({
-      type: ShopActionTypes.DELETE_PRODUCT_SUCCESS,
-      payload: productId,
-    });
-
-    dispatch(setAlert(`Product deleted`, "success"));
-  } catch (err) {
-    dispatch({
-      type: ShopActionTypes.DELETE_PRODUCT_FAIL,
-      payload: err.response.data.error,
-    });
-    dispatch(setAlert(`Failed: ${err.response.data.error}`, "warning"));
   }
 };
 

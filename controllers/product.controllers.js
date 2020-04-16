@@ -29,7 +29,7 @@ exports.getProducts = asyncHandler(async (req, res, next) => {
 // @route   GET /api/v1/products/:id
 // @access  Public
 exports.getProduct = asyncHandler(async (req, res, next) => {
-  const product = await await Product.findById(req.params.id);
+  const product = await Product.findById(req.params.id);
 
   // Check Resource Exists
   if (!product) {
