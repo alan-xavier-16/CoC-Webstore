@@ -13,34 +13,37 @@ const AddProduct = ({ createProduct, category }) => {
   const location = useLocation();
   const history = useHistory();
 
+  // USER INTERFACE WARNING
+  const [isModified, setIsModified] = useState(false);
+
   // FORM LOGIC
   const [formData, setFormData] = useState({
     name: "",
     description: "",
     price: "",
     inventory: 1,
-    details: [],
+    details: [
+      {
+        title: "",
+        text: "",
+      },
+    ],
   });
-  const { name, description, price, inventory } = formData;
+  const { name, description, price, inventory, details } = formData;
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    setIsModified(true);
   };
 
-  const handleDetails = (detailsFromForm) => {
-    setFormData({ ...formData, details: detailsFromForm });
+  const handleDetails = (details) => {
+    setFormData({ ...formData, details: [...details] });
+    setIsModified(true);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     createProduct(formData, history, location, category._id);
-    setFormData({
-      name: "",
-      description: "",
-      price: "",
-      inventory: 1,
-      details: [],
-    });
   };
 
   return (
@@ -100,16 +103,20 @@ const AddProduct = ({ createProduct, category }) => {
           </small>
         </div>
 
-        <AddDetails handleDetails={handleDetails} />
+        <AddDetails handleDetails={handleDetails} details={details} />
 
         <div className="form-actions">
-          <button type="submit" className="btn btn-gold">
-            <i className="fas fa-save"></i>
+          <button
+            type="submit"
+            className={`btn btn-gold ${!isModified && "disabled"}`}
+            disabled={!isModified}
+          >
+            <i className="fas fa-save"></i> Save Product
           </button>
 
           {location.state && location.state.from && (
             <Link className="btn btn-dark" to={location.state.from}>
-              <i className="fas fa-angle-left"></i>
+              Go Back
             </Link>
           )}
         </div>

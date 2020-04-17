@@ -13,22 +13,34 @@ const EditProduct = ({ createProduct, product }) => {
   const location = useLocation();
   const history = useHistory();
 
+  // USER INTERFACE WARNING
+  const [isModified, setIsModified] = useState(false);
+
   // FORM LOGIC
   const [formData, setFormData] = useState({
     name: product.name ? product.name : "",
     description: product.description ? product.description : "",
     price: product.price ? (product.price / 100).toFixed(2) : "",
     inventory: product.inventory ? product.inventory : 1,
-    details: product.details ? product.details : [],
+    details: product.details
+      ? product.details
+      : [
+          {
+            title: "",
+            text: "",
+          },
+        ],
   });
   const { name, description, price, inventory, details } = formData;
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    setIsModified(true);
   };
 
-  const handleDetails = (detailsFromForm) => {
-    setFormData({ ...formData, details: detailsFromForm });
+  const handleDetails = (details) => {
+    setFormData({ ...formData, details: [...details] });
+    setIsModified(true);
   };
 
   const handleSubmit = (e) => {
@@ -80,7 +92,7 @@ const EditProduct = ({ createProduct, product }) => {
           />
         </div>
 
-        <AddDetails handleDetails={handleDetails} productDetails={details} />
+        <AddDetails handleDetails={handleDetails} details={details} />
 
         <div className="form-group">
           <label htmlFor="inventory">Inventory</label>
@@ -96,13 +108,17 @@ const EditProduct = ({ createProduct, product }) => {
         </div>
 
         <div className="form-actions">
-          <button type="submit" className="btn btn-gold">
+          <button
+            type="submit"
+            className={`btn btn-gold ${!isModified && "disabled"}`}
+            disabled={!isModified}
+          >
             <i className="fas fa-save"></i>
           </button>
 
           {location.state && location.state.from && (
             <Link className="btn btn-dark" to={location.state.from}>
-              <i className="fas fa-angle-left"></i>
+              Go Back
             </Link>
           )}
         </div>

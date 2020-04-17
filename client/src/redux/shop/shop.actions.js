@@ -242,27 +242,6 @@ export const deleteProduct = (product, history) => async (dispatch) => {
     dispatch(setAlert(`Failed: ${err.response.data.error}`, "warning"));
   }
 };
-/****************************************/
-
-/** GET ONE PRODUCT */
-export const getProduct = (productId) => async (dispatch) => {
-  try {
-    dispatch({
-      type: ShopActionTypes.FETCH_START,
-    });
-
-    const res = await axios.get(`/api/v1/products/${productId}`);
-    dispatch({
-      type: ShopActionTypes.FETCH_PRODUCT_SUCCESS,
-      payload: res.data,
-    });
-  } catch (err) {
-    dispatch({
-      type: ShopActionTypes.FETCH_PRODUCT_FAIL,
-      payload: err.response.data.error,
-    });
-  }
-};
 
 /** EDIT A PRODUCT PHOTO */
 export const editProductPhoto = (

@@ -19,13 +19,13 @@ const DashboardBtns = ({
           }}
           className="btn btn-success"
         >
-          <i className="fas fa-plus-square"></i>
+          <i className="far fa-plus-square"></i>
         </Link>
       )}
 
       {remove && (
         <button className="btn btn-danger" onClick={removeAction}>
-          <i className="fas fa-minus-square"></i>
+          <i className="fas fa-trash-alt"></i>
         </button>
       )}
 
@@ -37,7 +37,7 @@ const DashboardBtns = ({
           }}
           className="btn btn-primary"
         >
-          <i className="fas fa-pencil-alt"></i>
+          <i className="fas fa-edit"></i>
         </Link>
       )}
 
