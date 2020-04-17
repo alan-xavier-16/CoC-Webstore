@@ -29,7 +29,10 @@ const CartDropdown = ({ cart, total, dispatch, isAuthenticated }) => {
     <div className="cart-dropdown">
       <div className="cart-dropdown-details">
         <div>
-          Total: <span className="cart-dropdown-price">TT${total}</span>
+          Total:{" "}
+          <span className="cart-dropdown-price">
+            TT${(total / 100).toFixed(2)}
+          </span>
         </div>
         <button
           className={`btn btn-gold ${

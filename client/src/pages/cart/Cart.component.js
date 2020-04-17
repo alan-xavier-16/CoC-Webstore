@@ -31,30 +31,35 @@ const Cart = ({ cart, cartTotal, deleteCart }) => {
   };
 
   return (
-    <form className="cart-page" onSubmit={handleSubmit}>
-      <div className="cart-page-header">
-        <h1>
-          <i className="fas fa-shopping-cart"></i> Cart
-        </h1>
-        <div className="cart-total">TT${cartTotal}</div>
-      </div>
+    <div className="page">
+      <form className="form" onSubmit={handleSubmit}>
+        <div className="form-header cart-header">
+          <h1>
+            <span>
+              <i className="fas fa-shopping-cart"></i>
+            </span>{" "}
+            Cart
+          </h1>
+          <div className="cart-total">TT${(cartTotal / 100).toFixed(2)}</div>
+        </div>
 
-      <div className="cart">
-        {cart.map((cartItem) => (
-          <CartItem key={cartItem._id} item={cartItem} />
-        ))}
-      </div>
+        <div className="form-group">
+          {cart.map((cartItem) => (
+            <CartItem key={cartItem._id} item={cartItem} />
+          ))}
+        </div>
 
-      <div className="user-actions">
-        <button className="btn btn-danger" onClick={handleDelete}>
-          Delete Cart <i className="fas fa-trash-alt"></i>
-        </button>
+        <div className="form-actions">
+          <button className="btn btn-danger" onClick={handleDelete}>
+            Clear Cart <i className="fas fa-trash-alt"></i>
+          </button>
 
-        <button type="submit" className="btn btn-gold">
-          To Checkout
-        </button>
-      </div>
-    </form>
+          <button type="submit" className="btn btn-gold">
+            Checkout
+          </button>
+        </div>
+      </form>
+    </div>
   );
 };
 

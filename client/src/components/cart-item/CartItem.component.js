@@ -1,14 +1,19 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
+import { Link, useLocation } from "react-router-dom";
+
 import PropTypes from "prop-types";
+
+import Slider from "../slider/Slider.component";
 
 import { modifyCartItem, clearCartItem } from "../../redux/cart/cart.actions";
 
-import "./CartItem.styles.scss";
-
 const CartItem = ({ item, modifyCartItem, clearCartItem }) => {
+  // ACCESS LOCATION OBJECT
+  const location = useLocation();
+
   const {
-    product: { name, photo, description, price, inventory },
+    product: { name, photo, price, inventory, details, slug },
   } = item;
 
   /* Set Quantity of Product on Form */
@@ -36,39 +41,68 @@ const CartItem = ({ item, modifyCartItem, clearCartItem }) => {
   };
 
   return (
-    <div className="cart-item">
-      <div className={`cart-item-img ${inventory === 0 && "disabled"}`}>
-        <img src={`/uploads/${photo}`} alt={`product ${name}`} />
-        {inventory === 0 && <span className="img-no-stock">Out of Stock</span>}
-      </div>
+    <div className="product-card">
+      <Link
+        to={{
+          pathname: `/shop/products/${slug}`,
+          state: { from: location.pathname },
+        }}
+      >
+        <div className={`card-img ${inventory === 0 && "disabled"}`}>
+          <Slider photo={photo} />
+          {inventory === 0 && (
+            <span className="img-no-stock">Out of Stock</span>
+          )}
+        </div>
+      </Link>
 
-      <div className="cart-item-body">
-        <div className="cart-item-details">
-          <h3>{name}</h3>
-          <div>{`${description.slice(0, 75)}...`}</div>
+      <div className="product-card-body">
+        <div className="product-card-detail">
+          <div className="product-card-header">
+            <h3 className="card-title">{name}</h3>
+            <div className="card-price">TT${(price / 100).toFixed(2)}</div>
+          </div>
         </div>
 
-        <div className="cart-item-total">
-          <div className="lead">TT${price}</div>
-          <span>x</span>
-          <input
-            type="number"
-            name="quantity"
-            value={quantity}
-            onChange={handleChange}
-            min="1"
-            className="lead"
-          />
-          <div className="lead">TT${quantity * price}</div>
-        </div>
+        <div className="card-body">
+          <div className="card-body-item card-details">
+            <div className="card-lead">Details:</div>
+            <ul className="card-list">
+              {details.map((detail) => (
+                <li key={detail._id} className="card-list-item">
+                  <span>{detail.title}</span>: {detail.text}
+                </li>
+              ))}
+            </ul>
+          </div>
 
-        <div className="cart-item-buttons">
-          <button className="btn btn-warning" onClick={handleRemove}>
-            <i className="fas fa-minus-circle"></i>
-          </button>
-          <button className="btn btn-primary" onClick={handleModify}>
-            <i className="fas fa-save"></i>
-          </button>
+          <div className="card-body-item card-quantity">
+            <div className="card-lead">Quantity:</div>
+            <input
+              type="number"
+              name="quantity"
+              value={quantity}
+              onChange={handleChange}
+              min="1"
+              className="lead"
+            />
+          </div>
+
+          <div className="card-body-item cart-item-total">
+            <div className="card-lead">Total:</div>
+            <div className="cart-total">
+              TT${((quantity * price) / 100).toFixed(2)}
+            </div>
+          </div>
+
+          <div className="user-actions">
+            <button className="btn btn-warning" onClick={handleRemove}>
+              <i className="fas fa-trash-alt"></i>
+            </button>
+            <button className="btn btn-primary" onClick={handleModify}>
+              <i className="fas fa-save"></i>
+            </button>
+          </div>
         </div>
       </div>
     </div>

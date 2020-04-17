@@ -61,98 +61,100 @@ const Product = ({
   };
 
   return (
-    <form className="product" onSubmit={handleSubmit}>
-      <div className="product-card">
-        <div className={`product-card-img ${inventory === 0 && "disabled"}`}>
-          <Slider photo={photo} />
+    <div className="page">
+      <form className="product" onSubmit={handleSubmit}>
+        <div className="product-card">
+          <div className={`product-card-img ${inventory === 0 && "disabled"}`}>
+            <Slider photo={photo} />
 
-          {inventory === 0 && <div className="img-text">Out of Stock</div>}
-        </div>
-
-        {user.role && user.role === "admin" && (
-          <div className="img-link">
-            <div className="user-actions">
-              <DashboardBtns
-                btns={{ add: false, edit: true, remove: true, photo: true }}
-                removeAction={handleDelete}
-                pathName={`${url}`}
-              />
-            </div>
+            {inventory === 0 && <div className="img-text">Out of Stock</div>}
           </div>
-        )}
 
-        <div className="product-card-body">
-          <div className="product-card-detail">
-            <div className="product-card-header">
-              <h3 className="card-title">{name}</h3>
-              <div className="card-price">TT${(price / 100).toFixed(2)}</div>
-            </div>
-
-            <div className="card-body">
-              <div className="card-body-item card-description">
-                <div className="card-lead">Description:</div>
-                <div>{description}</div>
-              </div>
-
-              <div className="card-body-item card-quantity">
-                <div className="card-lead">Quantity:</div>
-                <input
-                  type="number"
-                  name="quantity"
-                  value={quantity}
-                  onChange={handleChange}
-                  min="1"
-                  className="lead"
+          {user.role && user.role === "admin" && (
+            <div className="img-link">
+              <div className="user-actions">
+                <DashboardBtns
+                  btns={{ add: false, edit: true, remove: true, photo: true }}
+                  removeAction={handleDelete}
+                  pathName={`${url}`}
                 />
               </div>
+            </div>
+          )}
 
-              {user.role && user.role === "admin" && (
+          <div className="product-card-body">
+            <div className="product-card-detail">
+              <div className="product-card-header">
+                <h3 className="card-title">{name}</h3>
+                <div className="card-price">TT${(price / 100).toFixed(2)}</div>
+              </div>
+
+              <div className="card-body">
+                <div className="card-body-item card-description">
+                  <div className="card-lead">Description:</div>
+                  <div>{description}</div>
+                </div>
+
                 <div className="card-body-item card-quantity">
-                  <div className="card-lead">Inventory:</div>
+                  <div className="card-lead">Quantity:</div>
                   <input
                     type="number"
-                    name="inventory"
-                    value={inventory}
+                    name="quantity"
+                    value={quantity}
                     onChange={handleChange}
                     min="1"
                     className="lead"
                   />
                 </div>
-              )}
 
-              <div className="card-body-item card-details">
-                <div className="card-lead">Details:</div>
-                <ul className="card-list">
-                  {details.map((detail) => (
-                    <li key={detail._id} className="card-list-item">
-                      <span>{detail.title}</span>: {detail.text}
-                    </li>
-                  ))}
-                </ul>
+                {user.role && user.role === "admin" && (
+                  <div className="card-body-item card-quantity">
+                    <div className="card-lead">Inventory:</div>
+                    <input
+                      type="number"
+                      name="inventory"
+                      value={inventory}
+                      onChange={handleChange}
+                      min="1"
+                      className="lead"
+                    />
+                  </div>
+                )}
+
+                <div className="card-body-item card-details">
+                  <div className="card-lead">Details:</div>
+                  <ul className="card-list">
+                    {details.map((detail) => (
+                      <li key={detail._id} className="card-list-item">
+                        <span>{detail.title}</span>: {detail.text}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             </div>
-          </div>
 
-          <div className="user-actions">
-            <button
-              className={`btn btn-gold ${
-                (inventory === 0 || !isAuthenticated) && "disabled"
-              }`}
-              disabled={!inventory || !isAuthenticated}
-              onClick={handleModify}
-            >
-              <i className="fas fa-cart-plus"></i> Add To Cart
-            </button>
+            <div className="user-actions">
+              <button
+                className={`btn btn-gold ${
+                  (inventory === 0 || !isAuthenticated) && "disabled"
+                }`}
+                disabled={!inventory || !isAuthenticated}
+                onClick={handleModify}
+              >
+                <i className="fas fa-cart-plus"></i> Add To Cart
+              </button>
 
-            {location.state && location.state.from && (
-              <Link className="btn btn-dark" to={location.state.from}>
-                <i className="fas fa-feather-alt"></i> Back to Shop
-              </Link>
-            )}
+              {location.state && location.state.from && (
+                <Link className="btn btn-dark" to={location.state.from}>
+                  <i className="fas fa-feather-alt"></i> Back to Shop
+                </Link>
+              )}
+            </div>
           </div>
         </div>
-      </div>
-    </form>
+      </form>
+    </div>
   );
 };
 
