@@ -27,7 +27,7 @@ router
   .get(
     advancedResults(Product, {
       path: "category",
-      select: "name description",
+      select: "slug",
     }),
     getProducts
   )

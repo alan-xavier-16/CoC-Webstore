@@ -22,7 +22,8 @@ const shopReducer = (state = INITIAL_STATE, action) => {
     case ShopActionTypes.FETCH_CATEGORIES_SUCCESS:
       return {
         ...state,
-        categories: payload.data,
+        categories: payload.categories,
+        products: payload.products,
         pagination: payload.pagination || null,
         loading: false,
       };
@@ -37,7 +38,7 @@ const shopReducer = (state = INITIAL_STATE, action) => {
     case ShopActionTypes.DELETE_CATEGORIES_SUCCESS:
       return {
         ...state,
-        categories: removeItem(state.categories, payload),
+        categories: removeItem(state.categories, payload.category),
         loading: false,
       };
 

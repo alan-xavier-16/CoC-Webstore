@@ -14,7 +14,7 @@ exports.getProducts = asyncHandler(async (req, res, next) => {
       category: req.params.categoryId,
     }).populate({
       path: "category",
-      select: "name description",
+      select: "slug",
     });
 
     return res

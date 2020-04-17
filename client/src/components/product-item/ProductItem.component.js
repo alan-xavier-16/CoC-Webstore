@@ -9,12 +9,7 @@ import { selectIsAuthenticated } from "../../redux/auth/auth.selectors";
 
 import "./ProductItem.styles.scss";
 
-const ProductItem = ({
-  product,
-  modifyCartItem,
-  isAuthenticated,
-  getProduct,
-}) => {
+const ProductItem = ({ product, modifyCartItem, isAuthenticated }) => {
   const { photo, name, price, description, inventory, slug } = product;
 
   // ADD TO CART

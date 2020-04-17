@@ -4,7 +4,7 @@ import { useRouteMatch, Link, useLocation, useHistory } from "react-router-dom";
 import ProductItem from "../product-item/ProductItem.component";
 import DashboardBtns from "../../components/dashboard-btns/DashboardBtns.component";
 
-const CategoryPreview = ({ category, user, deleteCategory, handleFetch }) => {
+const CategoryPreview = ({ category, user, deleteCategory }) => {
   const { slug, name, products } = category;
   /** RELATIVE LINK, ACCESS LOCATION & HISTORY OBJECT  */
   const { url } = useRouteMatch();
@@ -33,7 +33,6 @@ const CategoryPreview = ({ category, user, deleteCategory, handleFetch }) => {
               pathname: `${url}/categories/${slug}`,
               state: { from: location.pathname },
             }}
-            onClick={() => handleFetch(category._id)}
             className="btn btn-dark"
           >
             View More <i className="fas fa-angle-right"></i>
