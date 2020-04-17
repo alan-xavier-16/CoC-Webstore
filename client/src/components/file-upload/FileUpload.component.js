@@ -42,7 +42,7 @@ const FileUpload = ({ product, editProductPhoto }) => {
       formData.append(`file`, file, fileName);
     });
 
-    editProductPhoto(_id, formData, history, location);
+    editProductPhoto(product, formData, history, location);
     setUploads({ uploading: false, successfulUpload: true, files: [] });
   };
 
@@ -80,7 +80,7 @@ const FileUpload = ({ product, editProductPhoto }) => {
 
         {location.state && location.state.from && (
           <Link className="btn btn-dark" to={location.state.from}>
-            <i className="fas fa-angle-left"></i>
+            Go Back
           </Link>
         )}
       </div>
@@ -92,13 +92,13 @@ FileUpload.propTypes = {
   product: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = createStructuredSelector({
-  product: selectProductItem,
+const mapStateToProps = (state, ownProps) => ({
+  product: selectProductItem(ownProps.match.params.productSlug)(state),
 });
 
 const mapDispatchToProps = {
-  editProductPhoto: (productId, formData, history, location) =>
-    editProductPhoto(productId, formData, history, location),
+  editProductPhoto: (product, formData, history, location) =>
+    editProductPhoto(product, formData, history, location),
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FileUpload);

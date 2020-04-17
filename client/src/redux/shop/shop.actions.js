@@ -245,7 +245,7 @@ export const deleteProduct = (product, history) => async (dispatch) => {
 
 /** EDIT A PRODUCT PHOTO */
 export const editProductPhoto = (
-  productId,
+  product,
   formData,
   history,
   location
@@ -258,7 +258,7 @@ export const editProductPhoto = (
     };
 
     const res = await axios.put(
-      `/api/v1/products/${productId}/photo`,
+      `/api/v1/products/${product._id}/photo`,
       formData,
       config
     );

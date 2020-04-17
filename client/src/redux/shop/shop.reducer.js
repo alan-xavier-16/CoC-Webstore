@@ -67,6 +67,7 @@ const shopReducer = (state = INITIAL_STATE, action) => {
     case ShopActionTypes.ADD_PRODUCT_PHOTO_SUCCESS:
       return {
         ...state,
+        products: updateItem(state.products, payload),
         loading: false,
       };
 
