@@ -15,10 +15,21 @@ export const getCategories = () => async (dispatch) => {
     // CONVERT CATEGORIES[PRODUCTS] ARRAY TO OBJECT && COLLECT ALL PRODUCTS
     let productsMap = {};
     const categoryArrayWithProductsMap = res.data.data.map((category) => {
+      const formatProductsArray = category.products.map((product) => {
+        return {
+          ...product,
+          category: {
+            _id: product.category,
+            id: product.category,
+            slug: category.slug,
+          },
+        };
+      });
+
       // COLLECT ALL PRODUCTS
       productsMap = {
         ...productsMap,
-        ...arrayToObject(category.products, "slug"),
+        ...arrayToObject(formatProductsArray, "slug"),
       };
 
       return {
