@@ -42,3 +42,9 @@ export const selectProductsLoaded = createSelector(
   [selectShop],
   (shop) => !!shop.products
 );
+
+/* PAGINATION OBJECT */
+export const selectPagination = createSelector(
+  [selectShop],
+  (shop) => shop.pagination
+);

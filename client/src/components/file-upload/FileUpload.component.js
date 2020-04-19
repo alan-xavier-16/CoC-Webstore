@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Link, useLocation, useHistory } from "react-router-dom";
-import { createStructuredSelector } from "reselect";
 import PropTypes from "prop-types";
 
 import Dropzone from "./Dropzone.component";
@@ -11,7 +10,7 @@ import { selectProductItem } from "../../redux/shop/shop.selectors";
 import { editProductPhoto } from "../../redux/shop/shop.actions";
 
 const FileUpload = ({ product, editProductPhoto }) => {
-  const { _id, name } = product;
+  const { name } = product;
   /* LOCATION OBJECT */
   const location = useLocation();
   const history = useHistory();

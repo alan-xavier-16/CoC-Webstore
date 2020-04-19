@@ -4,11 +4,16 @@ import { createStructuredSelector } from "reselect";
 import { Link, useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
 
+import Pagination from "../layout/pagination/Pagination.component";
 import ProductItem from "../product-item/ProductItem.component";
 
-import { selectProducts } from "../../redux/shop/shop.selectors";
+import {
+  selectProducts,
+  selectPagination,
+} from "../../redux/shop/shop.selectors";
+import { getProducts } from "../../redux/shop/shop.actions";
 
-const ProductsOverview = ({ products }) => {
+const ProductsOverview = ({ products, pagination, getProducts }) => {
   /** LOCATION OBJECT & RELATIVE PATH FROM URL */
   const location = useLocation();
 
@@ -42,16 +47,24 @@ const ProductsOverview = ({ products }) => {
             ))}
         </div>
       </div>
+
+      <Pagination pagination={pagination} getAction={getProducts} />
     </div>
   );
 };
 
 ProductsOverview.propTypes = {
   products: PropTypes.object.isRequired,
+  pagination: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
   products: selectProducts,
+  pagination: selectPagination,
 });
 
-export default connect(mapStateToProps)(ProductsOverview);
+const mapDispatchToProps = {
+  getProducts: () => getProducts(),
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductsOverview);

@@ -1,3 +1,4 @@
+const getPagination = require("../utils/pagination.utils");
 /*
 Handles Requests with Various Queries
   - Accepts a model and populate (opt) as arguments
@@ -13,11 +14,14 @@ const advancedResults = (model, populate) => async (req, res, next) => {
 
   // Remove mongoose methods from reqQuery
   const rmFields = ["select", "sort", "page", "limit"];
-  rmFields.forEach(param => delete reqQuery[param]);
+  rmFields.forEach((param) => delete reqQuery[param]);
 
   // Filtering documents based on MongoDB Comparison Operators
   let queryStr = JSON.stringify(reqQuery);
-  queryStr = queryStr.replace(/\b(gt|gte|lt|lte|in)\b/g, match => `$${match}`);
+  queryStr = queryStr.replace(
+    /\b(gt|gte|lt|lte|in)\b/g,
+    (match) => `$${match}`
+  );
   query = model.find(JSON.parse(queryStr));
 
   // Filter document fields based on Select
@@ -38,14 +42,16 @@ const advancedResults = (model, populate) => async (req, res, next) => {
   Pagination
    - page: Page number
    - limit: Number of documents to display
-   - startIdx: Number of documents to skip
-   - endIdx: Number of documents at end of page across ALL pages
+   - startIdx: Index of document at start of current page
+   - endIdx: Index + 1 of document at end of current page
    - totalDocs: Total documents in database
   */
   const page = parseInt(req.query.page, 10) || 1;
-  const limit = parseInt(req.query.limit, 10) || 25;
+  const limit = parseInt(req.query.limit, 10) || 2;
+
   const startIdx = (page - 1) * limit;
   const endIdx = page * limit;
+
   const totalDocs = await model.countDocuments();
 
   query = query.skip(startIdx).limit(limit);
@@ -58,27 +64,18 @@ const advancedResults = (model, populate) => async (req, res, next) => {
   // Execute Query
   const queryResult = await query;
 
-  // Pagination Object for 'next' & 'orev' page
-  const pagination = {};
-  if (endIdx < totalDocs) {
-    pagination.next = {
-      page: page + 1,
-      limit
-    };
-  }
-  if (startIdx > 0) {
-    pagination.prev = {
-      page: page - 1,
-      limit
-    };
-  }
+  // Pagination Numbers Array
+  const pagesArray = getPagination(page, limit, totalDocs);
+  const pagination = { currentPage: page, limit, pagesArray };
+
+  console.log(pagination);
 
   // Modify Response Object
   res.advancedResults = {
     success: true,
     count: queryResult.length,
     pagination,
-    data: queryResult
+    data: queryResult,
   };
 
   next();
