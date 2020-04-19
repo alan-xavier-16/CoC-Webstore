@@ -1,0 +1,21 @@
+@import "../../../scss/config";
+@import "../../../scss/mixins";
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  & .page-item {
+    margin: 0rem 0.125rem;
+    & .page-link {
+      padding: 0.5rem 0.75rem;
+      @include set-background(map-get($map: $colors, $key: my-gold));
+    }
+
+    &:hover .page-link,
+    &.active .page-link {
+      @include set-btn-hover(map-get($map: $colors, $key: my-gold));
+    }
+  }
+}

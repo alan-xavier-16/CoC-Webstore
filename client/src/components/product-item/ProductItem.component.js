@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useRouteMatch } from "react-router-dom";
 import PropTypes from "prop-types";
 
 import { modifyCartItem } from "../../redux/cart/cart.actions";
@@ -20,12 +20,13 @@ const ProductItem = ({ product, modifyCartItem, isAuthenticated }) => {
 
   // ACCESS LOCATION OBJECT
   const location = useLocation();
+  const { url } = useRouteMatch();
 
   return (
     <div className="card">
       <Link
         to={{
-          pathname: `/shop-by-products/${slug}`,
+          pathname: `${url}/${slug}`,
           state: { from: location.pathname },
         }}
       >

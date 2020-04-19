@@ -30,7 +30,7 @@ const ProductsOverview = ({ products, pagination, getProducts }) => {
       <div className="user-actions">
         <Link
           to={{
-            pathname: `/shop`,
+            pathname: `/shop-by-categories`,
             state: { from: location.pathname },
           }}
           className="btn btn-dark"
@@ -64,7 +64,7 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = {
-  getProducts: () => getProducts(),
+  getProducts: (params) => getProducts(params),
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductsOverview);

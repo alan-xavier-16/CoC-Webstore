@@ -12,6 +12,7 @@ import CategoryContainer from "../category/Category.container";
 import AddCategory from "../../components/category-form/AddCategory.component";
 import EditCategory from "../../components/category-form/EditCategory.component";
 
+import ProductContainer from "../product/Product.container";
 import AddProduct from "../../components/product-form/AddProduct.component";
 
 import { getCategories } from "../../redux/shop/shop.actions";
@@ -43,6 +44,12 @@ const ShopCategories = ({ isAuthenticated, getCategories }) => {
         component={EditCategory}
       />
 
+      <Route exact path={`${path}/:productSlug`} component={ProductContainer} />
+      <Route
+        exact
+        path={`${path}/categories/:categorySlug/:productSlug`}
+        component={ProductContainer}
+      />
       <AdminRoute
         path={`${path}/categories/:categorySlug/create-product`}
         component={AddProduct}

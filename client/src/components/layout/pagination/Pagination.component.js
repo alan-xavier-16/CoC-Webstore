@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+
+import "./Pagination.styles.scss";
 
 const Pagination = ({ pagination, getAction }) => {
   const [paginate, setPaginate] = useState({
@@ -8,13 +10,19 @@ const Pagination = ({ pagination, getAction }) => {
   });
   const { currentPage, pagesArray } = paginate;
 
+  useEffect(() => {
+    setPaginate(pagination);
+  }, [setPaginate, pagination]);
+
   /* SET CURRENT PAGE */
   const goToPage = (page) => {
     setPaginate({
       ...paginate,
       currentPage: page,
     });
-    getAction();
+
+    const queryParams = { page };
+    getAction(queryParams);
   };
 
   /* EVENT HANDLERS */
@@ -25,12 +33,12 @@ const Pagination = ({ pagination, getAction }) => {
 
   const handleMoveLeft = (e) => {
     e.preventDefault();
-    goToPage(currentPage - 1);
+    goToPage(currentPage - 4);
   };
 
   const handleMoveRight = (e) => {
     e.preventDefault();
-    goToPage(currentPage + 1);
+    goToPage(currentPage + 4);
   };
 
   if (pagesArray.length === 1) return null;
@@ -43,7 +51,7 @@ const Pagination = ({ pagination, getAction }) => {
               return (
                 <li key={idx} className="page-item">
                   <button
-                    className="page-link"
+                    className="btn page-link"
                     aria-label="Previous"
                     onClick={handleMoveLeft}
                   >
@@ -57,7 +65,7 @@ const Pagination = ({ pagination, getAction }) => {
               return (
                 <li key={idx} className="page-item">
                   <button
-                    className="page-link"
+                    className="btn page-link"
                     aria-label="Next"
                     onClick={handleMoveRight}
                   >
@@ -73,7 +81,7 @@ const Pagination = ({ pagination, getAction }) => {
                 className={`page-item${currentPage === page ? " active" : ""}`}
               >
                 <button
-                  className="page-link"
+                  className="btn page-link"
                   onClick={(e) => handleClick(page, e)}
                 >
                   {page}

@@ -136,18 +136,18 @@ export const deleteCategory = (category, history) => async (dispatch) => {
 };
 
 /** GET ALL PRODUCTS */
-export const getProducts = (categoryId = null) => async (dispatch) => {
+export const getProducts = (queryParams = null) => async (dispatch) => {
   try {
     dispatch({
       type: ShopActionTypes.FETCH_START,
     });
 
-    let res;
-    if (categoryId === null) {
-      res = await axios.get("/api/v1/products");
-    } else {
-      res = await axios.get(`/api/v1/categories/${categoryId}/products`);
+    let queryStr = "?";
+    if (queryParams !== null) {
+      queryStr = `?page=${queryParams.page}`;
     }
+
+    const res = await axios.get(`/api/v1/products${queryStr}`);
 
     // CONVERT PRODUCTS ARRAY TO OBJECT
     const productsMap = arrayToObject(res.data.data, "slug");
