@@ -25,7 +25,7 @@ const ProductItem = ({ product, modifyCartItem, isAuthenticated }) => {
     <div className="card">
       <Link
         to={{
-          pathname: `/shop/products/${slug}`,
+          pathname: `/shop-by-products/${slug}`,
           state: { from: location.pathname },
         }}
       >

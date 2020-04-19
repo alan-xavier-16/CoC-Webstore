@@ -36,10 +36,9 @@ const CategoryOverview = ({
       <div className="user-actions">
         <Link
           to={{
-            pathname: `${url}/products`,
+            pathname: `/shop-by-products`,
             state: { from: location.pathname },
           }}
-          onClick={() => getProducts()}
           className="btn btn-dark"
         >
           Or view all products <i className="fas fa-caret-right"></i>

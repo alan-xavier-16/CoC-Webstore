@@ -13,7 +13,8 @@ import Navbar from "./components/layout/navbar/Navbar.component";
 import Alert from "./components/layout/alerts/Alert.component";
 import Footer from "./components/layout/footer/Footer.component";
 import SignInAndSignUp from "./pages/signInAndsignUp/SignInAndSignUp.component";
-import Shop from "./pages/shop/Shop.component";
+import ShopCategories from "./pages/shop/Shop.categories.component";
+import ShopProducts from "./pages/shop/Shop.products.component";
 import Cart from "./pages/cart/Cart.component";
 
 import Checkout from "./pages/checkout/Checkout.component";
@@ -40,7 +41,8 @@ const App = ({ loadUser, isAuthenticated }) => {
         <div className="container">
           <Alert />
           <Switch>
-            <Route path="/shop" component={Shop} />
+            <Route path="/shop-by-categories" component={ShopCategories} />
+            <Route path="/shop-by-products" component={ShopProducts} />
 
             <PrivateRoute path="/cart" component={Cart} />
             <AdminRoute path="/dashboard" component={Dashboard} />

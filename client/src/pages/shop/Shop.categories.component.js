@@ -12,23 +12,12 @@ import CategoryContainer from "../category/Category.container";
 import AddCategory from "../../components/category-form/AddCategory.component";
 import EditCategory from "../../components/category-form/EditCategory.component";
 
-import ProductsOverviewContainer from "../../components/products-overview/ProductsOverview.container";
-import ProductContainer from "../product/Product.container";
 import AddProduct from "../../components/product-form/AddProduct.component";
-import EditProduct from "../../components/product-form/EditProduct.component";
-
-import FileUpload from "../../components/file-upload/FileUpload.component";
 
 import { getCategories } from "../../redux/shop/shop.actions";
 import { selectIsAuthenticated } from "../../redux/auth/auth.selectors";
 
-/*
-Renders:
-  - View CATEGORIES by default
-  - Option to view by PRODUCTS
-*/
-
-const Shop = ({ isAuthenticated, getCategories }) => {
+const ShopCategories = ({ isAuthenticated, getCategories }) => {
   /** RELATIVE PATH FROM APP */
   const { path } = useRouteMatch();
 
@@ -54,33 +43,15 @@ const Shop = ({ isAuthenticated, getCategories }) => {
         component={EditCategory}
       />
 
-      <Route
-        exact
-        path={`${path}/products`}
-        component={ProductsOverviewContainer}
-      />
-      <Route
-        exact
-        path={`${path}/products/:productSlug`}
-        component={ProductContainer}
-      />
       <AdminRoute
         path={`${path}/categories/:categorySlug/create-product`}
         component={AddProduct}
-      />
-      <AdminRoute
-        path={`${path}/products/:productSlug/edit`}
-        component={EditProduct}
-      />
-      <AdminRoute
-        path={`${path}/products/:productSlug/photo-upload`}
-        component={FileUpload}
       />
     </div>
   );
 };
 
-Shop.propTypes = {
+ShopCategories.propTypes = {
   isAuthenticated: PropTypes.bool.isRequired,
   getCategories: PropTypes.func.isRequired,
 };
@@ -93,4 +64,4 @@ const mapDispatchToProps = {
   getCategories: () => getCategories(),
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Shop);
+export default connect(mapStateToProps, mapDispatchToProps)(ShopCategories);

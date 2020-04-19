@@ -18,7 +18,7 @@ const Landing = (props) => {
           <Link to="/services" className="btn btn-gold">
             <i className="fas fa-praying-hands"></i> View Services
           </Link>
-          <Link to="/shop" className="btn btn-gold">
+          <Link to="/shop-by-categories" className="btn btn-gold">
             <i className="fas fa-feather-alt"></i> Shop Now
           </Link>
           <Link to="/courses" className="btn btn-gold">

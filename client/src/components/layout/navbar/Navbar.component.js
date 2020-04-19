@@ -10,7 +10,7 @@ import CartDropdown from "../../cart-dropdown/CartDropdown.component";
 
 import {
   selectIsAuthenticated,
-  selectUser
+  selectUser,
 } from "../../../redux/auth/auth.selectors";
 import { selectCartHidden } from "../../../redux/cart/cart.selectors";
 
@@ -35,7 +35,7 @@ const Navbar = ({ isAuthenticated, logout, hidden, user }) => {
   }, []);
 
   // Logout User Action
-  const handleLogout = e => {
+  const handleLogout = (e) => {
     e.preventDefault();
     logout();
   };
@@ -65,7 +65,10 @@ const Navbar = ({ isAuthenticated, logout, hidden, user }) => {
           <li>
             <Link
               className="nav-link"
-              to={{ pathname: "/shop", state: { from: location.pathname } }}
+              to={{
+                pathname: "/shop-by-categories",
+                state: { from: location.pathname },
+              }}
             >
               Shop
             </Link>
@@ -92,7 +95,7 @@ const Navbar = ({ isAuthenticated, logout, hidden, user }) => {
                     className="nav-link"
                     to={{
                       pathname: "/dashboard",
-                      state: { from: location.pathname }
+                      state: { from: location.pathname },
                     }}
                   >
                     Dashboard
@@ -107,7 +110,7 @@ const Navbar = ({ isAuthenticated, logout, hidden, user }) => {
                   className="nav-link"
                   to={{
                     pathname: "/signin",
-                    state: { from: location.pathname }
+                    state: { from: location.pathname },
                   }}
                 >
                   Sign In
@@ -118,7 +121,7 @@ const Navbar = ({ isAuthenticated, logout, hidden, user }) => {
                   className="nav-link"
                   to={{
                     pathname: "/signin/signup",
-                    state: { from: location.pathname }
+                    state: { from: location.pathname },
                   }}
                 >
                   Sign Up
@@ -148,17 +151,17 @@ Navbar.propTypes = {
   isAuthenticated: PropTypes.bool.isRequired,
   logout: PropTypes.func.isRequired,
   hidden: PropTypes.bool.isRequired,
-  user: PropTypes.object.isRequired
+  user: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
   isAuthenticated: selectIsAuthenticated,
   hidden: selectCartHidden,
-  user: selectUser
+  user: selectUser,
 });
 
 const mapDispatchToProps = {
-  logout: () => logout()
+  logout: () => logout(),
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Navbar);
