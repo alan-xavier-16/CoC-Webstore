@@ -6,18 +6,22 @@ import PropTypes from "prop-types";
 
 import CategoryPreview from "../category-preview/CategoryPreview.component";
 import DashboardBtns from "../dashboard-btns/DashboardBtns.component";
+import Pagination from "../layout/pagination/Pagination.component";
 
-import { selectCategories } from "../../redux/shop/shop.selectors";
+import {
+  selectCategories,
+  selectPagination,
+} from "../../redux/shop/shop.selectors";
 import { selectUser } from "../../redux/auth/auth.selectors";
 
-import { getProducts } from "../../redux/shop/shop.actions";
-import { deleteCategory } from "../../redux/shop/shop.actions";
+import { deleteCategory, getCategories } from "../../redux/shop/shop.actions";
 
 const CategoryOverview = ({
   categories,
   user,
-  getProducts,
   deleteCategory,
+  pagination,
+  getCategories,
 }) => {
   /** LOCATION OBJECT & RELATIVE PATH FROM URL */
   const location = useLocation();
@@ -65,24 +69,27 @@ const CategoryOverview = ({
             user={user}
           />
         ))}
+
+      <Pagination pagination={pagination} getAction={getCategories} />
     </div>
   );
 };
 
 CategoryOverview.propTypes = {
   categories: PropTypes.object.isRequired,
-  getProducts: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
   deleteCategory: PropTypes.func.isRequired,
+  pagination: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
   categories: selectCategories,
   user: selectUser,
+  pagination: selectPagination,
 });
 
 const mapDispatchToProps = {
-  getProducts: (categoryId) => getProducts(categoryId),
+  getCategories: (params) => getCategories(params),
   deleteCategory: (category, history) => deleteCategory(category, history),
 };
 
