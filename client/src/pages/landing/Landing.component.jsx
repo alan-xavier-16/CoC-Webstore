@@ -88,7 +88,7 @@ const Landing = (props) => {
                 harum officia facere repellat corporis dolore nulla animi
                 exercitationem repellendus?
               </p>
-              <Link to="/shop" className="btn btn-gold">
+              <Link to="/shop-by-categories" className="btn btn-gold">
                 <i className="fas fa-feather-alt"></i>
                 <span> Shop Now</span>
               </Link>

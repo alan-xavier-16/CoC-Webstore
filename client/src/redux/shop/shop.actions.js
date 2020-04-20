@@ -4,13 +4,24 @@ import { arrayToObject, objectToMap } from "./shop.utils";
 import { setAlert } from "../alerts/alert.actions";
 
 /** GET ALL CATEGORIES */
-export const getCategories = () => async (dispatch) => {
+export const getCategories = (queryParams = null) => async (dispatch) => {
   try {
     dispatch({
       type: ShopActionTypes.FETCH_START,
     });
 
-    const res = await axios.get("/api/v1/categories");
+    let queryStr = "?";
+    if (queryParams !== null) {
+      Object.entries(queryParams).forEach(([key, value], idx) => {
+        if (idx === 0) {
+          queryStr = `${queryStr}${key}=${value}`;
+        } else {
+          queryStr = `&${queryStr}${key}=${value}`;
+        }
+      });
+    }
+
+    const res = await axios.get(`/api/v1/categories${queryStr}`);
 
     // CONVERT CATEGORIES[PRODUCTS] ARRAY TO OBJECT && COLLECT ALL PRODUCTS
     let productsMap = {};
@@ -144,7 +155,13 @@ export const getProducts = (queryParams = null) => async (dispatch) => {
 
     let queryStr = "?";
     if (queryParams !== null) {
-      queryStr = `?page=${queryParams.page}`;
+      Object.entries(queryParams).forEach(([key, value], idx) => {
+        if (idx === 0) {
+          queryStr = `${queryStr}${key}=${value}`;
+        } else {
+          queryStr = `&${queryStr}${key}=${value}`;
+        }
+      });
     }
 
     const res = await axios.get(`/api/v1/products${queryStr}`);
