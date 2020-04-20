@@ -1,0 +1,30 @@
+@import "../../../scss/config";
+@import "../../../scss/_mixins.scss";
+
+.search-bar {
+  display: grid;
+  grid-template-columns: repeat(11, 1fr);
+  grid-gap: 0.5rem;
+
+  & .search-group {
+    grid-column: 1/12;
+    display: flex;
+    align-items: center;
+
+    & label {
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+
+    & input[type="text"] {
+      width: 100%;
+      padding: 0.5rem;
+      font: inherit;
+
+      &:focus {
+        background-color: lighten(map-get($map: $colors, $key: my-gold), 20%);
+        outline: none;
+      }
+    }
+  }
+}

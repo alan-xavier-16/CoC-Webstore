@@ -35,3 +35,19 @@ export const removeItem = (items, itemToRemove) => {
 
   return { ...items };
 };
+
+/* BUILD QUERY STRING FOR SEARCH & PAGINATION */
+export const buildQueryString = (queryParams) => {
+  let queryStr = "";
+  if (queryParams !== null) {
+    Object.entries(queryParams).forEach(([key, value], idx) => {
+      if (idx === 0) {
+        queryStr = `?${queryStr}${key}=${value}`;
+      } else {
+        queryStr = `${queryStr}&${key}=${value}`;
+      }
+    });
+    return queryStr;
+  }
+  return queryStr;
+};

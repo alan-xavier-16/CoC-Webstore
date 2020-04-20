@@ -1,6 +1,6 @@
 import ShopActionTypes from "./shop.types";
 import axios from "axios";
-import { arrayToObject, objectToMap } from "./shop.utils";
+import { arrayToObject, objectToMap, buildQueryString } from "./shop.utils";
 import { setAlert } from "../alerts/alert.actions";
 
 /** GET ALL CATEGORIES */
@@ -10,16 +10,7 @@ export const getCategories = (queryParams = null) => async (dispatch) => {
       type: ShopActionTypes.FETCH_START,
     });
 
-    let queryStr = "?";
-    if (queryParams !== null) {
-      Object.entries(queryParams).forEach(([key, value], idx) => {
-        if (idx === 0) {
-          queryStr = `${queryStr}${key}=${value}`;
-        } else {
-          queryStr = `&${queryStr}${key}=${value}`;
-        }
-      });
-    }
+    const queryStr = buildQueryString(queryParams);
 
     const res = await axios.get(`/api/v1/categories${queryStr}`);
 
@@ -153,16 +144,7 @@ export const getProducts = (queryParams = null) => async (dispatch) => {
       type: ShopActionTypes.FETCH_START,
     });
 
-    let queryStr = "?";
-    if (queryParams !== null) {
-      Object.entries(queryParams).forEach(([key, value], idx) => {
-        if (idx === 0) {
-          queryStr = `${queryStr}${key}=${value}`;
-        } else {
-          queryStr = `&${queryStr}${key}=${value}`;
-        }
-      });
-    }
+    const queryStr = buildQueryString(queryParams);
 
     const res = await axios.get(`/api/v1/products${queryStr}`);
 

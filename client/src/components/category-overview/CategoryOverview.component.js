@@ -6,7 +6,9 @@ import PropTypes from "prop-types";
 
 import CategoryPreview from "../category-preview/CategoryPreview.component";
 import DashboardBtns from "../dashboard-btns/DashboardBtns.component";
+
 import Pagination from "../layout/pagination/Pagination.component";
+import Search from "../layout/search/Search.component";
 
 import {
   selectCategories,
@@ -48,6 +50,8 @@ const CategoryOverview = ({
           Or view all products <i className="fas fa-caret-right"></i>
         </Link>
 
+        <Search getAction={getCategories} />
+
         {user.role && user.role === "admin" && (
           <DashboardBtns
             pathName={`${url}/create-category`}
@@ -60,7 +64,7 @@ const CategoryOverview = ({
         )}
       </div>
 
-      {categories &&
+      {Object.keys(categories).length !== 0 ? (
         Object.entries(categories).map(([slug, category]) => (
           <CategoryPreview
             key={slug}
@@ -68,7 +72,10 @@ const CategoryOverview = ({
             deleteCategory={deleteCategory}
             user={user}
           />
-        ))}
+        ))
+      ) : (
+        <p className="lead">No items found</p>
+      )}
 
       <Pagination pagination={pagination} getAction={getCategories} />
     </div>

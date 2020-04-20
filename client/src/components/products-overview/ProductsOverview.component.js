@@ -5,6 +5,7 @@ import { Link, useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
 
 import Pagination from "../layout/pagination/Pagination.component";
+import Search from "../layout/search/Search.component";
 import ProductItem from "../product-item/ProductItem.component";
 
 import {
@@ -37,14 +38,19 @@ const ProductsOverview = ({ products, pagination, getProducts }) => {
         >
           Or view all categories <i className="fas fa-caret-right"></i>
         </Link>
+
+        <Search getAction={getProducts} />
       </div>
 
       <div className="preview">
         <div className="cards">
-          {products &&
+          {Object.keys(products).length !== 0 ? (
             Object.entries(products).map(([slug, product]) => (
               <ProductItem key={slug} product={product} />
-            ))}
+            ))
+          ) : (
+            <p className="lead">No items found</p>
+          )}
         </div>
       </div>
 

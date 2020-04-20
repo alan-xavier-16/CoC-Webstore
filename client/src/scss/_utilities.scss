@@ -488,5 +488,9 @@
         margin-right: 0;
       }
     }
+
+    & form {
+      min-width: 50%;
+    }
   }
 }

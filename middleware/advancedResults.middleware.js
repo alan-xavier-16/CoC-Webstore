@@ -13,7 +13,7 @@ const advancedResults = (model, populate) => async (req, res, next) => {
   const reqQuery = { ...req.query };
 
   // Remove mongoose methods from reqQuery
-  const rmFields = ["select", "sort", "page", "limit"];
+  const rmFields = ["select", "sort", "page", "limit", "search"];
   rmFields.forEach((param) => delete reqQuery[param]);
 
   // Filtering documents based on MongoDB Comparison Operators
@@ -23,6 +23,12 @@ const advancedResults = (model, populate) => async (req, res, next) => {
     (match) => `$${match}`
   );
   query = model.find(JSON.parse(queryStr));
+
+  // Filter documents based on MongoDB Text Comparison Operator
+  if (req.query.search) {
+    const regex = new RegExp(escapeRegex(req.query.search), "gi");
+    query = model.find({ name: regex, ...JSON.parse(queryStr) });
+  }
 
   // Filter document fields based on Select
   if (req.query.select) {
@@ -50,11 +56,12 @@ const advancedResults = (model, populate) => async (req, res, next) => {
   const limit = parseInt(req.query.limit, 10) || 25;
 
   const startIdx = (page - 1) * limit;
-  const endIdx = page * limit;
-
   const totalDocs = await model.countDocuments();
-
   query = query.skip(startIdx).limit(limit);
+
+  // Pagination Numbers Array
+  const pagesArray = getPagination(page, limit, totalDocs);
+  const pagination = { currentPage: page, limit, pagesArray };
 
   // For THIS document fields which should be populated with other document fields
   if (populate) {
@@ -63,12 +70,6 @@ const advancedResults = (model, populate) => async (req, res, next) => {
 
   // Execute Query
   const queryResult = await query;
-
-  // Pagination Numbers Array
-  const pagesArray = getPagination(page, limit, totalDocs);
-  const pagination = { currentPage: page, limit, pagesArray };
-
-  console.log(pagination);
 
   // Modify Response Object
   res.advancedResults = {
@@ -79,6 +80,11 @@ const advancedResults = (model, populate) => async (req, res, next) => {
   };
 
   next();
+};
+
+/* REGEX FOR FUZZY SEARCH */
+const escapeRegex = (text) => {
+  return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
 };
 
 module.exports = advancedResults;
